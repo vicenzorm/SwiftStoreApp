@@ -22,3 +22,9 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
+
+
+
+
+
+// id, title, description,  category, price, isFavorite, discount(isInDeal)(DiscountPrice), shippingInformation, thumbnail
