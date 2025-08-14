@@ -7,20 +7,21 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct HomeView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            VStack(){
+                ProductCardDeal()
+            }
+            .padding()
+            .navigationTitle("Home")
+            .frame(maxHeight: .infinity, alignment: .top)
         }
-        .padding()
     }
 }
 
 #Preview {
-    ContentView()
+    HomeView()
 }
 
 
