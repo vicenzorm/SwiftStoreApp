@@ -6,15 +6,17 @@
 //
 
 import Foundation
+import SwiftData
 
 struct ProductsResponse: Decodable {
     var products: [Product]
 }
 
-struct Product: Identifiable, Decodable {
+@Model
+class Product: Identifiable, Decodable {
     var id: Int
     var title: String
-    var description: String
+    var productDescription: String
     var category: String
     var price: Double
     var shippingInformation: String
@@ -23,15 +25,29 @@ struct Product: Identifiable, Decodable {
     var isOrdered: Bool = false
     var isOnCart: Bool = false
     
-    enum CodingKeys: CodingKey {
+    init(id: Int, title: String, productDescription: String, category: String, price: Double, shippingInformation: String, image: String, isFavorite: Bool, isOrdered: Bool, isOnCart: Bool) {
+        self.id = id
+        self.title = title
+        self.productDescription = productDescription
+        self.category = category
+        self.price = price
+        self.shippingInformation = shippingInformation
+        self.image = image
+        self.isFavorite = isFavorite
+        self.isOrdered = isOrdered
+        self.isOnCart = isOnCart
+    }
+    
+    enum CodingKeys: String, CodingKey {
         case id
         case title
-        case description
+        case productDescription = "description"
         case category
         case price
         case shippingInformation
         case image
     }
+    
     
     static func numberFormattedToString(number: Double) -> String {
         let formatter = NumberFormatter()
@@ -43,3 +59,4 @@ struct Product: Identifiable, Decodable {
     }
 
 }
+
