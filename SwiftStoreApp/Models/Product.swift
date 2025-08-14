@@ -41,4 +41,5 @@ struct Product: Identifiable, Decodable {
         formatter.minimumIntegerDigits = 2
         return formatter.string(from: NSNumber(value: number)) ?? "00.00"
     }
+
 }

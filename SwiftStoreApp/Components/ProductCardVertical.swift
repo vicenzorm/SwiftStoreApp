@@ -8,28 +8,45 @@
 import SwiftUI
 
 struct ProductCardVertical: View {
+    
+    var product: Product?
+    
     var body: some View {
         VStack(spacing: 8) {
             
-            ZStack {
-                Image(systemName: "plus")
+            VStack {
+                if let product, let image = UIImage(named: product.image) {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFill()
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                } else {
+                    Image(.placeholder)
+                        .resizable()
+                        .scaledToFill()
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                }
+                VStack(alignment: .leading, spacing: 4) {
+                    
+                    Text(product?.title ?? "Product name with two or more lines goes here")
+                        .font(.subheadline)
+                        .lineLimit(2, reservesSpace: true)
+                    
+                    
+                    Text("US$ \(Product.numberFormattedToString(number: product?.price ?? 0))")
+                        .font(.headline)
+                }
             }
+            .padding(8)
+            .background(
+                RoundedRectangle(cornerRadius: 16)
+                    .foregroundStyle(.backgroundSecondary)
+            )
+            .frame(width: 177, height: 250)
             
-            VStack(alignment: .leading, spacing: 4) {
-                
-                Text("Product name with two or more lines goes here")
-                    .font(.subheadline)
-                Text("US$ 00,00")
-                    .font(.headline)
-            }
         }
-        .padding(8)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .foregroundStyle(.backgroundSecondary)
-        )
-        .frame(width: 177, height: 250)
     }
+
 }
 
 #Preview {
