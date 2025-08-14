@@ -13,7 +13,6 @@ struct ProductCardVertical: View {
             
             ZStack {
                 Image(systemName: "plus")
-                
             }
             
             VStack(alignment: .leading, spacing: 4) {
