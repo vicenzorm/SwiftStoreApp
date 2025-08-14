@@ -15,16 +15,23 @@ struct ProductCardVertical: View {
         VStack(spacing: 8) {
             
             VStack {
-                if let product, let image = UIImage(named: product.image) {
-                    Image(uiImage: image)
-                        .resizable()
-                        .scaledToFill()
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                } else {
-                    Image(.placeholder)
-                        .resizable()
-                        .scaledToFill()
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                ZStack(alignment: .topTrailing){
+                    if let product, let image = UIImage(named: product.image) {
+                        Image(uiImage: image)
+                            .resizable()
+                            .scaledToFill()
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                        
+                        HeartComponent(product: product)
+                    } else {
+                        Image(.placeholder)
+                            .resizable()
+                            .scaledToFill()
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                        
+                        HeartComponent()
+                    }
+                    
                 }
                 VStack(alignment: .leading, spacing: 4) {
                     
