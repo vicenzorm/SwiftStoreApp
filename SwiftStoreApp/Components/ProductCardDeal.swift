@@ -13,13 +13,21 @@ struct ProductCardDeal: View {
         VStack (spacing: 8){
             HStack{
                 HStack(alignment: .top){
-                    Image(.placeholder)
-                        .resizable()
-                        .frame(width: 160, height: 160)
+                    if let product {
+                        AsyncImage(url: URL(string: product.thumbnail)) { image in
+                            image.resizable()
+                                .scaledToFill()
+                                
+                        } placeholder: {
+                            Image(.placeholder)
+                                .resizable()
+                        }
                         .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .frame(width: 160, height: 160)
                         .padding(.vertical, 8)
                         .padding(.trailing, 16)
                         .padding(.leading, 8)
+                    }
                     
                     VStack(alignment: .leading, spacing: 24) {
                         HStack {
