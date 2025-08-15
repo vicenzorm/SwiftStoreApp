@@ -9,20 +9,13 @@ import SwiftUI
 
 struct HeartComponent: View {
     
-    var product: Product?
+    var isFavorite: Bool
     
     var body: some View {
         ZStack(alignment: .center) {
-            if let product {
-                Image(systemName: product.isFavorite ? "heart.fill" : "heart")
-                    .resizable()
-                    .frame(width: 22, height: 20)
-            } else {
-                
-                Image(systemName: "heart")
-                    .resizable()
-                    .frame(width: 22, height: 20)
-            }
+            Image(systemName: isFavorite ? "heart.fill" : "heart")
+                .resizable()
+                .frame(width: 22, height: 20)
         }
         .frame(width: 38,height: 38)
         .background(
@@ -32,6 +25,6 @@ struct HeartComponent: View {
     }
 }
 
-#Preview {
-    HeartComponent()
-}
+//#Preview {
+//    HeartComponent()
+//}

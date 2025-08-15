@@ -35,7 +35,7 @@ struct ProductCardDeal: View {
                             Spacer()
                             
                             VStack {
-                                HeartComponent()
+                                HeartComponent(isFavorite: false)
                             }
                             .background(
                                 RoundedRectangle(cornerRadius: 8)

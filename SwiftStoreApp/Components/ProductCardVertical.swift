@@ -22,14 +22,14 @@ struct ProductCardVertical: View {
                             .scaledToFill()
                             .clipShape(RoundedRectangle(cornerRadius: 8))
                         
-                        HeartComponent(product: product)
+                        HeartComponent(isFavorite: true )
                     } else {
                         Image(.placeholder)
                             .resizable()
                             .scaledToFill()
                             .clipShape(RoundedRectangle(cornerRadius: 8))
                         
-                        HeartComponent()
+                        HeartComponent(isFavorite: false)
                     }
                     
                 }
