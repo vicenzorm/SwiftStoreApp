@@ -14,5 +14,5 @@ struct OrdersView: View {
 }
 
 #Preview {
-    CategoriesVIew()
+    OrdersView()
 }

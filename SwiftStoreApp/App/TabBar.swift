@@ -17,7 +17,7 @@ struct TabBar: View {
             }
             Tab("Categories", systemImage: "square.grid.2x2.fill") {
                 NavigationStack {
-                    CategoriesVIew()
+                    CategoriesVIew(viewModel: ShopViewModel(service: ShopService()))
                 }
             }
             Tab("Cart", systemImage: "cart.fill") {
