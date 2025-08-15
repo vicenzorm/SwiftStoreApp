@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FavoritesView: View {
     
+    @State var textToSearch: String = ""
     var teste: Bool = true
     
     var body: some View {
@@ -19,10 +20,12 @@ struct FavoritesView: View {
                 EmptyState(icon: "heart.slash", title: "No favorites yet!", subtitle: "Favorite an item and it will show up here.")
             }
         }
+        .navigationTitle("Favorites")
+        .searchable(text: $textToSearch, prompt: "Search" )
         
     }
 }
 
 #Preview {
-    FavoritesView()
+    TabBar()
 }

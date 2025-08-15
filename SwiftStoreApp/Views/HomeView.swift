@@ -11,6 +11,7 @@ import SwiftData
 struct HomeView: View {
     
     let viewModel: ShopViewModel
+//    var randomNumber: Int = Int.random(in: 1...10)
     
     let colunas: [GridItem] = [
         GridItem(.fixed(177), spacing: 8),
@@ -20,13 +21,12 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading, spacing: 16) {
-                
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Deals of the day")
                         .font(.system(size: 22, weight: .bold))
                         .font(.title2)
-        
-                    ProductCardDeal()
+                    
+                    ProductCardDeal(product: viewModel.products.randomElement())
                 }
                 
                 VStack(alignment: .leading, spacing: 8) {
