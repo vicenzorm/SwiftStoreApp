@@ -8,8 +8,15 @@
 import SwiftUI
 
 struct OrdersView: View {
+    
+    let teste: Bool = true
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack{
+            if teste {
+                EmptyState(icon: "bag.badge.questionmark", title: "No orders yet!", subtitle: "Buy an item and it will show up here.")
+            }            
+        }
     }
 }
 
