@@ -10,8 +10,11 @@ import SwiftData
 
 @main
 struct SwiftStoreAppApp: App {
+    
+    
     var body: some Scene {
         WindowGroup {
+            
             TabBar()
         }
         .modelContainer(for:[

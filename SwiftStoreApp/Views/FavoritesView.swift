@@ -8,8 +8,18 @@
 import SwiftUI
 
 struct FavoritesView: View {
+    
+    var teste: Bool = true
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        VStack{
+            //if user.cartList.isEmpty {
+            if teste {
+                EmptyState(icon: "heart.slash", title: "No favorites yet!", subtitle: "Favorite an item and it will show up here.")
+            }
+        }
+        
     }
 }
 

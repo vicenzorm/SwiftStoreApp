@@ -6,12 +6,28 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CartView: View {
+    
+    //@Query var user: User
+    var teste: Bool = true
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            VStack{
+                //if user.cartList.isEmpty {
+                if teste {
+                    EmptyState(icon: "cart.badge.questionmark", title: "No favorites yet!", subtitle: "Favorite an item and it will show up here.")
+                }
+            }
+        }
+        .padding()
+        .navigationTitle("Cart")
     }
+    
 }
+
 
 #Preview {
     CartView()
