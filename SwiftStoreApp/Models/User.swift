@@ -10,11 +10,11 @@ import SwiftData
 
 @Model
 class User {
-    var orders: [Product] = []
-    var favorites: [Product] = []
-    var cartList: [Product] = []
+    var orders: [UserProduct] = []
+    var favorites: [UserProduct] = []
+    var cartList: [UserProduct] = []
     
-    init(orders: [Product], favorites: [Product], cartList: [Product]) {
+    init(orders: [UserProduct], favorites: [UserProduct], cartList: [UserProduct]) {
         self.orders = orders
         self.favorites = favorites
         self.cartList = cartList

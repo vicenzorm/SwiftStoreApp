@@ -7,6 +7,12 @@
 
 import Foundation
 
-struct Category: Codable {
+struct Category: Decodable {
     var name: String
+    var slug: String
+    
+    init(name: String, slug: String) {
+        self.name = name
+        self.slug = slug
+    }
 }

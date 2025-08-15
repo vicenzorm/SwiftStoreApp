@@ -14,6 +14,9 @@ struct SwiftStoreAppApp: App {
         WindowGroup {
             TabBar()
         }
-        .modelContainer(for: User.self)
+        .modelContainer(for:[
+            User.self,
+            UserProduct.self
+        ])
     }
 }

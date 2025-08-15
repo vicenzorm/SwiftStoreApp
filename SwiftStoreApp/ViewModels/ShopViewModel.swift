@@ -43,9 +43,9 @@ class ShopViewModel: ShopViewModelProtocol {
     }
     
     func filterProductByName(name: String) {
-        <#code#>
+        //
     }
     func filterProductByCategory(category: String) {
-        <#code#>
+        //
     }
 }
