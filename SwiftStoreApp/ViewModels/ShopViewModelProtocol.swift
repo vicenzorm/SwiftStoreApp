@@ -12,10 +12,12 @@ protocol ShopViewModelProtocol {
     var categories: [Category] { get }
     var isLoadingProducts: Bool { get }
     var isLoadingCategories: Bool { get }
+    var errorMessage: String? { get }
+    var filteredProdcuts: [Product] { get }
     
     func loadProducts() async
     func loadCategories() async
+    func loadProductsByCategories(category: String) async
     
     func filterProductByName(name: String)
-    func filterProductByCategory(category: String)
 }
