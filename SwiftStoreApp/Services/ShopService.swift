@@ -22,7 +22,7 @@ class ShopService: ShopServiceProtocol {
     }
     
     func getAllCategories() async throws -> [Category] {
-        let urlString = "\(baseUrl)categories"
+        let urlString = "\(baseUrl)/categories"
         
         guard let url = URL(string: urlString) else {
             throw URLError(.badURL)
