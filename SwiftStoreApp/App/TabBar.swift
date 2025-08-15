@@ -8,11 +8,15 @@
 import SwiftUI
 
 struct TabBar: View {
+    
+    let productViewModelService = ShopViewModel(service: ShopService())
+//    let userViewModelService = UserViewModel(service: )
+    
     var body: some View {
         TabView {
             Tab("Home", systemImage: "house.fill") {
                 NavigationStack {
-                   HomeView()
+                    HomeView(viewModel: productViewModelService)
                 }
             }
             Tab("Categories", systemImage: "square.grid.2x2.fill") {

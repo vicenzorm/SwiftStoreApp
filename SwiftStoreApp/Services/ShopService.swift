@@ -8,7 +8,7 @@
 import Foundation
 
 class ShopService: ShopServiceProtocol {
-    var baseUrl: String = "https://dummyjson.com/products/"
+    var baseUrl: String = "https://dummyjson.com/products"
     
     func getAllProducts() async throws -> [Product] {
         let urlString = baseUrl
@@ -18,7 +18,6 @@ class ShopService: ShopServiceProtocol {
         }
         let (data, _) = try await URLSession.shared.data(from: url)
         let response = try JSONDecoder().decode(ProductsResponse.self, from: data)
-        
         return response.products
     }
     

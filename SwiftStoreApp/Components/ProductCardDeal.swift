@@ -11,11 +11,6 @@ struct ProductCardDeal: View {
         let price = product?.price ?? 0
         
         VStack (spacing: 8){
-            
-            Text("Deals of the day")
-                .font(.title2.bold())
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
             HStack{
                 HStack(alignment: .top){
                     Image(.placeholder)
@@ -65,7 +60,7 @@ struct ProductCardDeal: View {
                         .foregroundColor(.backgroundSecondary)
                 )
             }
-        }   .padding(.horizontal)
+        }  
     }
 }
 

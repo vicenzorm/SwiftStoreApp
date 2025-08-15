@@ -12,48 +12,42 @@ struct ProductCardVertical: View {
     var product: Product?
     
     var body: some View {
-        VStack(spacing: 8) {
-            
-            VStack {
-                ZStack(alignment: .topTrailing){
-                    if let product, let image = UIImage(named: product.image) {
-                        Image(uiImage: image)
-                            .resizable()
+        VStack(alignment: .leading, spacing: 8) {
+            ZStack(alignment: .topTrailing) {
+                if let product {
+                    AsyncImage(url: URL(string: product.thumbnail)) { image in
+                        image.resizable()
                             .scaledToFill()
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
-                        
-                        HeartComponent(isFavorite: true )
-                    } else {
+                    } placeholder: {
                         Image(.placeholder)
                             .resizable()
-                            .scaledToFill()
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
-                        
-                        HeartComponent(isFavorite: false)
                     }
-                    
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .frame(width: 161,height: 160)
                 }
-                VStack(alignment: .leading, spacing: 4) {
-                    
-                    Text(product?.title ?? "Product name with two or more lines goes here")
-                        .font(.subheadline)
-                        .lineLimit(2, reservesSpace: true)
-                    
-                    
-                    Text("US$ \(Product.numberFormattedToString(number: product?.price ?? 0))")
-                        .font(.headline)
-                }
+                HeartComponent(isFavorite: true )
             }
-            .padding(8)
-            .background(
-                RoundedRectangle(cornerRadius: 16)
-                    .foregroundStyle(.backgroundSecondary)
-            )
-            .frame(width: 177, height: 250)
-            
+            VStack(alignment: .leading, spacing: 4) {
+                
+                Text(product?.title ?? "Product name with two or more lines goes here")
+                    .font(.subheadline)
+                    .lineLimit(2, reservesSpace: true)
+                
+                
+                Text("US$ \(Product.numberFormattedToString(number: product?.price ?? 0))")
+                    .font(.headline)
+            }
         }
+        .padding(8)
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .foregroundStyle(.backgroundSecondary)
+        )
+        .frame(width: 177, height: 250)
+        
+        
     }
-
+    
 }
 
 #Preview {

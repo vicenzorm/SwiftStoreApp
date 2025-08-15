@@ -19,16 +19,16 @@ class Product: Identifiable, Decodable {
     var category: String
     var price: Double
     var shippingInformation: String
-    var image: String
+    var thumbnail: String
     
-    init(id: Int, title: String, description: String, category: String, price: Double, shippingInformation: String, image: String) {
+    init(id: Int, title: String, description: String, category: String, price: Double, shippingInformation: String, thumbnail: String) {
         self.id = id
         self.title = title
         self.description = description
         self.category = category
         self.price = price
         self.shippingInformation = shippingInformation
-        self.image = image
+        self.thumbnail = thumbnail
     }
     
     static func numberFormattedToString(number: Double) -> String {

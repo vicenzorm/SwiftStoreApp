@@ -8,20 +8,55 @@
 import SwiftUI
 
 struct HomeView: View {
+    
+    let viewModel: ShopViewModel
+    @State var isPresentingDetails: Bool = false
+    
+    
+    let colunas: [GridItem] = [
+        GridItem(.fixed(177), spacing: 8),
+        GridItem(.fixed(177), spacing: 8)
+    ]
+    
     var body: some View {
         NavigationStack {
-            VStack(){
-                ProductCardDeal()
+            VStack(alignment: .leading, spacing: 16) {
+                
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Deals of the day")
+                        .font(.system(size: 22, weight: .bold))
+                        .font(.title2)
+        
+                    ProductCardDeal()
+                }
+                
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Top Picks")
+                        .font(.system(size: 22, weight: .bold))
+                        .font(.title2)
+                    
+                    ScrollView {
+                        LazyVGrid(columns: colunas) {
+                            ForEach(viewModel.products) { product in
+                                ProductCardVertical(product: product)
+                            }
+                        }
+                    }
+                }
             }
             .padding()
             .navigationTitle("Home")
             .frame(maxHeight: .infinity, alignment: .top)
+            .task {
+                await viewModel.loadProducts()
+            }
         }
     }
 }
 
+
 #Preview {
-    HomeView()
+    TabBar()
 }
 
 
