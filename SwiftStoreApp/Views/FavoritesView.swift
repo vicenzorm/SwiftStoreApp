@@ -14,5 +14,5 @@ struct FavoritesView: View {
 }
 
 #Preview {
-    CategoriesVIew()
+    FavoritesView()
 }
