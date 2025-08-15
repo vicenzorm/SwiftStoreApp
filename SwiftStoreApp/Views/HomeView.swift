@@ -6,12 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct HomeView: View {
     
     let viewModel: ShopViewModel
-    @State var isPresentingDetails: Bool = false
-    
     
     let colunas: [GridItem] = [
         GridItem(.fixed(177), spacing: 8),
