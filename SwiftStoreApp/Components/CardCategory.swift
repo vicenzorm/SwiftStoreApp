@@ -12,16 +12,21 @@ struct CardCategory: View {
     let category: Category
     
     var body: some View {
-        VStack(spacing: 8){
-            
-            Image(category.image)
-                .resizable()
-                .frame(width: 84, height:84)
-                .clipShape(RoundedRectangle(cornerRadius: 16))
-            
-            Text(category.name)
-                .font(.subheadline)
-            
+        NavigationLink {
+            CategoryView(viewModel: ShopViewModel(service: ShopService()), category: category)
+        } label: {
+            VStack(spacing: 8){
+                
+                Image(category.image)
+                    .resizable()
+                    .frame(width: 84, height:84)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                
+                Text(category.name)
+                    .font(.subheadline)
+                    .foregroundStyle(.labelsPrimary)
+                
+            }
         }
     }
 }
