@@ -9,4 +9,12 @@ import Foundation
 
 protocol UserServiceProtocol {
     
+    func addToFavorites(product: Product)
+    func addToCart(product: Product)
+    func checkoutOrders(products: [UserProduct])
+    
+    func getAllFavorites() -> [UserProduct]
+    func getCartListProducts() -> [UserProduct]
+    func getAllOrders() -> [UserProduct]
+    
 }
