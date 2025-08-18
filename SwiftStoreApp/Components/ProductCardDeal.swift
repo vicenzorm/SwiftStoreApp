@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ProductCardDeal: View {
     
+    @State var showDetail: Bool = false
     var product: Product?
     
     var body: some View {
@@ -68,7 +69,13 @@ struct ProductCardDeal: View {
                         .foregroundColor(.backgroundSecondary)
                 )
             }
-        }  
+        }
+        .sheet(isPresented: $showDetail) {
+            ProductDetailsView(product: product)
+        }
+        .onTapGesture {
+            showDetail = true
+        }
     }
 }
 
