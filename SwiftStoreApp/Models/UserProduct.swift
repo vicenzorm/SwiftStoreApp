@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftData
+import UIKit
 
 @Model
 class UserProduct: Identifiable {
@@ -15,20 +16,22 @@ class UserProduct: Identifiable {
     var productDescription: String
     var price: Double
     var shippingInformation: String
-    var image: String
+    var image: Data
+    var quantity: Int
     var isFavorite: Bool = false
     var isOrdered: Bool = false
     var isOnCart: Bool = false
     
-    init(id: Int, title: String, productDescription: String, price: Double, shippingInformation: String, image: String, isFavorite: Bool, isOrdered: Bool, isOnCart: Bool) {
+    init(id: Int, title: String, productDescription: String, price: Double, shippingInformation: String, image: UIImage, isFavorite: Bool, isOrdered: Bool, isOnCart: Bool) {
         self.id = id
         self.title = title
         self.productDescription = productDescription
         self.price = price
         self.shippingInformation = shippingInformation
-        self.image = image
+        self.image = image.jpegData(compressionQuality: 0.8) ?? Data()
         self.isFavorite = isFavorite
         self.isOrdered = isOrdered
         self.isOnCart = isOnCart
+        self.quantity = 0
     }
 }
