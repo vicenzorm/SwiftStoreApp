@@ -38,16 +38,16 @@ struct CategoriesVIew: View {
                     
                     List(filteredCategories) { category in
                         
-                        HStack {
-                            Text(category.name)
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .symbolRenderingMode(.monochrome)
-                                .font(.system(size: 17, weight: .regular))
-                                .foregroundStyle(.labelsTertiary)
+                        NavigationLink {
+                            CategoryView(viewModel: viewModel, category: category)
+                        } label : {
+                            HStack {
+                                Text(category.name)
+                                Spacer()
                                 
+                            }
+                            .frame(height: 60)
                         }
-                        .frame(height: 60)
                     }
                     .listStyle(.plain)
                 }
