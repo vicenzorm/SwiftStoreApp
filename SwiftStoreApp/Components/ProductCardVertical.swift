@@ -10,6 +10,7 @@ import SwiftUI
 struct ProductCardVertical: View {
     
     var product: Product?
+    @State var showDetails: Bool = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -44,6 +45,13 @@ struct ProductCardVertical: View {
                 .foregroundStyle(.backgroundSecondary)
         )
         .frame(width: 177, height: 250)
+        .sheet(isPresented: $showDetails){
+            ProductDetailsView(product: product)
+                .presentationDragIndicator(.visible)
+        }
+        .onTapGesture {
+            showDetails = true
+        }
         
         
     }
