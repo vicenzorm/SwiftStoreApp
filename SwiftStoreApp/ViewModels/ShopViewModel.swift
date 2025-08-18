@@ -44,14 +44,14 @@ class ShopViewModel: ShopViewModelProtocol {
     }
     
     func loadProductsByCategories(category: String) async {
-        isLoadingCategories = true
+        isLoadingProducts = true
             
         do {
             filteredProdcuts = try await service.getProductsByCategories(category: category)
         } catch {
             errorMessage = "Error at fetching filtered products: \(error.localizedDescription)"
         }
-        isLoadingCategories = false
+        isLoadingProducts = false
     }
     
     func filterProductByName(name: String) {

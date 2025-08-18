@@ -11,7 +11,6 @@ import SwiftData
 struct HomeView: View {
     
     let viewModel: ShopViewModel
-//    var randomNumber: Int = Int.random(in: 1...10)
     
     let colunas: [GridItem] = [
         GridItem(.fixed(177), spacing: 8),
