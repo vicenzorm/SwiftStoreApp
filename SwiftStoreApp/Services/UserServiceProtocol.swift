@@ -11,7 +11,7 @@ protocol UserServiceProtocol {
     
     func addToFavorites(product: Product)
     func addToCart(product: Product)
-    func checkoutOrders(products: [UserProduct])
+    func checkoutOrders()
     
     func getAllFavorites() -> [UserProduct]
     func getCartListProducts() -> [UserProduct]

@@ -8,10 +8,15 @@
 import Foundation
 
 protocol UserViewModelProtocol {
-    var product: Product { get }
-    var category: Category? { get }
+    var favoriteProducts: [UserProduct] { get }
+    var orderedProducts: [UserProduct] { get }
+    var productsOnCart: [UserProduct] { get }
     
     func addToCart(product: Product)
     func addToFav(product: Product)
-    func addToOrder(product: Product)
+    func addToOrder()
+    
+    func getFavoriteProducts: [UserProduct] -> [UserProduct]
+    func getOrderedProducts: [UserProduct] -> [UserProduct]
+    func getProductsOnCart: [UserProduct] -> [UserProduct]
 }
