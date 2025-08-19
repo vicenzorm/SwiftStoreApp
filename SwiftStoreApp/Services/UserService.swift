@@ -8,12 +8,24 @@
 import Foundation
 import UIKit
 import SwiftData
-import SwiftUI
 
 class UserService: UserServiceProtocol {
     
-    @Environment(\.modelContext) var modelContext
-    @Query var userProducts: [UserProduct]
+    
+    private let modelContainer: ModelContainer
+    private let modelContext: ModelContext
+    var userProducts: [UserProduct] {
+        return getAllProducts()
+    }
+    
+    @MainActor
+    static let shared = UserService()
+    
+    @MainActor
+    init(){
+        self.modelContainer = try! ModelContainer(for: UserProduct.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+        self.modelContext = modelContainer.mainContext
+    }
     
     func addToFavorites(product: Product) {
         addProductsTo(ocassion: .favorites, product: product)
@@ -109,6 +121,14 @@ class UserService: UserServiceProtocol {
             }
         }
         return products
+    }
+    
+    func getAllProducts() -> [UserProduct] {
+        do {
+            return try modelContext.fetch(FetchDescriptor<UserProduct>())
+        } catch {
+            fatalError(error.localizedDescription)
+        }
     }
     
     enum GetFrom {
