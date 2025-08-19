@@ -103,6 +103,12 @@ class UserService: UserServiceProtocol {
             }
             
             modelContext.insert(newUserProduct)
+            
+            do {
+                try modelContext.save()
+            } catch {
+                print(error.localizedDescription)
+            }
         }
     }
     
