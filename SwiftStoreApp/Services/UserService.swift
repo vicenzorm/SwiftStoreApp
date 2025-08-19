@@ -38,19 +38,19 @@ class UserService: UserServiceProtocol {
     }
     
     func getAllFavorites() -> [UserProduct] {
-        getAllProductsIn(ocassion: .onFavorites)
+        return getAllProductsIn(ocassion: .onFavorites)
     }
     
     func getCartListProducts() -> [UserProduct] {
-        getAllProductsIn(ocassion: .onCart)
+        return getAllProductsIn(ocassion: .onCart)
     }
     
     func getAllOrders() -> [UserProduct] {
-        getAllProductsIn(ocassion: .onOrders)
+        return getAllProductsIn(ocassion: .onOrders)
     }
     
     func convertImageToData(image: String) -> UIImage {
-        var uiImage: UIImage
+        var uiImage: UIImage = UIImage()
         
         if let url = URL(string: image) {
             URLSession.shared.dataTask(with: url) { data, _, error in

@@ -10,9 +10,9 @@ import Foundation
 @Observable
 class UserViewModel: UserViewModelProtocol {
     
-    var favoriteProducts: [UserProduct]
-    var orderedProducts: [UserProduct]
-    var productsOnCart: [UserProduct]
+    var favoriteProducts: [UserProduct] = []
+    var orderedProducts: [UserProduct] = []
+    var productsOnCart: [UserProduct] = []
     
     private let service: UserServiceProtocol
     
@@ -32,16 +32,19 @@ class UserViewModel: UserViewModelProtocol {
         service.checkoutOrders()
     }
     
-    func getFavoriteProducts() -> ([UserProduct]) -> [UserProduct] {
-        favoriteProducts = service.getAllFavorites()
+    func getFavoriteProducts() -> [UserProduct] {
+        let favoriteProducts = service.getAllFavorites()
+        return favoriteProducts
     }
     
-    func getOrderedProducts() -> ([UserProduct]) -> [UserProduct] {
-        orderedProducts = service.getAllOrders()
+    func getOrderedProducts() -> [UserProduct] {
+        let orderedProducts = service.getAllOrders()
+        return orderedProducts
     }
     
-    func getProductsOnCart() -> ([UserProduct]) -> [UserProduct] {
-        productsOnCart = service.getCartListProducts()
+    func getProductsOnCart() -> [UserProduct] {
+        let cartProducts = service.getCartListProducts()
+        return cartProducts
     }
     
 }
