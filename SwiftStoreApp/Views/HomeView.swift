@@ -26,6 +26,9 @@ struct HomeView: View {
                         .font(.title2)
                     
                     ProductCardDeal(product: viewModel.products.randomElement())
+                        .onTapGesture {
+                            
+                        }
                 }
                 
                 VStack(alignment: .leading, spacing: 8) {

@@ -10,19 +10,21 @@ import SwiftUI
 struct FavoritesView: View {
     
     @State var textToSearch: String = ""
-    var teste: Bool = true
+    let viewModel: UserViewModel
     
     var body: some View {
         
-        VStack{
-            //if user.cartList.isEmpty {
-            if teste {
+        VStack {
+            if viewModel.favoriteProducts.isEmpty {
                 EmptyState(icon: "heart.slash", title: "No favorites yet!", subtitle: "Favorite an item and it will show up here.")
+            } else {
+                List(viewModel.favoriteProducts) { product in
+                    ProductCardList(product: product)
+                }
             }
         }
         .navigationTitle("Favorites")
         .searchable(text: $textToSearch, prompt: "Search" )
-        
     }
 }
 

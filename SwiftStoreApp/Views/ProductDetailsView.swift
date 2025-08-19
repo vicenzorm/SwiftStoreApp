@@ -9,6 +9,7 @@ import SwiftUI
 struct ProductDetailsView: View {
     
     var product: Product?
+    @State var productIsFavorited = false
     
     var body: some View {
         NavigationStack {
@@ -28,7 +29,7 @@ struct ProductDetailsView: View {
                         .frame(width: 329, height: 329)
                         .padding()
                         .overlay(
-                            HeartComponent(isFavorite: false)
+                            HeartComponent(isFavorited: $productIsFavorited)
                                 .padding(24),
                             alignment: .topTrailing
                         )

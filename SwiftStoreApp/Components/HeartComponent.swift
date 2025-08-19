@@ -8,23 +8,26 @@
 import SwiftUI
 
 struct HeartComponent: View {
-    
-    var isFavorite: Bool
+
+    @Binding var isFavorited: Bool
     
     var body: some View {
-        ZStack(alignment: .center) {
-            Image(systemName: isFavorite ? "heart.fill" : "heart")
-                .resizable()
-                .frame(width: 22, height: 20)
+        Button {
+            isFavorited.toggle()
+        } label: {
+            Image(systemName: isFavorited ? "heart.fill" : "heart")
+                .foregroundStyle(.labelsPrimary)
+                .padding(8)
+                .background(
+                    RoundedRectangle(cornerRadius: 8)
+                        .foregroundStyle(.fillsTertiary)
+                )
         }
-        .frame(width: 38,height: 38)
-        .background(
-            RoundedRectangle(cornerRadius: 8)
-                .foregroundStyle(.fillsTertiary)
-        )
+        .padding(.trailing, 16)
     }
+    
 }
 
-//#Preview {
+#Preview {
 //    HeartComponent()
-//}
+}

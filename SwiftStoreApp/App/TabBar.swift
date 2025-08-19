@@ -31,7 +31,7 @@ struct TabBar: View {
             }
             Tab("Favorites", systemImage: "heart.fill") {
                 NavigationStack {
-                    FavoritesView()
+                    FavoritesView(viewModel: UserViewModel(service: UserService()))
                 }
             }
             Tab("Orders", systemImage: "bag.fill") {
