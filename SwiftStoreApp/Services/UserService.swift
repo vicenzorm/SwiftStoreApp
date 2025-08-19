@@ -23,8 +23,12 @@ class UserService: UserServiceProtocol {
     
     @MainActor
     init(){
-        self.modelContainer = try! ModelContainer(for: UserProduct.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
-        self.modelContext = modelContainer.mainContext
+        do {
+               self.modelContainer = try ModelContainer(for: UserProduct.self)
+               self.modelContext = modelContainer.mainContext
+           } catch {
+               fatalError("❌ Erro ao inicializar ModelContainer: \(error)")
+           }
     }
     
     func addToFavorites(product: Product) {
