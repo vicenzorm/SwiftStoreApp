@@ -8,6 +8,7 @@ import SwiftUI
 
 struct ProductDetailsView: View {
     
+    var viewModel: UserViewModel
     var product: Product?
     @State var productIsFavorited = false
     
@@ -62,7 +63,9 @@ struct ProductDetailsView: View {
                     .frame(height: 182)
                     
                     Button {
-                        
+                        if let product {
+                            viewModel.addToCart(product: product)
+                        }
                     } label: {
                         Text("Add to cart")
                             .foregroundStyle(.labelsPrimary)
@@ -88,5 +91,5 @@ struct ProductDetailsView: View {
 }
 
 #Preview {
-    ProductDetailsView()
+    TabBar()
 }

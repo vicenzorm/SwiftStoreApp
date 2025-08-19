@@ -28,14 +28,17 @@ class UserViewModel: UserViewModelProtocol {
     
     func addToCart(product: Product) {
         service.addToCart(product: product)
+        productsOnCart = getProductsOnCart()
     }
     
     func addToFav(product: Product) {
         service.addToFavorites(product: product)
+        favoriteProducts = getFavoriteProducts()
     }
     
     func addToOrder() {
         service.checkoutOrders()
+        productsOnCart = getOrderedProducts()
     }
     
     func getFavoriteProducts() -> [UserProduct] {

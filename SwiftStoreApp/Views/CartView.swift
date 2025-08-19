@@ -10,15 +10,19 @@ import SwiftData
 
 struct CartView: View {
     
-    //@Query var user: User
+    var viewModel: UserViewModel
     var teste: Bool = true
     
     var body: some View {
         NavigationStack {
             VStack{
                 //if user.cartList.isEmpty {
-                if teste {
-                    EmptyState(icon: "cart.badge.questionmark", title: "No favorites yet!", subtitle: "Favorite an item and it will show up here.")
+                if viewModel.getProductsOnCart().isEmpty {
+                    EmptyState(icon: "cart.badge.questionmark", title: "Your Cart is Empty!", subtitle: "Favorite an item and it will show up here.")
+                } else {
+                    ForEach(viewModel.getProductsOnCart()) { product in
+                        ProductCardList(product: product)
+                    }
                 }
             }
         }
@@ -30,5 +34,5 @@ struct CartView: View {
 
 
 #Preview {
-    CartView()
+    TabBar()
 }

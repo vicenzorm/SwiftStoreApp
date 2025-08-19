@@ -69,7 +69,7 @@ struct ProductCardDeal: View {
             }
         }
         .sheet(isPresented: $showDetail) {
-            ProductDetailsView(product: product)
+            ProductDetailsView(viewModel: UserViewModel(service: UserService()), product: product)
         }
         .onTapGesture {
             showDetail = true

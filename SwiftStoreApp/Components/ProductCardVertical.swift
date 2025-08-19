@@ -47,7 +47,7 @@ struct ProductCardVertical: View {
         )
         .frame(width: 177, height: 250)
         .sheet(isPresented: $showDetails){
-            ProductDetailsView(product: product)
+            ProductDetailsView(viewModel: UserViewModel(service: UserService()), product: product)
                 .presentationDragIndicator(.visible)
         }
         .onTapGesture {
