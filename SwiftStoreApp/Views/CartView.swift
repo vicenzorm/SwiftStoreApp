@@ -18,7 +18,7 @@ struct CartView: View {
             VStack{
                 //if user.cartList.isEmpty {
                 if viewModel.getProductsOnCart().isEmpty {
-                    EmptyState(icon: "cart.badge.questionmark", title: "No favorites yet!", subtitle: "Favorite an item and it will show up here.")
+                    EmptyState(icon: "cart.badge.questionmark", title: "Your Cart is Empty!", subtitle: "Favorite an item and it will show up here.")
                 } else {
                     ForEach(viewModel.getProductsOnCart()) { product in
                         ProductCardList(product: product)
