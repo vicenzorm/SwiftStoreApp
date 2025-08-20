@@ -11,11 +11,11 @@ struct OrdersView: View {
     
     @State var textToSearch: String = "" // colocar em view model
     var viewModel: UserViewModel
-    var filteredOrders: [Order] {
-        if textToSearch.isEmpty {
-            viewModel.orderedProducts.isEmpty
-        }
-    }
+//    var filteredOrders: [UserProduct] {
+//        if textToSearch.isEmpty {
+//            viewModel.orderedProducts.isEmpty
+//        }
+//    }
     
     var body: some View {
         VStack{
