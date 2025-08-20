@@ -20,4 +20,5 @@ protocol UserViewModelProtocol {
     func getFavoriteProducts() -> [UserProduct]
     func getOrderedProducts() ->  [UserProduct]
     func getProductsOnCart() ->  [UserProduct]
+    func getCartTotalPrice() -> Double
 }

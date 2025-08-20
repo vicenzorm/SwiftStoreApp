@@ -10,6 +10,13 @@ import SwiftUI
 struct ProductCardList: View {
     
     var product: UserProduct
+    var cardType: CardType
+    
+    enum CardType{
+        case cart
+        case favorites
+        case order
+    }
     
     var body: some View {
         
@@ -22,7 +29,7 @@ struct ProductCardList: View {
             }
             
             HStack {
-                if product.isOrdered {
+                if cardType == .order {
                     VStack(alignment: .leading, spacing: 8) {
                             
                         Text(product.shippingInformation.uppercased())
@@ -65,7 +72,7 @@ struct ProductCardList: View {
                     
                     Spacer()
                     
-                    if product.isFavorite {
+                    if cardType == .favorites {
                         Button {
                             product.quantity += 1
                         } label: {
@@ -79,11 +86,16 @@ struct ProductCardList: View {
                         }
                         .padding(.trailing, 16)
                         
-                    } else if product.isOnCart {
+                    } else if cardType == .cart {
                         
                         HStack(spacing: 4) {
                             Button {
-                                if product.quantity > 0 { product.quantity -= 1 }
+                                if product.quantity > 1 { product.quantity -= 1 }
+                                else if product.quantity == 1 {
+                                    product.quantity -= 1
+                                    product.isOnCart = false
+                                }
+                                
                             } label: {
                                 Image(systemName: "minus")
                                     .foregroundStyle(.labelsPrimary)
@@ -98,6 +110,7 @@ struct ProductCardList: View {
                             Text("\(product.quantity)")
                                 .font(.body)
                                 .foregroundStyle(.labelsPrimary)
+                                .padding(.horizontal, 4)
                             
                             Button {
                                 if product.quantity < 9 { product.quantity += 1 }
@@ -111,6 +124,7 @@ struct ProductCardList: View {
                                     )
                             }
                         }
+                        
                     }
                 }
             }
