@@ -9,22 +9,39 @@ import SwiftUI
 
 struct FavoritesView: View {
     
-    @State var textToSearch: String = ""
     let viewModel: UserViewModel
     
+    @State var textToSearch: String = ""
+    var filteredProducts: [UserProduct] {
+        if textToSearch.isEmpty {
+            return viewModel.favoriteProducts
+        } else {
+            return viewModel.favoriteProducts.filter({$0.title.localizedCaseInsensitiveContains(textToSearch)})
+        }
+    }
+    
     var body: some View {
-        
-        VStack {
-            if viewModel.favoriteProducts.isEmpty {
-                EmptyState(icon: "heart.slash", title: "No favorites yet!", subtitle: "Favorite an item and it will show up here.")
-            } else {
-                List(viewModel.favoriteProducts) { product in
-                    ProductCardList(product: product, cardType: .favorites)
+        NavigationStack {
+            VStack {
+                if viewModel.favoriteProducts.isEmpty {
+                    EmptyState(icon: "heart.slash", title: "No favorites yet!", subtitle: "Favorite an item and it will show up here.")
+                } else {
+                    ScrollView {
+                        VStack(spacing: 8) {
+                            ForEach(filteredProducts) { product in
+                                ProductCardList(product: product)
+                            }
+                        }
+                    }
                 }
             }
+            .navigationTitle("Favorites")
+            .searchable(text: $textToSearch, prompt: "Search")
+            .onAppear {
+                print("ENTREI")
+                viewModel.favoriteProducts = viewModel.getFavoriteProducts()
+            }
         }
-        .navigationTitle("Favorites")
-        .searchable(text: $textToSearch, prompt: "Search" )
     }
 }
 

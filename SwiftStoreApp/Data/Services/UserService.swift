@@ -35,6 +35,19 @@ final class UserService: UserServiceProtocol {
         }
     }
     
+    func addFavoriteToCart(userProduct: UserProduct) {
+        var arrayDeFavoritos = getAllProductsIn(ocassion: .onFavorites)
+        for produto in arrayDeFavoritos {
+            if userProduct.id == produto.id {
+                userProduct.isOnCart = true
+                userProduct.isFavorite = false
+            }
+        }
+        arrayDeFavoritos.removeAll { UserProduct in
+            UserProduct.id == userProduct.id
+        }
+    }
+    
     func getAllFavorites() -> [UserProduct] { return getAllProductsIn(ocassion: .onFavorites) }
     
     func getCartListProducts() -> [UserProduct] { return getAllProductsIn(ocassion: .onCart) }

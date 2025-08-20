@@ -9,7 +9,10 @@ import SwiftUI
 
 struct ProductCardList: View {
     
+    
+    @Environment(\.modelContext) var modelContext
     var product: UserProduct
+    @State var showDetails: Bool = false
     var cardType: CardType
     
     enum CardType{
@@ -31,7 +34,7 @@ struct ProductCardList: View {
             HStack {
                 if cardType == .order {
                     VStack(alignment: .leading, spacing: 8) {
-                            
+                        
                         Text(product.shippingInformation.uppercased())
                             .font(.caption)
                             .font(.system(size: 12))
@@ -43,7 +46,7 @@ struct ProductCardList: View {
                             .foregroundStyle(.labelsPrimary)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .lineLimit(1)
-                            
+                        
                         Text(Formatters.paraDolarAmericano.string(from: NSNumber(value: product.price)) ?? "US$ 00,00")
                             .font(.headline)
                             .foregroundStyle(.labelsPrimary)
@@ -53,18 +56,18 @@ struct ProductCardList: View {
                     
                 } else {
                     VStack(alignment: .leading, spacing: 8) {
-                            
-                            Text(product.title)
-                                .font(.footnote)
-                                .font(.system(size: 13))
-                                .foregroundStyle(.labelsPrimary)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .lineLimit(2)
-                            
-                            Text(Formatters.paraDolarAmericano.string(from: NSNumber(value: product.price)) ?? "US$ 00,00")
-                                .font(.headline)
-                                .foregroundStyle(.labelsPrimary)
-                                .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        Text(product.title)
+                            .font(.footnote)
+                            .font(.system(size: 13))
+                            .foregroundStyle(.labelsPrimary)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .lineLimit(2)
+                        
+                        Text(Formatters.paraDolarAmericano.string(from: NSNumber(value: product.price)) ?? "US$ 00,00")
+                            .font(.headline)
+                            .foregroundStyle(.labelsPrimary)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         
                         
                     }
@@ -74,7 +77,7 @@ struct ProductCardList: View {
                     
                     if cardType == .favorites {
                         Button {
-                            product.quantity += 1
+                            showDetails.toggle()
                         } label: {
                             Image(systemName: "cart.fill")
                                 .foregroundStyle(.labelsPrimary)
@@ -136,9 +139,12 @@ struct ProductCardList: View {
             RoundedRectangle(cornerRadius: 16)
                 .foregroundStyle(.backgroundSecondary)
         )
+        .sheet(isPresented: $showDetails) {
+            ProductDetailsView(viewModel: UserViewModel(service: UserService(modelContext: modelContext)), userProduct: product)
+                .presentationDragIndicator(.visible)
+        }
     }
 }
-
 #Preview {
     //    ProductCardList(product: UserProduct(id: 02, title: "Product name with two or more lines goes here", productDescription: "hehe", price: 20, shippingInformation: "DELIVERY BY MONTH, 00", image: .placeholder, isFavorite: false, isOrdered: false, isOnCart: true))
 }
