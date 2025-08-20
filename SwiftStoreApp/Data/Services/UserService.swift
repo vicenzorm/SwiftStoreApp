@@ -54,7 +54,9 @@ final class UserService: UserServiceProtocol {
         do {
             if userProducts.contains(where: {$0.id == product.id}), let index = userProducts.firstIndex(where:  {$0.id == product.id}) {
                 switch ocassion {
-                case .cart:          userProducts[index].isOnCart = true
+                case .cart:
+                    userProducts[index].isOnCart = true
+                    userProducts[index].quantity += 1
                 case .favorites:     userProducts[index].isFavorite = true
                 }
                 try modelContext.save()
@@ -75,13 +77,25 @@ final class UserService: UserServiceProtocol {
                 isOnCart: ocassion == .cart
             )
             
+            newUserProduct.quantity = ocassion == .cart ? 1 : 0
+            
             modelContext.insert(newUserProduct)
+            
             try modelContext.save()
         } catch {
             print(error.localizedDescription)
         }
     }
     
+    func getCartPrice() -> Double {
+        var cartTotalPrice: Double = 0.0
+        
+        for product in getCartListProducts() {
+                cartTotalPrice += product.price * Double(product.quantity)
+        }
+        
+        return cartTotalPrice
+    }
     
     func getAllProductsIn(ocassion: GetFrom) -> [UserProduct] {
         var products: [UserProduct] = []

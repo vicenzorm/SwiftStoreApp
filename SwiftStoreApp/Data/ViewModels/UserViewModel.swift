@@ -45,4 +45,6 @@ class UserViewModel: UserViewModelProtocol {
     
     func getProductsOnCart() -> [UserProduct] { service.getCartListProducts() }
     // apenas mais estetico e clean
+    
+    func getCartTotalPrice() -> Double { service.getCartPrice() }
 }

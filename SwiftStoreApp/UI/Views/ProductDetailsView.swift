@@ -8,6 +8,8 @@ import SwiftUI
 
 struct ProductDetailsView: View {
     
+    
+    @Environment(\.dismiss) var dismiss
     var viewModel: UserViewModel
     var product: Product?
     @State var productIsFavorited = false
@@ -73,6 +75,7 @@ struct ProductDetailsView: View {
                     Button {
                         if let product {
                             Task { await viewModel.addToCart(product: product) }
+                            dismiss()
                         }
                     } label: {
                         Text("Add to cart")

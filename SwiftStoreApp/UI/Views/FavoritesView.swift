@@ -19,7 +19,7 @@ struct FavoritesView: View {
                 EmptyState(icon: "heart.slash", title: "No favorites yet!", subtitle: "Favorite an item and it will show up here.")
             } else {
                 List(viewModel.favoriteProducts) { product in
-                    ProductCardList(product: product)
+                    ProductCardList(product: product, cardType: .favorites)
                 }
             }
         }
