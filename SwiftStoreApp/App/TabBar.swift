@@ -11,7 +11,6 @@ struct TabBar: View {
 
     @Environment(\.modelContext) var modelContext
 
-    
     let productViewModelService = ShopViewModel(service: ShopService())
     
     var body: some View {
