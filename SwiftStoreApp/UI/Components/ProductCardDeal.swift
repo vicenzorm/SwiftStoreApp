@@ -2,9 +2,11 @@ import SwiftUI
 
 struct ProductCardDeal: View {
     
-    @State var showDetail: Bool = false
+    var viewModel: UserViewModel
     var product: Product?
-    @State var productFavorite: Bool = false
+    
+    @State var showDetail: Bool = false // vai pra view model
+    @State var productFavorite: Bool
     
     var body: some View {
         
@@ -42,7 +44,15 @@ struct ProductCardDeal: View {
                             VStack {
                                 HeartComponent(isFavorited: $productFavorite)
                             }
-                            
+                            .onChange(of: productFavorite) { oldValue, newValue in
+                                if newValue {
+                                    if let product {
+                                        viewModel.addToFav(product: product)
+                                    }
+                                } else {
+                                    // deveria ter uma função de !favoritar mas a dharana nao deixou
+                                }
+                            }
                         }
                         .padding(.top, 8)
                         
@@ -51,7 +61,7 @@ struct ProductCardDeal: View {
                                 .font(.subheadline)
                                 .frame(maxWidth: .infinity ,alignment: .leading)
                             
-                            Text("US$ \(Product.numberFormattedToString(number: price))")
+                            Text(Formatters.paraDolarAmericano.string(from: NSNumber(value: price)) ?? "US$ 00,00")
                                 .font(.headline)
                                 .foregroundStyle(.labelsPrimary)
                                 .frame(maxWidth: .infinity ,alignment: .leading)
@@ -78,5 +88,5 @@ struct ProductCardDeal: View {
 }
 
 #Preview {
-    ProductCardDeal()
+//    ProductCardDeal()
 }

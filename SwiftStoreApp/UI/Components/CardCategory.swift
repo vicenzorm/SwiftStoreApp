@@ -6,14 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CardCategory: View {
-    
-    let category: Category
+        let category: Category
     
     var body: some View {
         NavigationLink {
-            CategoryView(viewModel: ShopViewModel(service: ShopService()), category: category)
+            CategoryView(viewModel: ShopViewModel(service: ShopService()), userViewModel: UserViewModel(service: UserService(modelContext: )), category: category)
         } label: {
             VStack(spacing: 8){
                 
@@ -32,5 +32,5 @@ struct CardCategory: View {
 }
 
 #Preview {
-    CardCategory(category: Category(name: "Beauty", slug: "categoria"))
+//    CardCategory(category: Category(name: "Beauty", slug: "categoria"))
 }

@@ -10,15 +10,11 @@ import Foundation
 @Observable
 class UserViewModel: UserViewModelProtocol {
     
-    var favoriteProducts: [UserProduct] {
-        getFavoriteProducts()
-    }
-    var orderedProducts: [UserProduct] {
-        getOrderedProducts()
-    }
-    var productsOnCart: [UserProduct] {
-        getProductsOnCart()
-    }
+    var favoriteProducts: [UserProduct] = []
+    
+    var orderedProducts: [UserProduct] = []
+
+    var productsOnCart: [UserProduct] = []
     
     private let service: UserServiceProtocol
     

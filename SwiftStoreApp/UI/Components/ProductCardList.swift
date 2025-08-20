@@ -37,7 +37,7 @@ struct ProductCardList: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .lineLimit(1)
                             
-                        Text("US$\(Product.numberFormattedToString(number: product.price))")
+                        Text(Formatters.paraDolarAmericano.string(from: NSNumber(value: product.price)) ?? "US$ 00,00")
                             .font(.headline)
                             .foregroundStyle(.labelsPrimary)
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -54,7 +54,7 @@ struct ProductCardList: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .lineLimit(2)
                             
-                            Text("US$\(Product.numberFormattedToString(number: product.price))")
+                            Text(Formatters.paraDolarAmericano.string(from: NSNumber(value: product.price)) ?? "US$ 00,00")
                                 .font(.headline)
                                 .foregroundStyle(.labelsPrimary)
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -126,5 +126,5 @@ struct ProductCardList: View {
 }
 
 #Preview {
-    ProductCardList(product: UserProduct(id: 02, title: "Product name with two or more lines goes here", productDescription: "hehe", price: 20, shippingInformation: "DELIVERY BY MONTH, 00", image: .placeholder, isFavorite: false, isOrdered: false, isOnCart: true))
+    //    ProductCardList(product: UserProduct(id: 02, title: "Product name with two or more lines goes here", productDescription: "hehe", price: 20, shippingInformation: "DELIVERY BY MONTH, 00", image: .placeholder, isFavorite: false, isOrdered: false, isOnCart: true))
 }

@@ -34,6 +34,13 @@ struct ProductDetailsView: View {
                                 .padding(24),
                             alignment: .topTrailing
                         )
+                        .onChange(of: productIsFavorited) { oldValue, newValue in
+                            if newValue {
+                                    viewModel.addToFav(product: product)
+                            } else {
+                                // deveria ter uma função de !favoritar mas a dharana nao deixou
+                            }
+                        }
                     }
                 }
                 .background(
@@ -49,7 +56,7 @@ struct ProductDetailsView: View {
                             .font(.title3)
                             .foregroundStyle(.labelsPrimary)
                         
-                        Text("US$ \(Product.numberFormattedToString(number: product?.price ?? 0))")
+                        Text(Formatters.paraDolarAmericano.string(from: NSNumber(value: product?.price ?? 0.0)) ?? "US$ 00,00")
                             .font(.title2.bold())
                             .foregroundStyle(.labelsPrimary)
                     }

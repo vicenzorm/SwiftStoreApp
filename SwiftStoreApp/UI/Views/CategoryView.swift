@@ -12,6 +12,7 @@ struct CategoryView: View {
     @State var searchText: String = ""
     
     var viewModel: ShopViewModel
+    var userViewModel: UserViewModel
     var category: Category
     
     var collumns: [GridItem] = [
@@ -35,7 +36,7 @@ struct CategoryView: View {
                 ScrollView {
                     LazyVGrid(columns: collumns) {
                         ForEach(filteredProducts) { product in
-                            ProductCardVertical(product: product)
+                            ProductCardVertical(viewModel: userViewModel, product: product)
                         }
                     }
                 }
@@ -55,5 +56,5 @@ struct CategoryView: View {
 
 
 #Preview {
-    CategoryView(viewModel: ShopViewModel(service: ShopService()), category: Category(name: "Food", slug: "food"))
+//    CategoryView(viewModel: ShopViewModel(service: ShopService()), category: Category(name: "Food", slug: "food"))
 }

@@ -11,6 +11,7 @@ import SwiftData
 struct HomeView: View {
     
     let viewModel: ShopViewModel
+    let userViewModel: UserViewModel
     
     let colunas: [GridItem] = [
         GridItem(.fixed(177), spacing: 8),
@@ -25,10 +26,10 @@ struct HomeView: View {
                         .font(.system(size: 22, weight: .bold))
                         .font(.title2)
                     
-                    ProductCardDeal(product: viewModel.products.randomElement())
-                        .onTapGesture {
-                            
-                        }
+                    
+                    ProductCardDeal(viewModel: userViewModel,
+                                    product: viewModel.products.randomElement(),
+                                    productFavorite: false)
                 }
                 
                 VStack(alignment: .leading, spacing: 8) {
@@ -39,7 +40,7 @@ struct HomeView: View {
                     ScrollView {
                         LazyVGrid(columns: colunas) {
                             ForEach(viewModel.products) { product in
-                                ProductCardVertical(product: product)
+                                ProductCardVertical(viewModel: userViewModel, product: product)
                             }
                         }
                     }

@@ -22,13 +22,13 @@ class UserProduct: Identifiable {
     var isOrdered: Bool = false
     var isOnCart: Bool = false
     
-    init(id: Int, title: String, productDescription: String, price: Double, shippingInformation: String, image: UIImage, isFavorite: Bool, isOrdered: Bool, isOnCart: Bool) {
+    init(id: Int, title: String, productDescription: String, price: Double, shippingInformation: String, image: Data, isFavorite: Bool, isOrdered: Bool, isOnCart: Bool) {
         self.id = id
         self.title = title
         self.productDescription = productDescription
         self.price = price
         self.shippingInformation = shippingInformation
-        self.image = image.jpegData(compressionQuality: 0.8) ?? Data()
+        self.image = image
         self.isFavorite = isFavorite
         self.isOrdered = isOrdered
         self.isOnCart = isOnCart
