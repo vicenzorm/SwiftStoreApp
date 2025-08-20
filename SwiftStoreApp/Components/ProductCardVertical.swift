@@ -11,6 +11,7 @@ struct ProductCardVertical: View {
     
     var product: Product?
     @State var showDetails: Bool = false
+    @State var productFavorited: Bool = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -26,7 +27,7 @@ struct ProductCardVertical: View {
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                     .frame(width: 161,height: 160)
                 }
-                HeartComponent(isFavorite: true )
+                HeartComponent(isFavorited: $productFavorited)
             }
             VStack(alignment: .leading, spacing: 4) {
                 

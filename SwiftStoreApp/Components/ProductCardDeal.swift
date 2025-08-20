@@ -4,6 +4,7 @@ struct ProductCardDeal: View {
     
     @State var showDetail: Bool = false
     var product: Product?
+    @State var productFavorite: Bool = false
     
     var body: some View {
         
@@ -39,12 +40,9 @@ struct ProductCardDeal: View {
                             Spacer()
                             
                             VStack {
-                                HeartComponent(isFavorite: false)
+                                HeartComponent(isFavorited: $productFavorite)
                             }
-                            .background(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .foregroundStyle(.fillsTertiary)
-                            )
+                            
                         }
                         .padding(.top, 8)
                         
