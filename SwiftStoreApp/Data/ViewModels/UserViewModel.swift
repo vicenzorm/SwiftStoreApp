@@ -8,6 +8,7 @@
 import Foundation
 
 @Observable
+@MainActor
 class UserViewModel: UserViewModelProtocol {
     
     var favoriteProducts: [UserProduct] = []
@@ -22,34 +23,26 @@ class UserViewModel: UserViewModelProtocol {
         self.service = service
     }
     
-    func addToCart(product: Product) {
-        service.addToCart(product: product)
+    func addToCart(product: Product) async {
+        await service.addToCart(product: product)
         productsOnCart = getProductsOnCart()
     }
     
-    func addToFav(product: Product) {
-        service.addToFavorites(product: product)
+    func addToFavorites(product: Product) async {
+        await service.addToFavorites(product: product)
         favoriteProducts = getFavoriteProducts()
     }
     
     func addToOrder() {
         service.checkoutOrders()
-        productsOnCart = getOrderedProducts()
+        orderedProducts = getOrderedProducts()
+        productsOnCart = getProductsOnCart() // pra atualizar e o carrinho ficar vazio
     }
     
-    func getFavoriteProducts() -> [UserProduct] {
-        let favoriteProducts = service.getAllFavorites()
-        return favoriteProducts
-    }
+    func getFavoriteProducts() -> [UserProduct] { service.getAllFavorites() }
     
-    func getOrderedProducts() -> [UserProduct] {
-        let orderedProducts = service.getAllOrders()
-        return orderedProducts
-    }
+    func getOrderedProducts() -> [UserProduct] { service.getAllOrders() }
     
-    func getProductsOnCart() -> [UserProduct] {
-        let cartProducts = service.getCartListProducts()
-        return cartProducts
-    }
-    
+    func getProductsOnCart() -> [UserProduct] { service.getCartListProducts() }
+    // apenas mais estetico e clean
 }

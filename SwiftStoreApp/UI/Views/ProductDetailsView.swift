@@ -36,11 +36,12 @@ struct ProductDetailsView: View {
                         )
                         .onChange(of: productIsFavorited) { oldValue, newValue in
                             if newValue {
-                                    viewModel.addToFav(product: product)
+                                Task { await viewModel.addToFavorites(product: product) } // forma de utilziar uma função assincrona que mexe com swiftdata
                             } else {
                                 // deveria ter uma função de !favoritar mas a dharana nao deixou
                             }
                         }
+                        
                     }
                 }
                 .background(
@@ -71,7 +72,7 @@ struct ProductDetailsView: View {
                     
                     Button {
                         if let product {
-                            viewModel.addToCart(product: product)
+                            Task { await viewModel.addToCart(product: product) }
                         }
                     } label: {
                         Text("Add to cart")

@@ -47,7 +47,7 @@ struct ProductCardDeal: View {
                             .onChange(of: productFavorite) { oldValue, newValue in
                                 if newValue {
                                     if let product {
-                                        viewModel.addToFav(product: product)
+                                        Task { await viewModel.addToFavorites(product: product) }
                                     }
                                 } else {
                                     // deveria ter uma função de !favoritar mas a dharana nao deixou
@@ -79,7 +79,7 @@ struct ProductCardDeal: View {
             }
         }
         .sheet(isPresented: $showDetail) {
-            ProductDetailsView(viewModel: UserViewModel(service: UserService()), product: product)
+//            ProductDetailsView(viewModel: UserViewModel(service: UserService()), product: product)
         }
         .onTapGesture {
             showDetail = true
