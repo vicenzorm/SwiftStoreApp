@@ -30,7 +30,7 @@ struct CategoryView: View {
     var body: some View {
         NavigationStack {
             
-            if viewModel.isLoadingCategories {
+            if viewModel.isLoadingProducts {
                 ProgressView()
             } else {
                 ScrollView {
@@ -48,7 +48,8 @@ struct CategoryView: View {
             
         }
         .task {
-            await viewModel.loadProductsByCategories(category: category.name)
+            viewModel.filteredProdcuts = []
+            await viewModel.loadProductsByCategories(category: category.slug)
         }
     }
 }
