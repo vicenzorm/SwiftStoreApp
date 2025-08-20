@@ -9,8 +9,16 @@ import SwiftUI
 
 struct FavoritesView: View {
     
-    @State var textToSearch: String = ""
     let viewModel: UserViewModel
+    
+    @State var textToSearch: String = ""
+    var filteredProducts: [UserProduct] {
+        if textToSearch.isEmpty {
+            return viewModel.favoriteProducts
+        } else {
+            return viewModel.favoriteProducts.filter({$0.title.localizedCaseInsensitiveContains(textToSearch)})
+        }
+    }
     
     var body: some View {
         NavigationStack {
@@ -20,7 +28,7 @@ struct FavoritesView: View {
                 } else {
                     ScrollView {
                         VStack(spacing: 8) {
-                            ForEach(viewModel.favoriteProducts) { product in
+                            ForEach(filteredProducts) { product in
                                 ProductCardList(product: product)
                             }
                         }

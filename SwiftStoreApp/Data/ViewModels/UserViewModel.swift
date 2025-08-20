@@ -44,5 +44,9 @@ class UserViewModel: UserViewModelProtocol {
     func getOrderedProducts() -> [UserProduct] { service.getAllOrders() }
     
     func getProductsOnCart() -> [UserProduct] { service.getCartListProducts() }
+    
+    func addFavoritesToCart(userProduct: UserProduct) {
+        service.addFavoriteToCart(userProduct: userProduct)
+    }
     // apenas mais estetico e clean
 }

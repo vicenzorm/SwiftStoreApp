@@ -11,7 +11,14 @@ struct OrdersView: View {
     
     @State var textToSearch: String = "" // colocar em view model
     var viewModel: UserViewModel
-    
+//    
+//    var filteredProducts: [UserProduct] {
+//        if searchableText.isEmpty {
+//            return viewModel.categories
+//        } else {
+//            return viewModel.categories.filter({$0.name.localizedCaseInsensitiveContains(searchableText)})
+//        }
+//    }
     
     var body: some View {
         VStack{

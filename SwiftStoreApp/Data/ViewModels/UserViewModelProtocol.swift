@@ -15,6 +15,7 @@ protocol UserViewModelProtocol {
     
     func addToCart(product: Product) async
     func addToFavorites(product: Product) async
+    func addFavoritesToCart(userProduct: UserProduct)
     func addToOrder()
     
     func getFavoriteProducts() -> [UserProduct]
