@@ -9,11 +9,12 @@ import SwiftUI
 import SwiftData
 
 struct CardCategory: View {
+    @Environment(\.modelContext) var modelContext
         let category: Category
     
     var body: some View {
         NavigationLink {
-//            CategoryView(viewModel: ShopViewModel(service: ShopService()), userViewModel: UserViewModel(service: UserService(modelContext: )), category: category)
+            CategoryView(viewModel: ShopViewModel(service: ShopService()), userViewModel: UserViewModel(service: UserService(modelContext: modelContext)), category: category)
         } label: {
             VStack(spacing: 8){
                 

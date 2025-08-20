@@ -5,6 +5,8 @@ struct ProductCardDeal: View {
     var viewModel: UserViewModel
     var product: Product?
     
+    @Environment(\.modelContext) var modelContext
+    
     @State var showDetail: Bool = false // vai pra view model
     @State var productFavorite: Bool
     
@@ -79,7 +81,7 @@ struct ProductCardDeal: View {
             }
         }
         .sheet(isPresented: $showDetail) {
-//            ProductDetailsView(viewModel: UserViewModel(service: UserService()), product: product)
+            ProductDetailsView(viewModel: UserViewModel(service: UserService(modelContext: modelContext)), product: product)
         }
         .onTapGesture {
             showDetail = true

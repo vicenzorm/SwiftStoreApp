@@ -11,6 +11,8 @@ struct ProductCardVertical: View {
     
     let viewModel: UserViewModel
     
+    @Environment(\.modelContext) var modelContext
+    
     var product: Product?
     @State var showDetails: Bool = false
     @State var productFavorited: Bool = false
@@ -58,8 +60,8 @@ struct ProductCardVertical: View {
         )
         .frame(width: 177, height: 250)
         .sheet(isPresented: $showDetails){
-//            ProductDetailsView(viewModel: UserViewModel(service: UserService(modelContext: modelContext)), product: product)
-//                .presentationDragIndicator(.visible)
+            ProductDetailsView(viewModel: UserViewModel(service: UserService(modelContext: modelContext)), product: product)
+                .presentationDragIndicator(.visible)
         }
         .onTapGesture {
             showDetails = true

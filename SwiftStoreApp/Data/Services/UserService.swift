@@ -76,7 +76,6 @@ final class UserService: UserServiceProtocol {
             )
             
             modelContext.insert(newUserProduct)
-            
             try modelContext.save()
         } catch {
             print(error.localizedDescription)
