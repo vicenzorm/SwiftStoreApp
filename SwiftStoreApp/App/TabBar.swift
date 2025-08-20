@@ -8,37 +8,41 @@
 import SwiftUI
 
 struct TabBar: View {
+
+    @Environment(\.modelContext) var modelContext
+
     
     let productViewModelService = ShopViewModel(service: ShopService())
-//    let userViewModelService = UserViewModel(service: )
     
     var body: some View {
         TabView {
             Tab("Home", systemImage: "house.fill") {
                 NavigationStack {
-                    HomeView(viewModel: productViewModelService)
+                    HomeView(viewModel: productViewModelService,
+                             userViewModel: UserViewModel(service: UserService(modelContext: modelContext)))
                 }
             }
             Tab("Categories", systemImage: "square.grid.2x2.fill") {
                 NavigationStack {
-                    CategoriesVIew(viewModel: ShopViewModel(service: ShopService()))
+                    CategoriesView(viewModel: ShopViewModel(service: ShopService()), userViewModel: UserViewModel(service: UserService(modelContext: modelContext)))
                 }
             }
             Tab("Cart", systemImage: "cart.fill") {
                 NavigationStack {
-                    CartView(viewModel: UserViewModel(service: UserService()))
+                    CartView(viewModel: UserViewModel(service: UserService(modelContext: modelContext)))
                 }
             }
             Tab("Favorites", systemImage: "heart.fill") {
                 NavigationStack {
-                    FavoritesView(viewModel: UserViewModel(service: UserService()))
+                    FavoritesView(viewModel: UserViewModel(service: UserService(modelContext: modelContext)))
                 }
             }
             Tab("Orders", systemImage: "bag.fill") {
                 NavigationStack {
-                    OrdersView()
+                    OrdersView(viewModel: UserViewModel(service: UserService(modelContext: modelContext)))
                 }
             }
+            
         }
     }
 }

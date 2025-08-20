@@ -7,10 +7,11 @@
 
 import Foundation
 
+@MainActor
 protocol UserServiceProtocol {
     
-    func addToFavorites(product: Product)
-    func addToCart(product: Product)
+    func addToFavorites(product: Product) async
+    func addToCart(product: Product) async 
     func checkoutOrders()
     
     func getAllFavorites() -> [UserProduct]

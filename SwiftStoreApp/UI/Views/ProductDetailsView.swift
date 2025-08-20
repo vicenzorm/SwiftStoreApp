@@ -34,6 +34,14 @@ struct ProductDetailsView: View {
                                 .padding(24),
                             alignment: .topTrailing
                         )
+                        .onChange(of: productIsFavorited) { oldValue, newValue in
+                            if newValue {
+                                Task { await viewModel.addToFavorites(product: product) } // forma de utilziar uma função assincrona que mexe com swiftdata
+                            } else {
+                                // deveria ter uma função de !favoritar mas a dharana nao deixou
+                            }
+                        }
+                        
                     }
                 }
                 .background(
@@ -49,7 +57,7 @@ struct ProductDetailsView: View {
                             .font(.title3)
                             .foregroundStyle(.labelsPrimary)
                         
-                        Text("US$ \(Product.numberFormattedToString(number: product?.price ?? 0))")
+                        Text(Formatters.paraDolarAmericano.string(from: NSNumber(value: product?.price ?? 0.0)) ?? "US$ 00,00")
                             .font(.title2.bold())
                             .foregroundStyle(.labelsPrimary)
                     }
@@ -64,7 +72,7 @@ struct ProductDetailsView: View {
                     
                     Button {
                         if let product {
-                            viewModel.addToCart(product: product)
+                            Task { await viewModel.addToCart(product: product) }
                         }
                     } label: {
                         Text("Add to cart")

@@ -9,12 +9,13 @@ import SwiftUI
 
 struct OrdersView: View {
     
-    @State var textToSearch: String = ""
-    let teste: Bool = true
+    @State var textToSearch: String = "" // colocar em view model
+    var viewModel: UserViewModel
+    
     
     var body: some View {
         VStack{
-            if teste {
+            if true {
                 EmptyState(icon: "bag.badge.questionmark", title: "No orders yet!", subtitle: "Buy an item and it will show up here.")
             }            
         }

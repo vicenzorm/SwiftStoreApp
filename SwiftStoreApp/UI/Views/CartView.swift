@@ -11,14 +11,13 @@ import SwiftData
 struct CartView: View {
     
     var viewModel: UserViewModel
-    var teste: Bool = true
     
     var body: some View {
         NavigationStack {
             VStack{
                 //if user.cartList.isEmpty {
                 if viewModel.getProductsOnCart().isEmpty {
-                    EmptyState(icon: "cart.badge.questionmark", title: "Your Cart is Empty!", subtitle: "Favorite an item and it will show up here.")
+                    EmptyState(icon: "cart.badge.questionmark", title: "Your Cart is Empty!", subtitle: "add an item to your cart")
                 } else {
                     ForEach(viewModel.getProductsOnCart()) { product in
                         ProductCardList(product: product)

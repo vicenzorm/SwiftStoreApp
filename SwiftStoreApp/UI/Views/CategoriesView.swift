@@ -7,9 +7,10 @@
 
 import SwiftUI
 
-struct CategoriesVIew: View {
+struct CategoriesView: View {
     
     var viewModel: ShopViewModel
+    var userViewModel: UserViewModel
     
     @State var searchableText: String = ""
     
@@ -39,7 +40,7 @@ struct CategoriesVIew: View {
                     List(filteredCategories) { category in
                         
                         NavigationLink {
-                            CategoryView(viewModel: viewModel, category: category)
+                            CategoryView(viewModel: viewModel, userViewModel: userViewModel, category: category)
                         } label : {
                             HStack {
                                 Text(category.name)
@@ -63,5 +64,5 @@ struct CategoriesVIew: View {
 }
 
 #Preview {
-    CategoriesVIew(viewModel: ShopViewModel(service: ShopService()))
+//   CategoriesView(viewModel: ShopViewModel(service: ShopService()))
 }

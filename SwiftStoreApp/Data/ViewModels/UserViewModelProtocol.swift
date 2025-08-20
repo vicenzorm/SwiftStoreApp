@@ -7,13 +7,14 @@
 
 import Foundation
 
+@MainActor // colocado pra rodar na thread principal e alterar UI
 protocol UserViewModelProtocol {
     var favoriteProducts: [UserProduct] { get }
     var orderedProducts: [UserProduct] { get }
     var productsOnCart: [UserProduct] { get }
     
-    func addToCart(product: Product)
-    func addToFav(product: Product)
+    func addToCart(product: Product) async
+    func addToFavorites(product: Product) async
     func addToOrder()
     
     func getFavoriteProducts() -> [UserProduct]

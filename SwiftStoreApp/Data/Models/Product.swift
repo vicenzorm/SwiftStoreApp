@@ -30,15 +30,5 @@ class Product: Identifiable, Decodable {
         self.shippingInformation = shippingInformation
         self.thumbnail = thumbnail
     }
-    
-    static func numberFormattedToString(number: Double) -> String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.maximumFractionDigits = 2
-        formatter.minimumFractionDigits = 2
-        formatter.minimumIntegerDigits = 2
-        return formatter.string(from: NSNumber(value: number)) ?? "00.00"
-    }
-
 }
 
