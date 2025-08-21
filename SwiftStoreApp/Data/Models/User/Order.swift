@@ -12,9 +12,11 @@ import Foundation
 class Order {
     var id: Int
     var day: Int
+    var price: Double
     
-    init(id: Int, day: Int) {
+    init(id: Int, day: Int, price: Double) {
         self.id = id
         self.day = day
+        self.price = price
     }
 }

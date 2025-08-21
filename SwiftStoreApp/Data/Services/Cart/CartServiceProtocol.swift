@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+protocol CartServiceProtocol {
+    func fetchCart() -> [Cart]
+    func addToCart(productId: Int)
+}
