@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+@MainActor
+protocol FavoritesViewModelProtocol {
+    
+    var favorites: [Favorite] { get }    
+    func getAllFavorites() -> [Favorite]
+    func getFavoriteById(id: Int) -> Favorite?
+    
+}

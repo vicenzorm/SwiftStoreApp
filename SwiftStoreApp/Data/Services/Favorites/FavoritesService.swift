@@ -6,39 +6,45 @@
 //
 
 import Foundation
+import SwiftData
 
-@Observable
 @MainActor
 class FavoritesService: FavoritesServiceProtocol {
 
     private let modelContainer: ModelContainer
     private let modelContext: ModelContext
     
-    func addFavorites(productId: Int) {
+    static let shared = FavoritesService()
+    
+    private init() {
+        self.modelContainer = try! ModelContainer(for: Favorite.self)
+        self.modelContext = modelContainer.mainContext
     }
     
-    func getaAllFavorites() -> [Int] {
-        
+    func addFavorite(productId: Int) {
+        let newFavorite = Favorite(id: productId)
+        modelContext.insert(newFavorite)
+        do {
+            try modelContext.save()
+        } catch {
+            fatalError(error.localizedDescription)
+        }
     }
     
-    func getFavoritesById(id: Int) -> Int {
-        
+    func getAllFavorites() -> [Favorite] {
+        do {
+            return try modelContext.fetch(FetchDescriptor<Favorite>())
+        } catch {
+            fatalError(error.localizedDescription)
+        }
     }
     
-    // FETCH FAVORITES
-    
-    // LET A = SWIFTDATAFAVORITESSERVICE.FETCHALL()
-    // RETURN A
-    
-    
-    // GET BY ID (ID)
-    
-    // LET A = SWIFTDATAFAVORITESERVICE.FETCHALL()
-    // IF A.CONTAINS(ID) {
-    //      SWIFT... .REMOVE(ID)
-    // ELSE {
-    //      SWIFT ADD (ID)
-    // }
-    
-    
+    func getFavoritesById(id: Int) -> Favorite? {
+        let favorites = getAllFavorites()
+        for favorite in favorites {
+            if favorite.id == id {
+                return favorite
+            } 
+        }
+    }
 }

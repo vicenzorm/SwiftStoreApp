@@ -9,7 +9,8 @@ import Foundation
 
 @MainActor
 protocol FavoritesServiceProtocol {
-    func addFavorites(productId: Int)
-    func getaAllFavorites() -> [Int]
-    func getFavoritesById(id: Int) -> Int
+    
+    func addFavorite(productId: Int)
+    func getAllFavorites() -> [Favorite]
+    func getFavoritesById(id: Int) -> Favorite?
 }

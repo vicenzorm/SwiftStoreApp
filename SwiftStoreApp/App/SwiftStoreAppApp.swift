@@ -14,6 +14,5 @@ struct SwiftStoreAppApp: App {
         WindowGroup {
             TabBar()
         }
-        .modelContainer(for: [Cart.self, Favorite.self, Order.self])
     }
 }
