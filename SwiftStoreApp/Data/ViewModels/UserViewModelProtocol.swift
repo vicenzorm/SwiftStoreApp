@@ -7,7 +7,7 @@
 
 import Foundation
 
-@MainActor // colocado pra rodar na thread principal e alterar UI
+@MainActor
 protocol UserViewModelProtocol {
     var favoriteProducts: [UserProduct] { get }
     var orderedProducts: [UserProduct] { get }

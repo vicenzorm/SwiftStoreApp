@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ShopService: ShopServiceProtocol {
+class APIService: APIServiceProtocol {
     var baseUrl: String = "https://dummyjson.com/products"
     
     func getAllProducts() async throws -> [Product] {

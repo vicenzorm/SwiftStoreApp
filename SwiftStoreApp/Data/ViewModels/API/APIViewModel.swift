@@ -8,7 +8,7 @@
 import Foundation
 
 @Observable
-class ShopViewModel: ShopViewModelProtocol {
+class APIViewModel: APIViewModelProtocol {
     var filteredProdcuts: [Product] = []
     var isLoadingProducts: Bool = false
     var isLoadingCategories: Bool = false
@@ -16,9 +16,9 @@ class ShopViewModel: ShopViewModelProtocol {
     var categories: [Category] = []
     var errorMessage: String?
     
-    private let service: ShopServiceProtocol
+    private let service: APIServiceProtocol
     
-    init(service: ShopServiceProtocol) {
+    init(service: APIServiceProtocol) {
         self.service = service
     }
     

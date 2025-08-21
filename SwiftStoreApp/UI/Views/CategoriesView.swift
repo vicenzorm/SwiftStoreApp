@@ -16,9 +16,9 @@ struct CategoriesView: View {
     // MARK: - ViewModels
     
     /// ViewModel principal responsável pelas categorias e produtos.
-    var viewModel: ShopViewModel
     
     /// ViewModel do usuário, usado para interações que dependem do estado do usuário.
+    var viewModel: APIViewModel
     var userViewModel: UserViewModel
     
     // MARK: - Estados

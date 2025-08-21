@@ -19,8 +19,8 @@ struct CategoryView: View {
     
     // MARK: - ViewModels
     /// ViewModel que gerencia produtos e categorias da loja
-    var viewModel: ShopViewModel
     /// ViewModel do usuário (para adicionar ao carrinho, favoritos, etc.)
+    var viewModel: APIViewModel
     var userViewModel: UserViewModel
     /// Categoria selecionada
     var category: Category

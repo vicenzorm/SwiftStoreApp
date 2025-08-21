@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ShopViewModelProtocol {
+protocol APIViewModelProtocol {
     var products: [Product] { get }
     var categories: [Category] { get }
     var isLoadingProducts: Bool { get }

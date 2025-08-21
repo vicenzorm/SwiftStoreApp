@@ -29,7 +29,7 @@ struct FavoritesView: View {
                     ScrollView {
                         VStack(spacing: 8) {
                             ForEach(filteredProducts) { product in
-                                ProductCardList(product: product)
+                                ProductCardList(product: product, cardType: .favorites)
                             }
                         }
                     }

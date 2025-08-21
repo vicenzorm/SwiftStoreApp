@@ -14,9 +14,9 @@ import SwiftData
 /// - Carrega os produtos ao aparecer a tela.
 struct HomeView: View {
     
+    let viewModel: APIViewModel
     // MARK: - ViewModels
     /// ViewModel que gerencia produtos e categorias da loja
-    let viewModel: ShopViewModel
     /// ViewModel do usuário (para adicionar ao carrinho, favoritos, etc.)
     let userViewModel: UserViewModel
     

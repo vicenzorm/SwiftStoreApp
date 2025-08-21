@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ShopServiceProtocol {
+protocol APIServiceProtocol {
     func getAllProducts() async throws -> [Product]
     func getAllCategories() async throws -> [Category]
     func getProductsByCategories(category: String) async throws -> [Product]

@@ -11,7 +11,7 @@ struct TabBar: View {
 
     @Environment(\.modelContext) var modelContext
 
-    let productViewModelService = ShopViewModel(service: ShopService())
+    let productViewModelService = APIViewModel(service: APIService())
     
     var body: some View {
         TabView {
@@ -23,7 +23,7 @@ struct TabBar: View {
             }
             Tab("Categories", systemImage: "square.grid.2x2.fill") {
                 NavigationStack {
-                    CategoriesView(viewModel: ShopViewModel(service: ShopService()), userViewModel: UserViewModel(service: UserService(modelContext: modelContext)))
+                    CategoriesView(viewModel: APIViewModel(service: APIService()), userViewModel: UserViewModel(service: UserService(modelContext: modelContext)))
                 }
             }
             Tab("Cart", systemImage: "cart.fill") {
