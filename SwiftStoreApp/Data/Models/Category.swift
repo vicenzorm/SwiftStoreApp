@@ -11,7 +11,10 @@ struct Category: Decodable, Identifiable {
     var id = UUID()
     var name: String
     var slug: String
-    var image: String { name }
+    var image: String {
+        let lowercasedString = name.lowercased().replacingOccurrences(of: " ", with: "-")
+        return lowercasedString.prefix(1).uppercased() + lowercasedString.dropFirst()
+    }
     
     enum CodingKeys: String, CodingKey {
         case name
