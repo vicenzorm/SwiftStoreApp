@@ -26,6 +26,8 @@ struct CardCategory: View {
                 Text(category.name)
                     .font(.subheadline)
                     .foregroundStyle(.labelsPrimary)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
                 
             }
         }

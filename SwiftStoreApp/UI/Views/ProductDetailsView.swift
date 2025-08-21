@@ -20,7 +20,6 @@ struct ProductDetailsView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                
                 VStack {
                     if let product {
                         AsyncImage(url: URL(string: product.thumbnail)) { image in
@@ -62,7 +61,6 @@ struct ProductDetailsView: View {
                     RoundedRectangle(cornerRadius: 32)
                         .foregroundStyle(.backgroundSecondary)
                 )
-                
                 
                 VStack(alignment: .leading, spacing: 16) {
                     
@@ -118,18 +116,23 @@ struct ProductDetailsView: View {
                         .padding()
                     }
                 }
-                
-                Spacer()
             }
             .padding(.top, 60)
+            .padding(.bottom, 16)
+            .padding(.horizontal)
+            .background(
+                RoundedRectangle(cornerRadius: 0)
+                    .foregroundStyle(.bakgroundPrimary)
+            )
             .navigationTitle("Details")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbarBackground(.backgroundTertiary, for: .navigationBar)
+            .toolbarBackground(.bakgroundPrimary, for: .navigationBar)
             .toolbarBackgroundVisibility(.visible, for: .navigationBar)
             .onDisappear {
                 viewModel.favoriteProducts = viewModel.getFavoriteProducts()
             }
         }
+        
     }
 }
 
