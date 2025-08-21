@@ -10,11 +10,10 @@ import SwiftData
 
 @main
 struct SwiftStoreAppApp: App {
-    
     var body: some Scene {
         WindowGroup {
             TabBar()
         }
-        .modelContainer(for: UserProduct.self)
+        .modelContainer(for: [Cart.self, Favorite.self, Order.self])
     }
 }

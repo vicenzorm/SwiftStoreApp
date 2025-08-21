@@ -49,7 +49,7 @@ struct ProductCardDeal: View {
                             .onChange(of: productFavorite) { oldValue, newValue in
                                 if newValue {
                                     if let product {
-                                        Task { await viewModel.addToFavorites(product: product) }
+                                       
                                     }
                                 } else {
                                     // deveria ter uma função de !favoritar mas a dharana nao deixou
