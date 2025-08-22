@@ -7,4 +7,31 @@
 
 import Foundation
 
-
+@Observable
+@MainActor
+class OrdersViewModel: OrdersViewModelProtocol {
+    var orders: [Order] = []
+    private var allOrders: [Order] = []
+    
+    private let ordersService: OrdersServiceProtocol
+    
+    init(ordersService: OrdersServiceProtocol) {
+        self.ordersService = ordersService
+    }
+    
+    func loadOrders() async {
+        let allFetchedOrders = ordersService.getAllOrders()
+        self.allOrders = allFetchedOrders
+        self.orders = allFetchedOrders
+    }
+    
+    func filterOrders(textToSearch: String) {
+        if textToSearch.isEmpty {
+            orders = allOrders
+        } else {
+            orders = allOrders.filter {
+                $0.name.lowercased().contains(textToSearch.lowercased())
+            }
+        }
+    }
+}

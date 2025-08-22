@@ -13,10 +13,12 @@ class Order {
     var id: Int
     var day: Int
     var price: Double
+    var name: String
     
-    init(id: Int, day: Int, price: Double) {
+    init(id: Int, day: Int, price: Double, name: String) {
         self.id = id
         self.day = day
         self.price = price
+        self.name = name
     }
 }
