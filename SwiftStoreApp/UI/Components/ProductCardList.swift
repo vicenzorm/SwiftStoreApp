@@ -10,9 +10,13 @@ import SwiftUI
 struct ProductCardList: View {
     
     @Environment(\.modelContext) var modelContext
-    var product: UserProduct
     @State var showDetails: Bool = false
+    let product: Product
     var cardType: CardType
+    var onAddToFavorites: (() -> Void)? = nil
+    var onRemoveFromCart: (() -> Void)? = nil
+    var onIncreaseQuantity: (() -> Void)? = nil
+    var onDecreaseQuantity: (() -> Void)? = nil
     
     enum CardType{
         case cart
@@ -23,7 +27,7 @@ struct ProductCardList: View {
     var body: some View {
         
         HStack(spacing: 16) {
-            if let image = UIImage(data: product.image) {
+            if let image = UIImage(data: product.thumbnail) {
                 Image(uiImage: image)
                     .resizable()
                     .clipShape(RoundedRectangle(cornerRadius: 8))
@@ -92,11 +96,12 @@ struct ProductCardList: View {
                         
                         HStack(spacing: 4) {
                             Button {
-                                if product.quantity > 1 { product.quantity -= 1 }
-                                else if product.quantity == 1 {
-                                    product.quantity -= 1
-                                    product.isOnCart = false
-                                }
+//                                if product.quantity > 1 { product.quantity -= 1 }
+//                                else if product.quantity == 1 {
+//                                    product.quantity -= 1
+//                                    product.isOnCart = false
+//                                }
+                                onDecreaseQuantity?()
                                 
                             } label: {
                                 Image(systemName: "minus")
@@ -115,7 +120,8 @@ struct ProductCardList: View {
                                 .padding(.horizontal, 4)
                             
                             Button {
-                                if product.quantity < 9 { product.quantity += 1 }
+                                //if product.quantity < 9 { product.quantity += 1 }
+                                onIncreaseQuantity?()
                             } label: {
                                 Image(systemName: "plus")
                                     .foregroundStyle(.labelsPrimary)
@@ -139,8 +145,8 @@ struct ProductCardList: View {
                 .foregroundStyle(.backgroundSecondary)
         )
         .sheet(isPresented: $showDetails) {
-            ProductDetailsView(viewModel: UserViewModel(service: UserService(modelContext: modelContext)), userProduct: product)
-                .presentationDragIndicator(.visible)
+            //ProductDetailsView(viewModel: ), userProduct: product)
+              //  .presentationDragIndicator(.visible)
         }
     }
 }

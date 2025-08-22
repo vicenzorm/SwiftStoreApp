@@ -8,14 +8,14 @@ import SwiftData
 struct CartView: View {
     
     /// ViewModel que gerencia os produtos do usuário e o carrinho
-    var viewModel: UserViewModel
+    var viewModel: CartViewModel
     
     var body: some View {
         NavigationStack {
             VStack {
                 
                 // Caso o carrinho esteja vazio
-                if viewModel.productsOnCart.isEmpty {
+                if viewModel.cartItems.isEmpty {
                     Spacer() // Centraliza verticalmente
                     EmptyState(
                         icon: "cart.badge.questionmark",
@@ -29,8 +29,10 @@ struct CartView: View {
                     ScrollView {
                         VStack(spacing: 16) {
                             // Lista todos os produtos no carrinho
-                            ForEach(viewModel.productsOnCart) { product in
-                                ProductCardList(product: product, cardType: .cart)
+                            ForEach(viewModel.cartItems) { product in
+                                ProductCardList(product: product.., cardType: .cart, onIncreaseQuantity: {
+                                    
+                                })
                             }
                         }
                         .frame(maxWidth: .infinity, alignment: .top)
@@ -79,7 +81,7 @@ struct CartView: View {
             .navigationTitle("Cart")
             .onAppear {
                 // Atualiza os produtos no carrinho ao aparecer a tela
-                viewModel.productsOnCart = viewModel.getProductsOnCart()
+               viewModel.fetchCartItems()
             }
         }
     }

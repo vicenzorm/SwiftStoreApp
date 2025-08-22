@@ -10,6 +10,8 @@ import Foundation
 class APIService: APIServiceProtocol {
     private let baseUrl = "https://dummyjson.com/products"
     
+    static var shared = APIService()
+    
     func getAllProducts() async throws -> [Product] {
         let urlString = baseUrl
         

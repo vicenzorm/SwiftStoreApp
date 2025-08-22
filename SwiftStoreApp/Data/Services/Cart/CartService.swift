@@ -16,15 +16,20 @@ class CartService {
     static let shared = CartService()
     
     init() {
-        self.modelContainer = try! ModelContainer(for: Cart.self)
-        self.modelContext = modelContainer.mainContext
+        do {
+            self.modelContainer = try ModelContainer(for: Cart.self)
+            self.modelContext = modelContainer.mainContext
+        } catch {
+            fatalError()
+        }
     }
     
     func fetchCart() -> [Cart] {
         do {
-            return try modelContext.fetch(FetchDescriptor<Cart>())
+            return try modelContext.fetch(FetchDescriptor<Cart>(sortBy: [SortDescriptor(\.id)]))
         } catch {
-            fatalError(error.localizedDescription)
+            print("Error fetching cart: \(error.localizedDescription)")
+            return []
         }
     }
     
