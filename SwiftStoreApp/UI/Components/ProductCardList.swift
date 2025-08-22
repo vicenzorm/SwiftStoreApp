@@ -11,7 +11,8 @@ struct ProductCardList: View {
     
     @Environment(\.modelContext) var modelContext
     @State var showDetails: Bool = false
-    let product: Product
+    var product: Product?
+    let order: Order?
     var cardType: CardType
     var onAddToFavorites: (() -> Void)? = nil
     var onRemoveFromCart: (() -> Void)? = nil
@@ -27,7 +28,7 @@ struct ProductCardList: View {
     var body: some View {
         
         HStack(spacing: 16) {
-            AsyncImage(url: URL(string: product.thumbnail)) { image in
+            AsyncImage(url: URL(string: product?.thumbnail ?? "")) { image in
                 image.resizable().scaledToFill()
             } placeholder: {
                 Image(.placeholder).resizable()
@@ -42,19 +43,20 @@ struct ProductCardList: View {
                 if cardType == .order {
                     VStack(alignment: .leading, spacing: 8) {
                         
-                        Text(product.shippingInformation.uppercased())
+                        Text("\(order?.day) dias restantes"
+                             .uppercased())
                             .font(.caption)
                             .font(.system(size: 12))
                             .foregroundStyle(.labelsSecondary)
                         
-                        Text(product.title)
+                        Text(order?.name)
                             .font(.footnote)
                             .font(.system(size: 13))
                             .foregroundStyle(.labelsPrimary)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .lineLimit(1)
                         
-                        Text(Formatters.paraDolarAmericano.string(from: NSNumber(value: product.price)) ?? "US$ 00,00")
+                        Text(Formatters.paraDolarAmericano.string(from: NSNumber(value: order?.price)) ?? "US$ 00,00")
                             .font(.headline)
                             .foregroundStyle(.labelsPrimary)
                             .frame(maxWidth: .infinity, alignment: .leading)

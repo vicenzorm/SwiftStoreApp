@@ -13,34 +13,34 @@ import SwiftUI
 struct OrdersView: View {
     
     /// ViewModel que gerencia os produtos do usuário
-    var viewModel: 
+    @State var viewModel: OrdersViewModel
+    
+    @State private var searchText: String = ""
     
     var body: some View {
         ScrollView {
             
             // Caso não haja pedidos
-            if viewModel.cartItems.isEmpty {
+            if viewModel.orders.isEmpty {
                 EmptyState(
                     icon: "bag.badge.questionmark",
                     title: "No orders yet!",
                     subtitle: "Buy an item and it will show up here."
                 )
-                
-            // Caso haja pedidos
             } else {
-                VStack(spacing: 16) {
-                    // Lista todos os pedidos filtrados
-                    ForEach(viewModel.) { order in
-                        ProductCardList(product: order, cardType: .order)
+                ScrollView {
+                    VStack(spacing: 8) {
+                        ForEach(viewModel.orders) { order in
+                            ProductCardList(order: order, cardType: .order)
+                        }
                     }
                 }
             }
         }
         .navigationTitle("Orders")
-        .searchable(text: $textToSearch, prompt: "Search") // Campo de busca
+        .searchable(text: $searchText, prompt: "Search")
         .onAppear {
-            // Atualiza a lista de pedidos ao aparecer a tela
-            viewModel.orderedProducts = viewModel.getOrderedProducts()
+            Task { await viewModel.loadOrders() }
         }
     }
 }

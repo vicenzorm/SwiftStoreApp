@@ -22,9 +22,9 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		C5112C7E2E58C9C1008795E5 /* SwiftStoreAppTests */ = {
+		C5112C7E2E58C9C1008795E5 /* TestsForSwiftStore */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = SwiftStoreAppTests;
+			path = TestsForSwiftStore;
 			sourceTree = "<group>";
 		};
 		C516E4352E4D0FE900441CD6 /* SwiftStoreApp */ = {
@@ -56,7 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				C516E4352E4D0FE900441CD6 /* SwiftStoreApp */,
-				C5112C7E2E58C9C1008795E5 /* SwiftStoreAppTests */,
+				C5112C7E2E58C9C1008795E5 /* TestsForSwiftStore */,
 				C516E4342E4D0FE900441CD6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -87,7 +87,7 @@
 				C5112C822E58C9C1008795E5 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				C5112C7E2E58C9C1008795E5 /* SwiftStoreAppTests */,
+				C5112C7E2E58C9C1008795E5 /* TestsForSwiftStore */,
 			);
 			name = SwiftStoreAppTests;
 			packageProductDependencies = (
