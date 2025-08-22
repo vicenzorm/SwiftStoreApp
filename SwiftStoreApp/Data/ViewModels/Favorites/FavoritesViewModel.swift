@@ -9,23 +9,55 @@ import Foundation
 
 @Observable
 @MainActor
-class FavoritesViewModel: FavoritesViewModelProtocol {
-   
-    var favorites: [Favorite] = []
+class FavoritesViewModel {
     
-    private let service: FavoritesServiceProtocol
+    // This is the list the View will display. It holds the full Product objects.
+    var favoriteProducts: [Product] = []
     
-    init(service: FavoritesServiceProtocol) {
-        self.service = service
+    // A private, complete list that we use as a "master copy" for filtering.
+    private var allFavoriteProducts: [Product] = []
+    
+    private let favoritesService: FavoritesServiceProtocol
+    private let productService: APIServiceProtocol
+
+    init(favoritesService: FavoritesServiceProtocol, productService: APIServiceProtocol) {
+        self.favoritesService = favoritesService
+        self.productService = productService
     }
     
-    func getAllFavorites() -> [Favorite] {
-        favorites = service.getAllFavorites()
-        return favorites
+    // prepara tuuuuudo
+    func loadFavoriteProducts() async {
+        // pega todos os ids
+        let favoriteIDs = favoritesService.getAllFavorites().map { $0.id }
+        
+        var foundProducts: [Product] = []
+        for id in favoriteIDs {
+            do {
+                // pega produto por produto por id  
+                let product = try await self.productService.getProduct(byId: id)
+                foundProducts.append(product)
+            } catch {
+                print("Failed to fetch product with ID \(id): \(error)")
+            }
+        }
+        self.allFavoriteProducts = foundProducts
+        self.favoriteProducts = foundProducts
     }
     
-    func getFavoriteById(id: Int) -> Favorite? {
-        var favorite = service.getFavoritesById(id: id)
-        return favorite
+    func filterFavorites(textToSearch: String) {
+        if textToSearch.isEmpty {
+           //filtered products serao todos os produtos se nao tiver nenhum texto
+            favoriteProducts = allFavoriteProducts
+        } else {
+//            se nao ira filtrar pelo texto inputado
+            favoriteProducts = allFavoriteProducts.filter { product in
+                product.title.localizedCaseInsensitiveContains(textToSearch)
+            }
+        }
+    }
+    
+    // vai servir para checar se um produto esta favoritado ou nao na tela inicial
+    func isProductFavorite(product: Product) -> Bool {
+        return favoritesService.getFavoritesById(id: product.id) != nil
     }
 }

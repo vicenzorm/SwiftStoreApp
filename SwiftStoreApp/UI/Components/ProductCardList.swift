@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ProductCardList: View {
     
-    
     @Environment(\.modelContext) var modelContext
     var product: UserProduct
     @State var showDetails: Bool = false

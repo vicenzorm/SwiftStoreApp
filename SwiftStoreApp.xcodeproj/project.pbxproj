@@ -6,11 +6,27 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		C5112C812E58C9C1008795E5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C516E42B2E4D0FE900441CD6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C516E4322E4D0FE900441CD6;
+			remoteInfo = SwiftStoreApp;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		C5112C7D2E58C9C1008795E5 /* SwiftStoreAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftStoreAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C516E4332E4D0FE900441CD6 /* SwiftStoreApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftStoreApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		C5112C7E2E58C9C1008795E5 /* SwiftStoreAppTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = SwiftStoreAppTests;
+			sourceTree = "<group>";
+		};
 		C516E4352E4D0FE900441CD6 /* SwiftStoreApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = SwiftStoreApp;
@@ -19,6 +35,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		C5112C7A2E58C9C1008795E5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C516E4302E4D0FE900441CD6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -33,6 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				C516E4352E4D0FE900441CD6 /* SwiftStoreApp */,
+				C5112C7E2E58C9C1008795E5 /* SwiftStoreAppTests */,
 				C516E4342E4D0FE900441CD6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				C516E4332E4D0FE900441CD6 /* SwiftStoreApp.app */,
+				C5112C7D2E58C9C1008795E5 /* SwiftStoreAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,6 +73,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		C5112C7C2E58C9C1008795E5 /* SwiftStoreAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C5112C832E58C9C1008795E5 /* Build configuration list for PBXNativeTarget "SwiftStoreAppTests" */;
+			buildPhases = (
+				C5112C792E58C9C1008795E5 /* Sources */,
+				C5112C7A2E58C9C1008795E5 /* Frameworks */,
+				C5112C7B2E58C9C1008795E5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C5112C822E58C9C1008795E5 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				C5112C7E2E58C9C1008795E5 /* SwiftStoreAppTests */,
+			);
+			name = SwiftStoreAppTests;
+			packageProductDependencies = (
+			);
+			productName = SwiftStoreAppTests;
+			productReference = C5112C7D2E58C9C1008795E5 /* SwiftStoreAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		C516E4322E4D0FE900441CD6 /* SwiftStoreApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C516E43E2E4D0FEA00441CD6 /* Build configuration list for PBXNativeTarget "SwiftStoreApp" */;
@@ -80,6 +128,10 @@
 				LastSwiftUpdateCheck = 1640;
 				LastUpgradeCheck = 1640;
 				TargetAttributes = {
+					C5112C7C2E58C9C1008795E5 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = C516E4322E4D0FE900441CD6;
+					};
 					C516E4322E4D0FE900441CD6 = {
 						CreatedOnToolsVersion = 16.4;
 					};
@@ -100,11 +152,19 @@
 			projectRoot = "";
 			targets = (
 				C516E4322E4D0FE900441CD6 /* SwiftStoreApp */,
+				C5112C7C2E58C9C1008795E5 /* SwiftStoreAppTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		C5112C7B2E58C9C1008795E5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C516E4312E4D0FE900441CD6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -115,6 +175,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C5112C792E58C9C1008795E5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C516E42F2E4D0FE900441CD6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -124,7 +191,51 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		C5112C822E58C9C1008795E5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C516E4322E4D0FE900441CD6 /* SwiftStoreApp */;
+			targetProxy = C5112C812E58C9C1008795E5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		C5112C842E58C9C1008795E5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = K7J6QAV9ZN;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = br.VicenzoEVitor.SwiftStoreAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftStoreApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SwiftStoreApp";
+			};
+			name = Debug;
+		};
+		C5112C852E58C9C1008795E5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = K7J6QAV9ZN;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = br.VicenzoEVitor.SwiftStoreAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftStoreApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SwiftStoreApp";
+			};
+			name = Release;
+		};
 		C516E43C2E4D0FEA00441CD6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -253,7 +364,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = YBSTQNCUFV;
+				DEVELOPMENT_TEAM = K7J6QAV9ZN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -283,7 +394,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = YBSTQNCUFV;
+				DEVELOPMENT_TEAM = K7J6QAV9ZN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -309,6 +420,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C5112C832E58C9C1008795E5 /* Build configuration list for PBXNativeTarget "SwiftStoreAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C5112C842E58C9C1008795E5 /* Debug */,
+				C5112C852E58C9C1008795E5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C516E42E2E4D0FE900441CD6 /* Build configuration list for PBXProject "SwiftStoreApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

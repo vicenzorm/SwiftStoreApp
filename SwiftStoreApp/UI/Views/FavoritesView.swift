@@ -9,17 +9,10 @@ import SwiftUI
 
 struct FavoritesView: View {
     
-    let viewModel: UserViewModel
+    @State var viewModel: FavoritesViewModel
     
-    @State var textToSearch: String = ""
-    var filteredProducts: [UserProduct] {
-        if textToSearch.isEmpty {
-            return viewModel.favoriteProducts
-        } else {
-            return viewModel.favoriteProducts.filter({$0.title.localizedCaseInsensitiveContains(textToSearch)})
-        }
-    }
-    
+    @State private var searchText: String = ""
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -28,18 +21,21 @@ struct FavoritesView: View {
                 } else {
                     ScrollView {
                         VStack(spacing: 8) {
-                            ForEach(filteredProducts) { product in
-                                ProductCardList(product: product, cardType: .favorites)
+                            ForEach(viewModel.favoriteProducts) { product in
+                                ProductCardList()
                             }
                         }
                     }
                 }
             }
             .navigationTitle("Favorites")
-            .searchable(text: $textToSearch, prompt: "Search")
+            .searchable(text: $searchText, prompt: "Search")
             .onAppear {
                 print("ENTREI")
-                viewModel.favoriteProducts = viewModel.getFavoriteProducts()
+                Task { viewModel.loadFavoriteProducts() }
+            }
+            .onChange(of: searchText) { _, newValue in
+                viewModel.filterFavorites(textToSearch: newValue)
             }
         }
     }

@@ -36,15 +36,19 @@ class FavoritesService: FavoritesServiceProtocol {
             return try modelContext.fetch(FetchDescriptor<Favorite>())
         } catch {
             fatalError(error.localizedDescription)
+            return []
         }
     }
     
     func getFavoritesById(id: Int) -> Favorite? {
-        let favorites = getAllFavorites()
-        for favorite in favorites {
-            if favorite.id == id {
-                return favorite
-            } 
+        let predicate = #Predicate<Favorite> { $0.id == id }
+        var descriptor = FetchDescriptor(predicate: predicate)
+        descriptor.fetchLimit = 1
+        
+        do {
+            return try modelContext.fetch(descriptor).first
+        } catch {
+            print("Erro ao dar fetch")
         }
     }
 }

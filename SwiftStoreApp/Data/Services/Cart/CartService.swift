@@ -15,7 +15,6 @@ class CartService {
     
     static let shared = CartService()
     
-//    @MainActor
     init() {
         self.modelContainer = try! ModelContainer(for: Cart.self)
         self.modelContext = modelContainer.mainContext
@@ -39,7 +38,6 @@ class CartService {
         }
     }
     
-//    @MainActor
     func removeFromCart(productId: Int){
         let productToRemove = fetchCart().first(where: { $0.id == productId })!
         modelContext.delete(productToRemove)

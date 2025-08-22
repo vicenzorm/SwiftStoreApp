@@ -8,7 +8,7 @@
 import Foundation
 
 class APIService: APIServiceProtocol {
-    var baseUrl: String = "https://dummyjson.com/products"
+    private let baseUrl = "https://dummyjson.com/products"
     
     func getAllProducts() async throws -> [Product] {
         let urlString = baseUrl
@@ -42,5 +42,17 @@ class APIService: APIServiceProtocol {
         let response = try JSONDecoder().decode(ProductsResponse.self, from: data)
         
         return response.products
+    }
+    
+    func getProduct(byId: Int) async throws -> Product {
+        let urlString = "\(baseUrl)/\(byId)"
+        
+        guard let url = URL(string: urlString) else {
+            throw URLError(.badURL)
+        }
+        let (data, _) = try await URLSession.shared.data(from: url)
+        let response = try JSONDecoder().decode(Product.self, from: data)
+        
+        return response
     }
 }
