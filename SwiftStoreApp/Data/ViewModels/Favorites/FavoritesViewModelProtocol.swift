@@ -9,8 +9,8 @@ import Foundation
 
 @MainActor
 protocol FavoritesViewModelProtocol {
-    var favorites: [Favorite] { get }    
-    func getFavoriteById(id: Int) -> Favorite?
+    var favoriteProducts: [Product] { get }
+//    func getFavoriteById(id: Int) -> Favorite?
     func loadFavoriteProducts() async
     func addToFavorites(product: Product)
     func filterFavorites(textToSearch: String)

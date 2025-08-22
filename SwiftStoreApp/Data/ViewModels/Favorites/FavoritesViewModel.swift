@@ -9,12 +9,10 @@ import Foundation
 
 @Observable
 @MainActor
-class FavoritesViewModel {
+class FavoritesViewModel: FavoritesViewModelProtocol {
     
-    // This is the list the View will display. It holds the full Product objects.
     var favoriteProducts: [Product] = []
     
-    // A private, complete list that we use as a "master copy" for filtering.
     private var allFavoriteProducts: [Product] = []
     
     private let favoritesService: FavoritesServiceProtocol
@@ -33,7 +31,7 @@ class FavoritesViewModel {
         var foundProducts: [Product] = []
         for id in favoriteIDs {
             do {
-                // pega produto por produto por id  
+                // pega produto por produto por id
                 let product = try await self.productService.getProduct(byId: id)
                 foundProducts.append(product)
             } catch {
@@ -56,8 +54,13 @@ class FavoritesViewModel {
         }
     }
     
+    func addToFavorites(product: Product) {
+        favoritesService.addFavorite(productId: product.id)
+    }
+    
     // vai servir para checar se um produto esta favoritado ou nao na tela inicial
     func isProductFavorite(product: Product) -> Bool {
         return favoritesService.getFavoritesById(id: product.id) != nil
     }
 }
+

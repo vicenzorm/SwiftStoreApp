@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+@MainActor
+protocol OrdersServiceProtocol {
+    func getAllOrders() -> [Order]
+    func getOrder(byId: Int) -> Order?
+}

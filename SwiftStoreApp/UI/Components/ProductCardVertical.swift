@@ -8,14 +8,10 @@
 import SwiftUI
 
 struct ProductCardVertical: View {
-    
-    let viewModel: UserViewModel
-    
-    @Environment(\.modelContext) var modelContext
-    
     var product: Product?
+    @Binding var isFavorited: Bool
     @State var showDetails: Bool = false
-    @State var productFavorited: Bool = false
+    var onAddToFavorites: () -> Void
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -31,16 +27,9 @@ struct ProductCardVertical: View {
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                     .frame(width: 161,height: 160)
                 }
-                HeartComponent(isFavorited: $productFavorited)
-                    .onChange(of: productFavorited) { oldValue, newValue in
-                        if newValue {
-                            if let product {
-                                Task { await viewModel.addToFavorites(product: product) }
-                            }
-                        } else {
-                            // deveria ter uma função de !favoritar mas a dharana nao deixou (2)
-                        }
-                    }
+                HeartComponent(isFavorited: $isFavorited) {
+                    onAddToFavorites()
+                }
             }
             VStack(alignment: .leading, spacing: 4) {
                 

@@ -18,7 +18,7 @@ struct ProductCardList: View {
     var onIncreaseQuantity: (() -> Void)? = nil
     var onDecreaseQuantity: (() -> Void)? = nil
     
-    enum CardType{
+    enum CardType {
         case cart
         case favorites
         case order
@@ -27,12 +27,16 @@ struct ProductCardList: View {
     var body: some View {
         
         HStack(spacing: 16) {
-            if let image = UIImage(data: product.thumbnail) {
-                Image(uiImage: image)
-                    .resizable()
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                    .frame(width: 78, height: 78)
+            AsyncImage(url: URL(string: product.thumbnail)) { image in
+                image.resizable().scaledToFill()
+            } placeholder: {
+                Image(.placeholder).resizable()
             }
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .frame(width: 160, height: 160)
+            .padding(.vertical, 8)
+            .padding(.trailing, 16)
+            .padding(.leading, 8)
             
             HStack {
                 if cardType == .order {

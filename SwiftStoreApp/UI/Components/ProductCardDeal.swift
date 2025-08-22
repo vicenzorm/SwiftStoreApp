@@ -4,7 +4,7 @@ struct ProductCardDeal: View {
     let product: Product
     @Binding var isFavorited: Bool
     @State var showDetail: Bool = false
-    
+    var onAddToFavorites: (() -> Void)? = nil
     var onTapFav: (() -> Void)
     
     var body: some View {
@@ -37,7 +37,7 @@ struct ProductCardDeal: View {
                             Spacer()
                             
                             HeartComponent(isFavorited: $isFavorited) {
-                                onTapFav()    // UI já alternou; aqui você persiste
+                                onTapFav()
                             }
                         }
                         .padding(.top, 8)
@@ -68,7 +68,7 @@ struct ProductCardDeal: View {
         .onTapGesture { showDetail = true }
         .sheet(isPresented: $showDetail) {
             ProductDetailsView(
-                viewModel: FavoritesViewModel(service: FavoritesService.shared),
+                viewModel: FavoritesViewModel(favoritesService: FavoritesService.shared, productService: APIService.shared),
                 product: product
             )
         }

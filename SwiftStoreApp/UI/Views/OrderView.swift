@@ -12,28 +12,14 @@ import SwiftUI
 /// - Mostra uma lista de produtos comprados ou um estado vazio caso não haja pedidos.
 struct OrdersView: View {
     
-    /// Texto digitado no campo de busca
-    @State var textToSearch: String = "" // Futuramente pode ser movido para a ViewModel
-    
     /// ViewModel que gerencia os produtos do usuário
-    var viewModel: UserViewModel
-    
-    /// Lista de pedidos filtrada de acordo com o texto de busca
-    var filteredOrders: [UserProduct] {
-        if textToSearch.isEmpty {
-            return viewModel.orderedProducts
-        } else {
-            return viewModel.orderedProducts.filter {
-                $0.title.localizedCaseInsensitiveContains(textToSearch)
-            }
-        }
-    }
+    var viewModel: 
     
     var body: some View {
         ScrollView {
             
             // Caso não haja pedidos
-            if filteredOrders.isEmpty {
+            if viewModel.cartItems.isEmpty {
                 EmptyState(
                     icon: "bag.badge.questionmark",
                     title: "No orders yet!",
@@ -44,7 +30,7 @@ struct OrdersView: View {
             } else {
                 VStack(spacing: 16) {
                     // Lista todos os pedidos filtrados
-                    ForEach(filteredOrders) { order in
+                    ForEach(viewModel.) { order in
                         ProductCardList(product: order, cardType: .order)
                     }
                 }
