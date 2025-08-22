@@ -10,6 +10,8 @@ import Foundation
 class APIService: APIServiceProtocol {
     var baseUrl: String = "https://dummyjson.com/products"
     
+    static var shared = APIService()
+    
     func getAllProducts() async throws -> [Product] {
         let urlString = baseUrl
         
@@ -42,5 +44,16 @@ class APIService: APIServiceProtocol {
         let response = try JSONDecoder().decode(ProductsResponse.self, from: data)
         
         return response.products
+    }
+    
+    func getProductByID(productId: Int) async throws -> Product{
+        let urlString = "\(baseUrl)/\(productId)"
+        
+        guard let url = URL(string: urlString) else { fatalError() }
+        
+        let (data, _) = try await URLSession.shared.data(from: url)
+        let response = try JSONDecoder().decode(Product.self, from: data)
+        
+        return response
     }
 }
