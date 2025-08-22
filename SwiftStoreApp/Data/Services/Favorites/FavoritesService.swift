@@ -50,5 +50,7 @@ class FavoritesService: FavoritesServiceProtocol {
         } catch {
             print("Erro ao dar fetch")
         }
+        
+        return nil
     }
 }

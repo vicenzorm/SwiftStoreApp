@@ -18,7 +18,7 @@ struct HomeView: View {
     // MARK: - ViewModels
     /// ViewModel que gerencia produtos e categorias da loja
     /// ViewModel do usuário (para adicionar ao carrinho, favoritos, etc.)
-    let userViewModel: UserViewModel
+    //let userViewModel: UserViewModel
     
     // MARK: - Layout
     /// Configuração das colunas do grid de produtos
@@ -38,11 +38,11 @@ struct HomeView: View {
                         .font(.system(size: 22, weight: .bold))
                         .font(.title2)
                     
-                    ProductCardDeal(
-                        viewModel: userViewModel,
-                        product: viewModel.products.randomElement(),
-                        productFavorite: false
-                    )
+//                    ProductCardDeal(
+//                        viewModel: userViewModel,
+//                        product: viewModel.products.randomElement(),
+//                        productFavorite: false
+//                    )
                 }
                 
                 // MARK: Seção: Top Picks

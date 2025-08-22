@@ -14,7 +14,7 @@ struct CardCategory: View {
     
     var body: some View {
         NavigationLink {
-            CategoryView(viewModel: APIViewModel(service: APIService()), userViewModel: UserViewModel(service: UserService(modelContext: modelContext)), category: category)
+            //CategoryView(viewModel: APIViewModel(service: APIService()), userViewModel: UserViewModel(service: UserService(modelContext: modelContext)), category: category)
         } label: {
             VStack(spacing: 8){
                 

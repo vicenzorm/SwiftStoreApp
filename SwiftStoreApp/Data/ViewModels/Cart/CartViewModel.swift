@@ -6,43 +6,65 @@
 //
 
 import Foundation
+
+@MainActor
 @Observable
 class CartViewModel {
     var cartItems: [Product] = []
-    var cart: [Cart] = [] // IDs + quantidade
+    private var cart: [Cart] = [] // IDs + quantidade
     
     let apiService: APIService = .shared
     let cartService: CartService = .shared
     
-    func fetchCartItems() {
+    func loadCart() {
+        self.cart = cartService.fetchCart()
+        
         Task {
-            var products: [Product] = []
-            for item in cart {
-                if let product = try? await apiService.getProductByID(productId:item.id) {
-                    // Atualiza a quantidade conforme no cart
-                    product.quantity = item.quantity
-                    products.append(product)
-                }
-            }
-            self.cartItems = products
+            await fetchProductsFullDetails()
         }
     }
     
-    @MainActor
+    func fetchProductsFullDetails() async {
+        var cartProducts: [Product] = []
+        
+        for item in cart {
+            do {
+                let product = try await apiService.getProduct(byId: item.id)
+                product.quantity = item.quantity
+                cartProducts.append(product)
+                
+            } catch {
+                print("Error fetching all products")
+            }
+        }
+        
+        self.cartItems = cartProducts
+    }
+    
     func addToCart(productId: Int) {
         cartService.addToCart(productId: productId)
+        loadCart()
     }
     
-    @MainActor
     func removeFromCart(productId: Int) {
         cartService.removeFromCart(productId: productId)
+        loadCart()
     }
     
-    @MainActor
     func updateQuantity(productId: Int, newQuantity: Int) {
         cartService.updateQuantity(productId: productId, newQuantity: newQuantity)
     }
     
-    //func addCart n sei com faria pra adicionar no carrinho
+    func getCartTotalPrice() -> Double {
+        return cartItems.reduce(0.0) { total, item in
+            total + (item.price * Double(item.quantity))
+        }
+    }
+    
+    func clearCart() {
+        cartService.clearCart()
+        cartItems.removeAll()
+        cart.removeAll()
+    }
     
 }

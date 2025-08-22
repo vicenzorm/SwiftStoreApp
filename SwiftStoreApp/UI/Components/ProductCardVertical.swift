@@ -9,8 +9,6 @@ import SwiftUI
 
 struct ProductCardVertical: View {
     
-    let viewModel: UserViewModel
-    
     @Environment(\.modelContext) var modelContext
     
     var product: Product?
