@@ -1,44 +1,57 @@
+// CartView.swift - VERSÃO FINAL E CORRIGIDA
+
 import SwiftUI
 import SwiftData
 
-/// Tela responsável por exibir o carrinho de compras do usuário.
-/// - Mostra uma lista de produtos no carrinho.
-/// - Permite visualizar o total da compra.
-/// - Permite finalizar a compra (Checkout) e limpar o carrinho.
 struct CartView: View {
     
-    /// ViewModel que gerencia os produtos do usuário e o carrinho
-    var viewModel: CartViewModel
+    // O ViewModel é a única fonte de verdade para a View.
+    // Ele não deve ser privado, pois será injetado de fora.
+    @State var viewModel: CartViewModel
     
     var body: some View {
         NavigationStack {
             VStack {
-                
-                // Caso o carrinho esteja vazio
                 if viewModel.cartItems.isEmpty {
-                    Spacer() // Centraliza verticalmente
+                    Spacer()
                     EmptyState(
                         icon: "cart.badge.questionmark",
                         title: "Your Cart is Empty!",
                         subtitle: "add an item to your cart"
                     )
                     Spacer()
-                    
-                // Caso o carrinho tenha produtos
                 } else {
+                    // ... seu código de lista de produtos (já está correto)
                     ScrollView {
                         VStack(spacing: 16) {
-                            // Lista todos os produtos no carrinho
                             ForEach(viewModel.cartItems) { product in
-                                ProductCardList(product: product.., cardType: .cart, onIncreaseQuantity: {
-                                    
-                                })
+                                ProductCardList(
+                                    product: product,
+                                    cardType: .cart,
+                                    onIncreaseQuantity: {
+                                        viewModel.updateQuantity(
+                                            productId: product.id,
+                                            newQuantity: product.quantity + 1
+                                        )
+                                    },
+                                    onDecreaseQuantity: {
+                                        if product.quantity > 1 {
+                                            viewModel.updateQuantity(
+                                                productId: product.id,
+                                                newQuantity: product.quantity - 1
+                                            )
+                                        } else {
+                                            viewModel.removeFromCart(productId: product.id)
+                                        }
+                                    }
+                                )
                             }
                         }
                         .frame(maxWidth: .infinity, alignment: .top)
+                        .padding(.bottom, 20)
                     }
                     
-                    // Área de resumo do carrinho: total e botão de checkout
+                    // ... seu código do sumário e checkout (já está correto)
                     VStack(spacing: 16) {
                         HStack {
                             Text("Total:")
@@ -47,41 +60,34 @@ struct CartView: View {
                             Text(
                                 Formatters.paraDolarAmericano.string(
                                     from: NSNumber(value: viewModel.getCartTotalPrice())
-                                ) ?? "US$: 00,00"
+                                ) ?? "$0.00"
                             )
-                            .font(.subheadline)
+                            .font(.headline)
                         }
                         
-                        // Botão de Checkout
                         Button {
-                            viewModel.addToOrder()
-                            
-                            // Limpa o carrinho
-                            for product in viewModel.productsOnCart {
-                                product.quantity = 0
-                                product.isOnCart = false
-                            }
-                            viewModel.productsOnCart.removeAll()
-                                
+                            // Ação de checkout... depois de limpar
+                            viewModel.clearCart()
                         } label: {
                             Text("Checkout")
-                                .foregroundStyle(.labelsPrimary)
+                                .foregroundStyle(.white)
                                 .frame(maxWidth: .infinity)
                         }
                         .frame(height: 54)
                         .background(
                             RoundedRectangle(cornerRadius: 16)
-                                .foregroundStyle(.fillsTertiary)
+                                .foregroundStyle(.blue) // Mudei a cor para ser mais visível
                         )
+                        .disabled(viewModel.cartItems.isEmpty)
                     }
                     .padding(.top, 16)
+                    .background(.background)
                 }
             }
             .padding()
             .navigationTitle("Cart")
             .onAppear {
-                // Atualiza os produtos no carrinho ao aparecer a tela
-               viewModel.fetchCartItems()
+                viewModel.loadCart()
             }
         }
     }

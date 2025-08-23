@@ -12,4 +12,5 @@ protocol FavoritesServiceProtocol {
     func addFavorite(productId: Int)
     func getAllFavorites() -> [Favorite]
     func getFavoritesById(id: Int) -> Favorite?
+    func removeFavorite(productId: Int)  
 }

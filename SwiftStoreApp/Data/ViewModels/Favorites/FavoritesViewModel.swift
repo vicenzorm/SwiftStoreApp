@@ -62,5 +62,17 @@ class FavoritesViewModel: FavoritesViewModelProtocol {
     func isProductFavorite(product: Product) -> Bool {
         return favoritesService.getFavoritesById(id: product.id) != nil
     }
+    
+    func toggleFavorite(product: Product) {
+        if isProductFavorite(product: product) {
+            favoritesService.removeFavorite(productId: product.id)
+            favoriteProducts.removeAll { $0.id == product.id }
+            allFavoriteProducts.removeAll { $0.id == product.id }
+        } else {
+            favoritesService.addFavorite(productId: product.id)
+            allFavoriteProducts.append(product)
+            favoriteProducts.append(product)
+        }
+    }
 }
 

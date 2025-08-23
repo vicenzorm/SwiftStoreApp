@@ -35,7 +35,6 @@ class FavoritesService: FavoritesServiceProtocol {
         do {
             return try modelContext.fetch(FetchDescriptor<Favorite>())
         } catch {
-            fatalError(error.localizedDescription)
             return []
         }
     }
@@ -50,5 +49,22 @@ class FavoritesService: FavoritesServiceProtocol {
         } catch {
             print("Erro ao dar fetch")
         }
+        
+        return nil
     }
+    
+    func removeFavorite(productId: Int) {
+        let predicate = #Predicate<Favorite> { $0.id == productId }
+        let descriptor = FetchDescriptor<Favorite>(predicate: predicate)
+
+        do {
+            if let favoriteToDelete = try modelContext.fetch(descriptor).first {
+                modelContext.delete(favoriteToDelete)
+                try modelContext.save()
+            }
+        } catch {
+            print("Erro ao remover favorito: \(error.localizedDescription)")
+        }
+    }
+    
 }

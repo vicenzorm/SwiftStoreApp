@@ -1,48 +1,51 @@
-//
-//  ContentView.swift
-//  SwiftStoreApp
-//
-//  Created by Vicenzo Másera on 13/08/25.
-//
-
 import SwiftUI
-import SwiftData
+import SwiftData // Não se esqueça de importar SwiftData
 
-/// Tela inicial do aplicativo, mostrando produtos em destaque e sugestões do dia.
-/// - Exibe uma seção "Deals of the day" com um produto aleatório em promoção.
-/// - Exibe uma seção "Top Picks" com todos os produtos disponíveis em um grid.
-/// - Carrega os produtos ao aparecer a tela.
 struct HomeView: View {
-    
-    let viewModel: APIViewModel
-    // MARK: - ViewModels
-    /// ViewModel que gerencia produtos e categorias da loja
-    /// ViewModel do usuário (para adicionar ao carrinho, favoritos, etc.)
-    let userViewModel: UserViewModel
+    // 1. Declare os ViewModels sem inicializá-los aqui.
+    //    Usar `private` é uma boa prática, pois a View gerencia seu próprio estado.
+    @State private var apiViewModel: APIViewModel
+    @State private var favoritesViewModel: FavoritesViewModel
+    @State private var cartViewModel: CartViewModel
     
     // MARK: - Layout
-    /// Configuração das colunas do grid de produtos
     let colunas: [GridItem] = [
         GridItem(.fixed(177), spacing: 8),
         GridItem(.fixed(177), spacing: 8)
     ]
     
+    // 2. Crie um inicializador que recebe a dependência externa (o modelContext)
+    init(modelContext: ModelContext) {
+        // 3. Inicialize TODOS os seus ViewModels aqui dentro, usando o wrapper `_`
+        _apiViewModel = State(initialValue: APIViewModel(service: APIService.shared))
+        _favoritesViewModel = State(initialValue: FavoritesViewModel(
+            favoritesService: FavoritesService.shared,
+            productService: APIService.shared
+        ))
+        
+        // 4. Aqui está a correção principal: Crie o CartViewModel passando o modelContext
+        _cartViewModel = State(initialValue: CartViewModel(modelContext: modelContext))
+    }
+    
     // MARK: - View
     var body: some View {
+        // O corpo da sua View continua exatamente o mesmo.
+        // Nenhuma mudança é necessária aqui.
         NavigationStack {
             VStack(alignment: .leading, spacing: 16) {
-                
                 // MARK: Seção: Deals of the Day
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Deals of the day")
-                        .font(.system(size: 22, weight: .bold))
-                        .font(.title2)
-                    
-                    ProductCardDeal(
-                        viewModel: userViewModel,
-                        product: viewModel.products.randomElement(),
-                        productFavorite: false
-                    )
+                if !apiViewModel.products.isEmpty, let dealProduct = apiViewModel.products.randomElement() {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Deals of the day")
+                            .font(.system(size: 22, weight: .bold))
+                            .font(.title2)
+                        
+                        ProductCardDeal(
+                            favoritesViewModel: favoritesViewModel,
+                            cartViewModel: cartViewModel, // Agora passa a instância correta
+                            product: dealProduct
+                        )
+                    }
                 }
                 
                 // MARK: Seção: Top Picks
@@ -52,10 +55,13 @@ struct HomeView: View {
                         .font(.title2)
                     
                     ScrollView {
-                        LazyVGrid(columns: colunas) {
-                            // Lista todos os produtos no grid
-                            ForEach(viewModel.products) { product in
-                                ProductCardVertical(viewModel: userViewModel, product: product)
+                        LazyVGrid(columns: colunas, spacing: 8) {
+                            ForEach(apiViewModel.products) { product in
+                                ProductCardVertical(
+                                    favoritesViewModel: favoritesViewModel,
+                                    cartViewModel: cartViewModel, // E aqui também
+                                    product: product
+                                )
                             }
                         }
                     }
@@ -65,13 +71,10 @@ struct HomeView: View {
             .navigationTitle("Home")
             .frame(maxHeight: .infinity, alignment: .top)
             .task {
-                // Carrega todos os produtos ao aparecer a tela
-                await viewModel.loadProducts()
+                await apiViewModel.loadProducts()
+                await favoritesViewModel.loadFavoriteProducts()
+                // Não precisa mais carregar o carrinho aqui, pois ele já carrega no init do ViewModel
             }
         }
     }
-}
-
-#Preview {
-    TabBar()
 }

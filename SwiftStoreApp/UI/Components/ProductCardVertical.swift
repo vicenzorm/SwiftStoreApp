@@ -1,10 +1,3 @@
-//
-//  ProductCardvertical.swift
-//  SwiftStoreApp
-//
-//  Created by Vicenzo Másera on 13/08/25.
-//
-
 import SwiftUI
 
 struct ProductCardVertical: View {
@@ -13,32 +6,36 @@ struct ProductCardVertical: View {
     @State var showDetails: Bool = false
     var onAddToFavorites: () -> Void
     
+    init(favoritesViewModel: FavoritesViewModel, cartViewModel: CartViewModel, product: Product) {
+            self.cartViewModel = cartViewModel
+            self.favoritesViewModel = favoritesViewModel
+            self.product = product
+            _isFavorited = State(initialValue: favoritesViewModel.isProductFavorite(product: product))
+        }
+    let cartViewModel: CartViewModel
+    let favoritesViewModel: FavoritesViewModel
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             ZStack(alignment: .topTrailing) {
-                if let product {
-                    AsyncImage(url: URL(string: product.thumbnail)) { image in
-                        image.resizable()
-                            .scaledToFill()
-                    } placeholder: {
-                        Image(.placeholder)
-                            .resizable()
-                    }
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                    .frame(width: 161,height: 160)
+                AsyncImage(url: URL(string: product.thumbnail)) { image in
+                    image.resizable()
+                        .scaledToFill()
+                } placeholder: {
+                    Image(.placeholder)
+                        .resizable()
                 }
-                HeartComponent(isFavorited: $isFavorited) {
-                    onAddToFavorites()
-                }
-            }
-            VStack(alignment: .leading, spacing: 4) {
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .frame(width: 161, height: 160)
                 
-                Text(product?.title ?? "Product name with two or more lines goes here")
+                HeartComponent(isFavorited: $isFavorited) {
+            }
+            
+            VStack(alignment: .leading, spacing: 4) {
+                Text(product.title)
                     .font(.subheadline)
                     .lineLimit(2, reservesSpace: true)
                 
-                
-                Text(Formatters.paraDolarAmericano.string(from: NSNumber(value: product?.price ?? 0.0)) ?? "US$ 00,00")
+                Text(Formatters.paraDolarAmericano.string(from: NSNumber(value: product.price)) ?? "US$ 00,00")
                     .font(.headline)
             }
         }
@@ -48,19 +45,19 @@ struct ProductCardVertical: View {
                 .foregroundStyle(.backgroundSecondary)
         )
         .frame(width: 177, height: 250)
-        .sheet(isPresented: $showDetails){
-            ProductDetailsView(viewModel: UserViewModel(service: UserService(modelContext: modelContext)), product: product)
-                .presentationDragIndicator(.visible)
-        }
         .onTapGesture {
             showDetails = true
         }
-        
-        
+        .sheet(isPresented: $showDetails){
+            ProductDetailsView(
+                favoritesViewModel: favoritesViewModel,
+                cartViewModel: cartViewModel, // Passe a instância que você recebeu
+                product: product
+            )
+            .presentationDragIndicator(.visible)
+        }
+        .presentationDragIndicator(.visible)
     }
     
 }
 
-#Preview {
-//    ProductCardVertical()
-}

@@ -1,120 +1,94 @@
-//
-//  ProductDetailsView.swift
-//  SwiftStoreApp
-//
-//  Created by Vicenzo Másera on 15/08/25.
-//
 import SwiftUI
 
 struct ProductDetailsView: View {
     
     @Environment(\.dismiss) var dismiss
     
-    var viewModel: UserViewModel
-    var product: Product?
-    var userProduct: UserProduct?
+    // Injetando o ViewModel para lidar com a lógica
+    let favoritesViewModel: FavoritesViewModel
+    let cartViewModel: CartViewModel // Supondo que você tem um CartViewModel
     
-    @State var productIsFavorited = false
-    @State var userProductIsFavorited = true
+    let product: Product
+    
+    // Estado local para o coração, inicializado pelo ViewModel
+    @State private var isFavorited: Bool
+    
+    init(favoritesViewModel: FavoritesViewModel, cartViewModel: CartViewModel, product: Product) {
+        self.favoritesViewModel = favoritesViewModel
+        self.cartViewModel = cartViewModel
+        self.product = product
+        
+        // Inicializa o estado do coração com base no ViewModel
+        _isFavorited = State(initialValue: favoritesViewModel.isProductFavorite(product: product))
+    }
     
     var body: some View {
         NavigationStack {
             VStack {
+                // Conteúdo do cabeçalho com a imagem
                 VStack {
-                    if let product {
-                        AsyncImage(url: URL(string: product.thumbnail)) { image in
-                            image.resizable()
-                                .scaledToFill()
-                        } placeholder: {
-                            Image(.placeholder)
-                                .resizable()
-                                .scaledToFill()
-                        }
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
-                        .frame(width: 329, height: 329)
-                        .padding()
-                        .overlay(
-                            HeartComponent(isFavorited: $productIsFavorited)
-                                .padding(24),
-                            alignment: .topTrailing
-                        )
-                        .onChange(of: productIsFavorited) { newValue in
-                            if newValue {
-                                Task { await viewModel.addToFavorites(product: product) }
-                            }
-                            // deveria ter uma função de !favoritar mas a dharana graças a deus nn colocou
-                        }
-                        
-                    } else if let userProduct {
-                        Image(uiImage: UIImage(data: userProduct.image) ?? UIImage())
-                            .clipShape(RoundedRectangle(cornerRadius: 16))
-                            .frame(width: 329, height: 329)
-                            .padding()
-                            .overlay(
-                                HeartComponent(isFavorited: $userProductIsFavorited)
-                                    .padding(24),
-                                alignment: .topTrailing
-                            )
+                    AsyncImage(url: URL(string: product.thumbnail)) { image in
+                        image.resizable()
+                            .scaledToFill()
+                    } placeholder: {
+                        Image(.placeholder)
+                            .resizable()
+                            .scaledToFill()
                     }
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .frame(width: 329, height: 329)
+                    .padding()
+                    .overlay(
+                        // O HeartComponent agora interage com o estado local
+                        HeartComponent(isFavorited: $isFavorited)
+                            .padding(24)
+                            .onTapGesture {
+                                // Ação de favoritar/desfavoritar
+                                favoritesViewModel.toggleFavorite(product: product)
+                            },
+                        alignment: .topTrailing
+                    )
                 }
                 .background(
                     RoundedRectangle(cornerRadius: 32)
                         .foregroundStyle(.backgroundSecondary)
                 )
                 
+                // Conteúdo de texto e botões
                 VStack(alignment: .leading, spacing: 16) {
-                    
                     VStack(alignment: .leading, spacing: 4) {
-                        Text(userProduct?.title ?? product?.title ?? "Name of a product with two or more lines goes here")
+                        Text(product.title)
                             .font(.title3)
                             .foregroundStyle(.labelsPrimary)
                         
-                        Text(Formatters.paraDolarAmericano.string(from: NSNumber(value: userProduct?.price ?? product?.price ?? 0.0)) ?? "US$ 00,00")
+                        Text(Formatters.paraDolarAmericano.string(from: NSNumber(value: product.price)) ?? "US$ 00,00")
                             .font(.title2.bold())
                             .foregroundStyle(.labelsPrimary)
                     }
                     
                     ScrollView {
-                        Text(userProduct?.productDescription ?? product?.description ?? "Lorem ipsum dolor sit amet...")
+                        Text(product.description)
                             .font(.body)
                             .foregroundStyle(.labelsSecondary)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     .frame(height: 182)
                     
-                    if let product {
-                        Button {
-                            Task { await viewModel.addToCart(product: product) }
-                            dismiss()
-                        } label: {
-                            Text("Add to cart")
-                                .foregroundStyle(.labelsPrimary)
-                                .frame(maxWidth: .infinity)
-                        }
-                        .frame(height: 54)
-                        .background(
-                            RoundedRectangle(cornerRadius: 16)
-                                .foregroundStyle(.fillsTertiary)
-                        )
-                        .padding()
-                    } else if let userProduct {
-                        Button {
-                            viewModel.addFavoritesToCart(userProduct: userProduct)
-                            userProduct.quantity = 1
-                            dismiss()
-                            
-                        } label: {
-                            Text("Add to cart")
-                                .foregroundStyle(.labelsPrimary)
-                                .frame(maxWidth: .infinity)
-                        }
-                        .frame(height: 54)
-                        .background(
-                            RoundedRectangle(cornerRadius: 16)
-                                .foregroundStyle(.fillsTertiary)
-                        )
-                        .padding()
+                    Button {
+                        // Ação de adicionar ao carrinho via ViewModel
+                        cartViewModel.addToCart(productId: product.id)
+                        dismiss()
+                    } label: {
+                        Text("Add to cart")
+                            .foregroundStyle(.labelsPrimary)
+                            .frame(maxWidth: .infinity)
                     }
+                    .frame(height: 54)
+                    .background(
+                        RoundedRectangle(cornerRadius: 16)
+                            .foregroundStyle(.fillsTertiary)
+                    )
+                    .padding()
                 }
             }
             .padding(.top, 60)
@@ -128,14 +102,10 @@ struct ProductDetailsView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(.bakgroundPrimary, for: .navigationBar)
             .toolbarBackgroundVisibility(.visible, for: .navigationBar)
-            .onDisappear {
-                viewModel.favoriteProducts = viewModel.getFavoriteProducts()
+            .onChange(of: favoritesViewModel.favoriteProducts) {
+                // Observa a lista de favoritos e atualiza o estado local
+                self.isFavorited = favoritesViewModel.isProductFavorite(product: product)
             }
         }
-        
     }
-}
-
-#Preview {
-    TabBar()
 }

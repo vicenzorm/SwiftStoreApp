@@ -1,48 +1,96 @@
-//
-//  CartViewModel.swift
-//  SwiftStoreApp
-//
-//  Created by Vicenzo Másera on 21/08/25.
-//
+
 
 import Foundation
+import SwiftData
+
+@MainActor
 @Observable
 class CartViewModel {
     var cartItems: [Product] = []
-    var cart: [Cart] = [] // IDs + quantidade
+    private var cart: [Cart] = []
     
     let apiService: APIService = .shared
-    let cartService: CartService = .shared
+    private let cartService = CartService()
     
-    func fetchCartItems() {
-        Task {
-            var products: [Product] = []
-            for item in cart {
-                if let product = try? await apiService.getProductByID(productId:item.id) {
-                    // Atualiza a quantidade conforme no cart
-                    product.quantity = item.quantity
-                    products.append(product)
-                }
-            }
-            self.cartItems = products
+    private let modelContext: ModelContext
+    
+    init(modelContext: ModelContext) {
+        self.modelContext = modelContext
+        print("CartViewModel inicializado. Carregando carrinho...")
+    }
+    
+    private func saveChanges() {
+        print("Tentando salvar mudanças no ModelContext...")
+        do {
+            try modelContext.save()
+            print("✅ Mudanças salvas com sucesso!")
+            loadCart()
+        } catch {
+            print("🚨 ERRO ao salvar o model context: \(error.localizedDescription)")
         }
     }
     
-    @MainActor
+    func loadCart() {
+        self.cart = cartService.fetchCart(modelContext: modelContext)
+        print("🛒 Carrinho local carregado. Itens no banco de dados: \(self.cart.count)")
+        
+        Task {
+            await fetchProductsFullDetails()
+        }
+    }
+    
+    func fetchProductsFullDetails() async {
+        var cartProducts: [Product] = []
+        print("Buscando detalhes completos dos produtos na API...")
+        for item in cart {
+            do {
+                let product = try await apiService.getProduct(byId: item.id)
+                product.quantity = item.quantity
+                cartProducts.append(product)
+            } catch {
+                print("🚨 ERRO ao buscar detalhes do produto com id \(item.id): \(error)")
+            }
+        }
+        self.cartItems = cartProducts
+        print("✅ Detalhes de \(self.cartItems.count) produtos carregados. UI será atualizada.")
+    }
+    
     func addToCart(productId: Int) {
-        cartService.addToCart(productId: productId)
+        print("Adicionando produto \(productId) ao carrinho...")
+        cartService.addToCart(productId: productId, modelContext: modelContext)
+        saveChanges()
     }
     
-    @MainActor
     func removeFromCart(productId: Int) {
-        cartService.removeFromCart(productId: productId)
+        print("Removendo produto \(productId) do carrinho...")
+        cartService.removeFromCart(productId: productId, modelContext: modelContext)
+        saveChanges()
     }
     
-    @MainActor
     func updateQuantity(productId: Int, newQuantity: Int) {
-        cartService.updateQuantity(productId: productId, newQuantity: newQuantity)
+        print("Atualizando quantidade do produto \(productId) para \(newQuantity)...")
+        cartService.updateQuantity(productId: productId, newQuantity: newQuantity, modelContext: modelContext)
+        saveChanges()
     }
     
-    //func addCart n sei com faria pra adicionar no carrinho
+    func getCartTotalPrice() -> Double {
+        return cartItems.reduce(0.0) { total, item in
+            total + (item.price * Double(item.quantity))
+        }
+    }
     
+    func clearCart() {
+        print("Limpando todos os itens do carrinho...")
+        cartService.clearCart(modelContext: modelContext)
+    
+        do {
+            try modelContext.save()
+            print("✅ Contexto salvo após limpar o carrinho.")
+        } catch {
+            print("🚨 ERRO ao salvar após limpar o carrinho: \(error.localizedDescription)")
+        }
+        
+        self.cartItems = []
+        self.cart = []
+    }
 }

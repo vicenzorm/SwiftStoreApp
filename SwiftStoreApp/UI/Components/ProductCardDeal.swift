@@ -1,21 +1,24 @@
 import SwiftUI
 
 struct ProductCardDeal: View {
+    let favoritesViewModel: FavoritesViewModel
+    let cartViewModel: CartViewModel
     let product: Product
     @Binding var isFavorited: Bool
     @State var showDetail: Bool = false
     var onAddToFavorites: (() -> Void)? = nil
     var onTapFav: (() -> Void)
+    init(favoritesViewModel: FavoritesViewModel, cartViewModel: CartViewModel, product: Product) {
+            self.favoritesViewModel = favoritesViewModel
+            self.cartViewModel = cartViewModel
+            self.product = product
+            _isFavorited = State(initialValue: favoritesViewModel.isProductFavorite(product: product))
+        }
     
     var body: some View {
-        let category = product.category
-        let title = product.title
-        let price = product.price
-        
         VStack(spacing: 8) {
             HStack {
                 HStack(alignment: .top) {
-                    // IMAGEM
                     AsyncImage(url: URL(string: product.thumbnail)) { image in
                         image.resizable().scaledToFill()
                     } placeholder: {
@@ -27,10 +30,9 @@ struct ProductCardDeal: View {
                     .padding(.trailing, 16)
                     .padding(.leading, 8)
                     
-                    // TEXTOS + CORAÇÃO
                     VStack(alignment: .leading, spacing: 24) {
                         HStack {
-                            Text(category)
+                            Text(product.category)
                                 .font(.footnote)
                                 .foregroundStyle(.labelsSecondary)
                             
@@ -43,15 +45,14 @@ struct ProductCardDeal: View {
                         .padding(.top, 8)
                         
                         VStack(spacing: 4) {
-                            Text(title)
+                            Text(product.title)
                                 .font(.subheadline)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             
-                            Text(Formatters.paraDolarAmericano
-                                .string(from: NSNumber(value: price)) ?? "US$ 00,00")
-                            .font(.headline)
-                            .foregroundStyle(.labelsPrimary)
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                            Text(Formatters.paraDolarAmericano.string(from: NSNumber(value: product.price)) ?? "US$ 00,00")
+                                .font(.headline)
+                                .foregroundStyle(.labelsPrimary)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                         }
                     }
                 }
@@ -64,18 +65,18 @@ struct ProductCardDeal: View {
                 )
             }
         }
-        .contentShape(RoundedRectangle(cornerRadius: 16)) // melhora hit area
+        .contentShape(RoundedRectangle(cornerRadius: 16))
         .onTapGesture { showDetail = true }
         .sheet(isPresented: $showDetail) {
-            ProductDetailsView(
-                viewModel: FavoritesViewModel(favoritesService: FavoritesService.shared, productService: APIService.shared),
-                product: product
-            )
-        }
+                ProductDetailsView(
+                    favoritesViewModel: favoritesViewModel,
+                    cartViewModel: cartViewModel, // Passe a instância que você recebeu
+                    product: product
+                )
+            }
+//        .onChange(of: favoritesViewModel.favoriteProducts) {
+//            // Update the state of the HeartComponent if the ViewModel's list changes
+//            self.isFavorited = favoritesViewModel.isProductFavorite(product: product)
+//        }
     }
-}
-
-
-#Preview {
-//    ProductCardDeal()
 }

@@ -20,15 +20,16 @@ class Product: Identifiable, Decodable {
     var price: Double
     var shippingInformation: String
     var thumbnail: String
+    var quantity: Int = 0
     
-    init(id: Int, title: String, description: String, category: String, price: Double, shippingInformation: String, thumbnail: String) {
-        self.id = id
-        self.title = title
-        self.description = description
-        self.category = category
-        self.price = price
-        self.shippingInformation = shippingInformation
-        self.thumbnail = thumbnail
+    private enum CodingKeys: String, CodingKey {
+        case id, title, description, category, price, shippingInformation, thumbnail
     }
+    
 }
 
+extension Product: Equatable {
+    static func == (lhs: Product, rhs: Product) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
