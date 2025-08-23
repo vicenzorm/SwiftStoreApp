@@ -17,7 +17,7 @@ struct TabBar: View {
         TabView {
             Tab("Home", systemImage: "house.fill") {
                 NavigationStack {
-                    HomeView(viewModel: productViewModelService)
+                    HomeView(modelContext: modelContext)
                 }
             }
             Tab("Categories", systemImage: "square.grid.2x2.fill") {
@@ -27,7 +27,7 @@ struct TabBar: View {
             }
             Tab("Cart", systemImage: "cart.fill") {
                 NavigationStack {
-                    CartView()
+                    CartView(viewModel: CartViewModel(modelContext: modelContext))
                 }
             }
             Tab("Favorites", systemImage: "heart.fill") {

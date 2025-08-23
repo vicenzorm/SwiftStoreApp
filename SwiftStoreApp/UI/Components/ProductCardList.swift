@@ -27,12 +27,12 @@ struct ProductCardList: View {
     var body: some View {
         
         HStack(spacing: 16) {
-            if let image = UIImage(data: product.thumbnail) {
-                Image(uiImage: image)
-                    .resizable()
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                    .frame(width: 78, height: 78)
-            }
+//            if let image = UIImage(data: product.thumbnail) {
+//                Image(uiImage: image)
+//                    .resizable()
+//                    .clipShape(RoundedRectangle(cornerRadius: 8))
+//                    .frame(width: 78, height: 78)
+//            }
             
             HStack {
                 if cardType == .order {

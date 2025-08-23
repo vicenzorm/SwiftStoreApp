@@ -13,6 +13,6 @@ struct SwiftStoreAppApp: App {
     var body: some Scene {
         WindowGroup {
             TabBar()
-        }
+        }.modelContainer(for: Cart.self)
     }
 }

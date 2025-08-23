@@ -1,30 +1,12 @@
-//
-//  CartService.swift
-//  SwiftStoreApp
-//
-//  Created by Vicenzo Másera on 21/08/25.
-//
+
 
 import Foundation
 import SwiftData
 
 @MainActor
 class CartService {
-    private let modelContainer: ModelContainer
-    private let modelContext: ModelContext
     
-    static let shared = CartService()
-    
-    init() {
-        do {
-            self.modelContainer = try ModelContainer(for: Cart.self)
-            self.modelContext = modelContainer.mainContext
-        } catch {
-            fatalError()
-        }
-    }
-    
-    func fetchCart() -> [Cart] {
+    func fetchCart(modelContext: ModelContext) -> [Cart] {
         do {
             return try modelContext.fetch(FetchDescriptor<Cart>(sortBy: [SortDescriptor(\.id)]))
         } catch {
@@ -33,40 +15,36 @@ class CartService {
         }
     }
     
-    func addToCart(productId: Int){
+    func addToCart(productId: Int, modelContext: ModelContext) {
         let predicate = #Predicate<Cart> { $0.id == productId }
         let description = FetchDescriptor<Cart>(predicate: predicate)
         
-        do{
-            if let existingDay = try modelContext.fetch(description).first {
-                existingDay.quantity += 1
+        do {
+            if let existingItem = try modelContext.fetch(description).first {
+                existingItem.quantity += 1
             } else {
                 let newCartItem = Cart(id: productId, quantity: 1)
                 modelContext.insert(newCartItem)
             }
-            
-            try modelContext.save()
-            
         } catch {
-            print("failed to save to cart: \(error.localizedDescription)")
+            print("failed to add to cart: \(error.localizedDescription)")
         }
     }
     
-    func removeFromCart(productId: Int){
+    func removeFromCart(productId: Int, modelContext: ModelContext) {
         let predicate = #Predicate<Cart> { $0.id == productId }
         let description = FetchDescriptor<Cart>(predicate: predicate)
         
         do {
             if let productToDelete = try modelContext.fetch(description).first {
                 modelContext.delete(productToDelete)
-                try modelContext.save()
             }
         } catch {
             print("failed to delete from cart: \(error.localizedDescription)")
         }
     }
     
-    func updateQuantity(productId: Int, newQuantity: Int){
+    func updateQuantity(productId: Int, newQuantity: Int, modelContext: ModelContext) {
         let predicate = #Predicate<Cart> { $0.id == productId }
         let descriptor = FetchDescriptor<Cart>(predicate: predicate)
         
@@ -77,24 +55,17 @@ class CartService {
                 } else {
                     productToUpdate.quantity = newQuantity
                 }
-                try modelContext.save()
             }
         } catch {
             print("error updating cart quantity: \(error.localizedDescription)")
         }
     }
     
-    func clearCart() {
-        let cartItems = fetchCart()
-          
-          for item in cartItems {
-              modelContext.delete(item)
-          }
-          
-          do {
-              try modelContext.save()
-          } catch {
-              print("Erro ao salvar a deleção do carrinho: \(error.localizedDescription)")
-          }
+    func clearCart(modelContext: ModelContext) {
+        do {
+            try modelContext.delete(model: Cart.self)
+        } catch {
+            print("Erro ao limpar o carrinho: \(error.localizedDescription)")
+        }
     }
 }

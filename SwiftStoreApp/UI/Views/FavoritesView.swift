@@ -22,7 +22,7 @@ struct FavoritesView: View {
                     ScrollView {
                         VStack(spacing: 8) {
                             ForEach(viewModel.favoriteProducts) { product in
-                                ProductCardList()
+                                ProductCardList(product: product, cardType: .favorites)
                             }
                         }
                     }
@@ -32,7 +32,7 @@ struct FavoritesView: View {
             .searchable(text: $searchText, prompt: "Search")
             .onAppear {
                 print("ENTREI")
-                Task { viewModel.loadFavoriteProducts() }
+                Task { await viewModel.loadFavoriteProducts() }
             }
             .onChange(of: searchText) { _, newValue in
                 viewModel.filterFavorites(textToSearch: newValue)

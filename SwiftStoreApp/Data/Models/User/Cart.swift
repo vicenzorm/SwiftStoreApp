@@ -10,7 +10,7 @@ import Foundation
 
 @Model
 class Cart {
-    var id: Int
+    @Attribute(.unique) var id: Int
     var quantity: Int
     
     init(id: Int, quantity: Int) {

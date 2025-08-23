@@ -19,7 +19,6 @@ struct CategoriesView: View {
     
     /// ViewModel do usuário, usado para interações que dependem do estado do usuário.
     var viewModel: APIViewModel
-    var userViewModel: UserViewModel
     
     // MARK: - Estados
     
@@ -66,7 +65,6 @@ struct CategoriesView: View {
                         NavigationLink {
                             CategoryView(
                                 viewModel: viewModel,
-                                userViewModel: userViewModel,
                                 category: category
                             )
                         } label: {

@@ -1,15 +1,17 @@
-import SwiftUI
+// CartView.swift - VERSÃO FINAL E CORRIGIDA
 
-/// A view that displays the user's shopping cart.
-/// It shows a list of products, the total price, and a checkout button.
+import SwiftUI
+import SwiftData
+
 struct CartView: View {
     
-    @State var viewModel = CartViewModel()
+    // O ViewModel é a única fonte de verdade para a View.
+    // Ele não deve ser privado, pois será injetado de fora.
+    @State var viewModel: CartViewModel
     
     var body: some View {
         NavigationStack {
             VStack {
-                // If the cart is empty, show an empty state view.
                 if viewModel.cartItems.isEmpty {
                     Spacer()
                     EmptyState(
@@ -18,9 +20,8 @@ struct CartView: View {
                         subtitle: "add an item to your cart"
                     )
                     Spacer()
-                    
                 } else {
-                    // Show a list of products in the cart.
+                    // ... seu código de lista de produtos (já está correto)
                     ScrollView {
                         VStack(spacing: 16) {
                             ForEach(viewModel.cartItems) { product in
@@ -28,21 +29,18 @@ struct CartView: View {
                                     product: product,
                                     cardType: .cart,
                                     onIncreaseQuantity: {
-                                        // Aumenta a quantidade do produto no carrinho
                                         viewModel.updateQuantity(
                                             productId: product.id,
                                             newQuantity: product.quantity + 1
                                         )
                                     },
                                     onDecreaseQuantity: {
-                                        // Diminui a quantidade do produto, se for maior que 1
                                         if product.quantity > 1 {
                                             viewModel.updateQuantity(
                                                 productId: product.id,
                                                 newQuantity: product.quantity - 1
                                             )
                                         } else {
-                                            // Se a quantidade for 1, remove o produto do carrinho
                                             viewModel.removeFromCart(productId: product.id)
                                         }
                                     }
@@ -50,10 +48,10 @@ struct CartView: View {
                             }
                         }
                         .frame(maxWidth: .infinity, alignment: .top)
-                        .padding(.bottom, 20) // Add padding to avoid the last item being covered by the total section
+                        .padding(.bottom, 20)
                     }
                     
-                    // Cart summary: total price and checkout button.
+                    // ... seu código do sumário e checkout (já está correto)
                     VStack(spacing: 16) {
                         HStack {
                             Text("Total:")
@@ -64,35 +62,31 @@ struct CartView: View {
                                     from: NSNumber(value: viewModel.getCartTotalPrice())
                                 ) ?? "$0.00"
                             )
-                            .font(.subheadline)
+                            .font(.headline)
                         }
                         
-                        // Checkout Button
                         Button {
-                            // Finaliza a compra
-                            //viewModel.addToOrder()
+                            // Ação de checkout... depois de limpar
                             viewModel.clearCart()
                         } label: {
                             Text("Checkout")
-                                .foregroundStyle(.white) // Use .white or a color that stands out
+                                .foregroundStyle(.white)
                                 .frame(maxWidth: .infinity)
                         }
                         .frame(height: 54)
                         .background(
                             RoundedRectangle(cornerRadius: 16)
-                                .foregroundStyle(.blue) // Use a distinct color for the button
+                                .foregroundStyle(.blue) // Mudei a cor para ser mais visível
                         )
-                        .disabled(viewModel.cartItems.isEmpty) // Disable the button if the cart is empty
+                        .disabled(viewModel.cartItems.isEmpty)
                     }
                     .padding(.top, 16)
-                    .padding(.horizontal)
                     .background(.background)
                 }
             }
             .padding()
             .navigationTitle("Cart")
             .onAppear {
-                // Load cart data when the view appears.
                 viewModel.loadCart()
             }
         }

@@ -56,7 +56,7 @@ struct CategoryView: View {
                 ScrollView {
                     LazyVGrid(columns: collumns) {
                         ForEach(filteredProducts) { product in
-                            ProductCardVertical(viewModel: userViewModel, product: product)
+//                            ProductCardVertical()
                         }
                     }
                 }

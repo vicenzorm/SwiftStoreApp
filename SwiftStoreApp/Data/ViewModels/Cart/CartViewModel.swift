@@ -1,23 +1,38 @@
-//
-//  CartViewModel.swift
-//  SwiftStoreApp
-//
-//  Created by Vicenzo Másera on 21/08/25.
-//
+
 
 import Foundation
+import SwiftData
 
 @MainActor
 @Observable
 class CartViewModel {
     var cartItems: [Product] = []
-    private var cart: [Cart] = [] // IDs + quantidade
+    private var cart: [Cart] = []
     
     let apiService: APIService = .shared
-    let cartService: CartService = .shared
+    private let cartService = CartService()
+    
+    private let modelContext: ModelContext
+    
+    init(modelContext: ModelContext) {
+        self.modelContext = modelContext
+        print("CartViewModel inicializado. Carregando carrinho...")
+    }
+    
+    private func saveChanges() {
+        print("Tentando salvar mudanças no ModelContext...")
+        do {
+            try modelContext.save()
+            print("✅ Mudanças salvas com sucesso!")
+            loadCart()
+        } catch {
+            print("🚨 ERRO ao salvar o model context: \(error.localizedDescription)")
+        }
+    }
     
     func loadCart() {
-        self.cart = cartService.fetchCart()
+        self.cart = cartService.fetchCart(modelContext: modelContext)
+        print("🛒 Carrinho local carregado. Itens no banco de dados: \(self.cart.count)")
         
         Task {
             await fetchProductsFullDetails()
@@ -26,33 +41,36 @@ class CartViewModel {
     
     func fetchProductsFullDetails() async {
         var cartProducts: [Product] = []
-        
+        print("Buscando detalhes completos dos produtos na API...")
         for item in cart {
             do {
                 let product = try await apiService.getProduct(byId: item.id)
                 product.quantity = item.quantity
                 cartProducts.append(product)
-                
             } catch {
-                print("Error fetching all products")
+                print("🚨 ERRO ao buscar detalhes do produto com id \(item.id): \(error)")
             }
         }
-        
         self.cartItems = cartProducts
+        print("✅ Detalhes de \(self.cartItems.count) produtos carregados. UI será atualizada.")
     }
     
     func addToCart(productId: Int) {
-        cartService.addToCart(productId: productId)
-        loadCart()
+        print("Adicionando produto \(productId) ao carrinho...")
+        cartService.addToCart(productId: productId, modelContext: modelContext)
+        saveChanges()
     }
     
     func removeFromCart(productId: Int) {
-        cartService.removeFromCart(productId: productId)
-        loadCart()
+        print("Removendo produto \(productId) do carrinho...")
+        cartService.removeFromCart(productId: productId, modelContext: modelContext)
+        saveChanges()
     }
     
     func updateQuantity(productId: Int, newQuantity: Int) {
-        cartService.updateQuantity(productId: productId, newQuantity: newQuantity)
+        print("Atualizando quantidade do produto \(productId) para \(newQuantity)...")
+        cartService.updateQuantity(productId: productId, newQuantity: newQuantity, modelContext: modelContext)
+        saveChanges()
     }
     
     func getCartTotalPrice() -> Double {
@@ -62,9 +80,17 @@ class CartViewModel {
     }
     
     func clearCart() {
-        cartService.clearCart()
-        cartItems.removeAll()
-        cart.removeAll()
-    }
+        print("Limpando todos os itens do carrinho...")
+        cartService.clearCart(modelContext: modelContext)
     
+        do {
+            try modelContext.save()
+            print("✅ Contexto salvo após limpar o carrinho.")
+        } catch {
+            print("🚨 ERRO ao salvar após limpar o carrinho: \(error.localizedDescription)")
+        }
+        
+        self.cartItems = []
+        self.cart = []
+    }
 }
