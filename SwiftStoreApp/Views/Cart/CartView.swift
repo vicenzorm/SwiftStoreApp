@@ -30,14 +30,10 @@ struct CartView: View {
                                         )
                                     },
                                     onDecreaseQuantity: {
-                                        if product.quantity > 1 {
-                                            viewModel.updateQuantity(
-                                                productId: product.id,
-                                                newQuantity: product.quantity - 1
-                                            )
-                                        } else {
-                                            viewModel.removeFromCart(productId: product.id)
-                                        }
+                                        viewModel.updateQuantity(
+                                            productId: product.id,
+                                            newQuantity: product.quantity - 1
+                                        )
                                     }
                                 )
                             }
