@@ -7,6 +7,3 @@
 
 import SwiftUI
 
-protocol CartViewModelProtocol {
-    
-}

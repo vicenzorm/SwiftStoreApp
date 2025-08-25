@@ -13,28 +13,11 @@ import SwiftUI
 /// - Exibe lista completa das categorias com navegação para a tela `CategoryView`.
 struct CategoriesView: View {
     
-    // MARK: - ViewModels
+    // MARK: - ViewModel
     
-    /// ViewModel principal responsável pelas categorias e produtos.
+    /// ViewModel principal responsável pelas categorias.
+    @State var viewModel: CategoriesViewModel
     
-    /// ViewModel do usuário, usado para interações que dependem do estado do usuário.
-    var viewModel: APIViewModel
-    
-    // MARK: - Estados
-    
-    /// Texto digitado pelo usuário na barra de busca.
-    @State private var searchableText: String = ""
-    
-    // MARK: - Computed Properties
-    
-    /// Lista de categorias filtradas de acordo com o texto buscado.
-    var filteredCategories: [Category] {
-        if searchableText.isEmpty {
-            return viewModel.categories
-        } else {
-            return viewModel.categories.filter { $0.name.localizedCaseInsensitiveContains(searchableText) }
-        }
-    }
     
     // MARK: - View
     
@@ -43,10 +26,6 @@ struct CategoriesView: View {
             if viewModel.isLoadingCategories {
                 /// Indicador de carregamento
                 ProgressView()
-                
-            } else if let errorMessage = viewModel.errorMessage {
-                /// Exibe mensagem de erro caso algo falhe
-                Text(errorMessage)
                 
             } else {
                 /// Conteúdo principal
@@ -61,12 +40,12 @@ struct CategoriesView: View {
                     .padding(.top)
                     
                     // MARK: Lista de categorias
-                    List(filteredCategories) { category in
+                    List(viewModel.filteredCategories) { category in
                         NavigationLink {
-                            CategoryView(
-                                viewModel: viewModel,
-                                category: category
-                            )
+//                            CategoryView(
+//                                viewModel: viewModel,
+//                                category: category
+//                            )
                         } label: {
                             HStack {
                                 Text(category.name)
@@ -80,7 +59,7 @@ struct CategoriesView: View {
                 .padding()
                 .frame(maxHeight: .infinity, alignment: .top)
                 .navigationTitle("Categories")
-                .searchable(text: $searchableText, prompt: "Search")
+                .searchable(text: $viewModel.searchText, prompt: "Search")
             }
         }
         .task {
