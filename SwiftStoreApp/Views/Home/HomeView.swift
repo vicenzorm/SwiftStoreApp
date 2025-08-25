@@ -57,7 +57,7 @@ struct HomeView: View {
                 await homeViewModel.loadProducts()
             }
             .sheet(item: $homeViewModel.selectedProduct) { product in
-                    ProductDetailsView(product: product)
+                DetailsView(viewModel: DetailsViewModel(apiService: APIService.shared, favoritesService: FavoritesService.shared, cartService: CartService.shared), product: product)
             }
         }
     }

@@ -10,6 +10,7 @@ import Foundation
 @Observable
 class FavoritesViewModel {
     var favoriteProducts: [Product] = []
+    var selectedProduct: Product?
     
     private let favoritesService: FavoritesServiceProtocol
     private let productService: APIServiceProtocol

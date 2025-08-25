@@ -38,4 +38,17 @@ class HomeViewModel {
     func isProductFavorite(product: Product) -> Bool {
         return favoritesService.getFavoritesById(id: product.id) != nil
     }
+    
+    @MainActor func addToFavorites(product: Product) {
+        favoritesService.addFavorite(productId: product.id)
+    }
+
+    
+    @MainActor func toggleFavorite(product: Product) {
+        if isProductFavorite(product: product) {
+            favoritesService.removeFavorite(productId: product.id)
+        } else {
+            favoritesService.addFavorite(productId: product.id)
+        }
+    }
 }

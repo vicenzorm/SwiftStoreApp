@@ -15,6 +15,7 @@ struct OrdersView: View {
     /// ViewModel que gerencia os produtos do usuário
     @State var viewModel: OrdersViewModel
     
+    
     @State private var searchText: String = ""
     
     var body: some View {
@@ -41,6 +42,9 @@ struct OrdersView: View {
         .searchable(text: $searchText, prompt: "Search")
         .onAppear {
             Task { await viewModel.loadOrders() }
+        }
+        .onChange(of: searchText) { _, newValue in
+            viewModel.filterFavorites(textToSearch: newValue)
         }
     }
 }

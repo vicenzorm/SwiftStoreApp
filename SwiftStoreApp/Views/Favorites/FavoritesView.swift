@@ -23,7 +23,10 @@ struct FavoritesView: View {
                         VStack(spacing: 8) {
                             ForEach(viewModel.favoriteProducts) { product in
                                 ProductCardList(product: product, cardType: .favorites) {
-                                    
+                                    viewModel.toggleFavorite(product: product)
+                                }
+                                .onTapGesture { product in
+                                    viewModel.selectedProduct = product
                                 }
                             }
                         }
@@ -33,11 +36,13 @@ struct FavoritesView: View {
             .navigationTitle("Favorites")
             .searchable(text: $searchText, prompt: "Search")
             .onAppear {
-                print("ENTREI")
                 Task { await viewModel.loadFavoriteProducts() }
             }
             .onChange(of: searchText) { _, newValue in
                 viewModel.filterFavorites(textToSearch: newValue)
+            }
+            .sheet(item: $viewModel.selectedProduct) {
+                DetailsView(viewModel: DetailsViewModel, product: p)
             }
         }
     }
