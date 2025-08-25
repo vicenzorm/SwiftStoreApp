@@ -5,7 +5,7 @@ import SwiftData
 
 @MainActor
 @Observable
-class CartViewModel {
+class CartaaaaaaViewModel {
     var cartItems: [Product] = []
     private var cart: [Cart] = []
     

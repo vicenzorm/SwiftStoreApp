@@ -8,7 +8,7 @@
 import Foundation
 
 @MainActor
-protocol OrdersViewModelProtocol {
+protocol OrdersViewModelProtocolaaaaa {
     var orders: [Order] { get }
     func loadOrders() async
     func filterOrders(textToSearch: String)

@@ -9,7 +9,7 @@ import Foundation
 
 @Observable
 @MainActor
-class FavoritesViewModel: FavoritesViewModelProtocol {
+class FavoritesViewModela: FavoritesViewModelProtocola {
     
     var favoriteProducts: [Product] = []
     

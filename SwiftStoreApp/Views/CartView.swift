@@ -1,12 +1,8 @@
-// CartView.swift - VERSÃO FINAL E CORRIGIDA
-
 import SwiftUI
 import SwiftData
 
 struct CartView: View {
     
-    // O ViewModel é a única fonte de verdade para a View.
-    // Ele não deve ser privado, pois será injetado de fora.
     @State var viewModel: CartViewModel
     
     var body: some View {
@@ -21,7 +17,6 @@ struct CartView: View {
                     )
                     Spacer()
                 } else {
-                    // ... seu código de lista de produtos (já está correto)
                     ScrollView {
                         VStack(spacing: 16) {
                             ForEach(viewModel.cartItems) { product in
@@ -51,7 +46,6 @@ struct CartView: View {
                         .padding(.bottom, 20)
                     }
                     
-                    // ... seu código do sumário e checkout (já está correto)
                     VStack(spacing: 16) {
                         HStack {
                             Text("Total:")
@@ -66,7 +60,6 @@ struct CartView: View {
                         }
                         
                         Button {
-                            // Ação de checkout... depois de limpar
                             viewModel.clearCart()
                         } label: {
                             Text("Checkout")

@@ -9,7 +9,7 @@ import Foundation
 
 @Observable
 @MainActor
-class OrdersViewModel: OrdersViewModelProtocol {
+class OrdersaaaaViewModel: OrdersViewModelProtocolaaaaa {
     var orders: [Order] = []
     private var allOrders: [Order] = []
     

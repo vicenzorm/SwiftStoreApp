@@ -8,22 +8,24 @@
 import SwiftUI
 
 struct ProductCardList: View {
-    
-    @Environment(\.modelContext) var modelContext
-    @State var showDetails: Bool = false
-    var product: Product?
-    let order: Order?
-    var cardType: CardType
-    var onAddToFavorites: (() -> Void)? = nil
-    var onRemoveFromCart: (() -> Void)? = nil
-    var onIncreaseQuantity: (() -> Void)? = nil
-    var onDecreaseQuantity: (() -> Void)? = nil
-    
     enum CardType {
         case cart
         case favorites
         case order
     }
+    
+    //TODO: -
+//    @State var showDetails: Bool = false
+    
+    var cardType: CardType
+    
+    var product: Product?
+    let order: Order?
+    
+    var showDetails: () -> Void
+    var onRemoveFromCart: () -> Void
+    var onIncreaseQuantity: () -> Void
+    var onDecreaseQuantity: () -> Void
     
     var body: some View {
         
@@ -49,14 +51,14 @@ struct ProductCardList: View {
                             .font(.system(size: 12))
                             .foregroundStyle(.labelsSecondary)
                         
-                        Text(order?.name)
+                        Text(order?.name ?? "name")
                             .font(.footnote)
                             .font(.system(size: 13))
                             .foregroundStyle(.labelsPrimary)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .lineLimit(1)
                         
-                        Text(Formatters.paraDolarAmericano.string(from: NSNumber(value: order?.price)) ?? "US$ 00,00")
+                        Text(Formatters.paraDolarAmericano.string(from: NSNumber(value: order?.price ?? 0)) ?? "US$ 00,00")
                             .font(.headline)
                             .foregroundStyle(.labelsPrimary)
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -66,14 +68,14 @@ struct ProductCardList: View {
                 } else {
                     VStack(alignment: .leading, spacing: 8) {
                         
-                        Text(product.title)
+                        Text(product?.title ?? "Nenhum0")
                             .font(.footnote)
                             .font(.system(size: 13))
                             .foregroundStyle(.labelsPrimary)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .lineLimit(2)
                         
-                        Text(Formatters.paraDolarAmericano.string(from: NSNumber(value: product.price)) ?? "US$ 00,00")
+                        Text(Formatters.paraDolarAmericano.string(from: NSNumber(value: product?.price ?? 0)) ?? "US$ 00,00")
                             .font(.headline)
                             .foregroundStyle(.labelsPrimary)
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -86,7 +88,7 @@ struct ProductCardList: View {
                     
                     if cardType == .favorites {
                         Button {
-                            showDetails.toggle()
+                            showDetails()
                         } label: {
                             Image(systemName: "cart.fill")
                                 .foregroundStyle(.labelsPrimary)
@@ -102,13 +104,7 @@ struct ProductCardList: View {
                         
                         HStack(spacing: 4) {
                             Button {
-//                                if product.quantity > 1 { product.quantity -= 1 }
-//                                else if product.quantity == 1 {
-//                                    product.quantity -= 1
-//                                    product.isOnCart = false
-//                                }
-                                onDecreaseQuantity?()
-                                
+                                onDecreaseQuantity()
                             } label: {
                                 Image(systemName: "minus")
                                     .foregroundStyle(.labelsPrimary)
@@ -120,14 +116,13 @@ struct ProductCardList: View {
                                     )
                             }
                             
-                            Text("\(product.quantity)")
+                            Text("\(product?.quantity ?? 1)")
                                 .font(.body)
                                 .foregroundStyle(.labelsPrimary)
                                 .padding(.horizontal, 4)
                             
                             Button {
-                                //if product.quantity < 9 { product.quantity += 1 }
-                                onIncreaseQuantity?()
+                                onIncreaseQuantity()
                             } label: {
                                 Image(systemName: "plus")
                                     .foregroundStyle(.labelsPrimary)
@@ -150,10 +145,6 @@ struct ProductCardList: View {
             RoundedRectangle(cornerRadius: 16)
                 .foregroundStyle(.backgroundSecondary)
         )
-        .sheet(isPresented: $showDetails) {
-            //ProductDetailsView(viewModel: ), userProduct: product)
-              //  .presentationDragIndicator(.visible)
-        }
     }
 }
 #Preview {

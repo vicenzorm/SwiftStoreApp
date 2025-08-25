@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol CartViewModelProtocol {
+protocol CartaaaaaViewModelProtocol {
     func fetchCartItems() async
 }

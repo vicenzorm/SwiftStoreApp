@@ -8,7 +8,7 @@
 import Foundation
 
 @MainActor
-protocol FavoritesViewModelProtocol {
+protocol FavoritesViewModelProtocola {
     var favoriteProducts: [Product] { get }
     func loadFavoriteProducts() async
     func addToFavorites(product: Product)
