@@ -1,31 +1,14 @@
 import SwiftUI
 
-struct ProductDetailsView: View {
+struct DetailsView: View {
     
     @Environment(\.dismiss) var dismiss
-    
-    // Injetando o ViewModel para lidar com a lógica
-    let favoritesViewModel: FavoritesViewModel
-    let cartViewModel: CartViewModel // Supondo que você tem um CartViewModel
-    
+    @State var viewModel: DetailsViewModel
     let product: Product
-    
-    // Estado local para o coração, inicializado pelo ViewModel
-    @State private var isFavorited: Bool
-    
-    init(favoritesViewModel: FavoritesViewModel, cartViewModel: CartViewModel, product: Product) {
-        self.favoritesViewModel = favoritesViewModel
-        self.cartViewModel = cartViewModel
-        self.product = product
-        
-        // Inicializa o estado do coração com base no ViewModel
-        _isFavorited = State(initialValue: favoritesViewModel.isProductFavorite(product: product))
-    }
     
     var body: some View {
         NavigationStack {
             VStack {
-                // Conteúdo do cabeçalho com a imagem
                 VStack {
                     AsyncImage(url: URL(string: product.thumbnail)) { image in
                         image.resizable()
@@ -39,13 +22,10 @@ struct ProductDetailsView: View {
                     .frame(width: 329, height: 329)
                     .padding()
                     .overlay(
-                        // O HeartComponent agora interage com o estado local
-                        HeartComponent(isFavorited: $isFavorited)
-                            .padding(24)
-                            .onTapGesture {
-                                // Ação de favoritar/desfavoritar
-                                favoritesViewModel.toggleFavorite(product: product)
-                            },
+                        HeartComponent(isFavorited: $viewModel.isFavorited) {
+                            viewModel.addToFavorites(product: product)
+                        }
+                        .padding(24),
                         alignment: .topTrailing
                     )
                 }
@@ -54,7 +34,6 @@ struct ProductDetailsView: View {
                         .foregroundStyle(.backgroundSecondary)
                 )
                 
-                // Conteúdo de texto e botões
                 VStack(alignment: .leading, spacing: 16) {
                     VStack(alignment: .leading, spacing: 4) {
                         Text(product.title)
@@ -76,7 +55,7 @@ struct ProductDetailsView: View {
                     
                     Button {
                         // Ação de adicionar ao carrinho via ViewModel
-                        cartViewModel.addToCart(productId: product.id)
+                        viewModel.addToCart(product: product)
                         dismiss()
                     } label: {
                         Text("Add to cart")
@@ -102,10 +81,6 @@ struct ProductDetailsView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(.bakgroundPrimary, for: .navigationBar)
             .toolbarBackgroundVisibility(.visible, for: .navigationBar)
-            .onChange(of: favoritesViewModel.favoriteProducts) {
-                // Observa a lista de favoritos e atualiza o estado local
-                self.isFavorited = favoritesViewModel.isProductFavorite(product: product)
-            }
         }
     }
 }

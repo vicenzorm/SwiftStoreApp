@@ -22,7 +22,9 @@ struct FavoritesView: View {
                     ScrollView {
                         VStack(spacing: 8) {
                             ForEach(viewModel.favoriteProducts) { product in
-                                ProductCardList(product: product, cardType: .favorites)
+                                ProductCardList(product: product, cardType: .favorites) {
+                                    
+                                }
                             }
                         }
                     }
