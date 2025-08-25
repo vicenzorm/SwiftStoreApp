@@ -1,19 +1,9 @@
 import SwiftUI
 
 struct ProductCardDeal: View {
-    let favoritesViewModel: FavoritesViewModel
-    let cartViewModel: CartViewModel
     let product: Product
     @Binding var isFavorited: Bool
-    @State var showDetail: Bool = false
-    var onAddToFavorites: (() -> Void)? = nil
-    var onTapFav: (() -> Void)
-    init(favoritesViewModel: FavoritesViewModel, cartViewModel: CartViewModel, product: Product) {
-            self.favoritesViewModel = favoritesViewModel
-            self.cartViewModel = cartViewModel
-            self.product = product
-            _isFavorited = State(initialValue: favoritesViewModel.isProductFavorite(product: product))
-        }
+    var onTapFav: () -> Void
     
     var body: some View {
         VStack(spacing: 8) {
@@ -66,14 +56,6 @@ struct ProductCardDeal: View {
             }
         }
         .contentShape(RoundedRectangle(cornerRadius: 16))
-        .onTapGesture { showDetail = true }
-        .sheet(isPresented: $showDetail) {
-                ProductDetailsView(
-                    favoritesViewModel: favoritesViewModel,
-                    cartViewModel: cartViewModel, // Passe a instância que você recebeu
-                    product: product
-                )
-            }
 //        .onChange(of: favoritesViewModel.favoriteProducts) {
 //            // Update the state of the HeartComponent if the ViewModel's list changes
 //            self.isFavorited = favoritesViewModel.isProductFavorite(product: product)

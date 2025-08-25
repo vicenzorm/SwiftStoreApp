@@ -55,8 +55,8 @@
 		C516E42A2E4D0FE900441CD6 = {
 			isa = PBXGroup;
 			children = (
-				C516E4352E4D0FE900441CD6 /* SwiftStoreApp */,
 				C5112C7E2E58C9C1008795E5 /* TestsForSwiftStore */,
+				C516E4352E4D0FE900441CD6 /* SwiftStoreApp */,
 				C516E4342E4D0FE900441CD6 /* Products */,
 			);
 			sourceTree = "<group>";

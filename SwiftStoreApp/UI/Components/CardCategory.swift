@@ -9,31 +9,26 @@ import SwiftUI
 import SwiftData
 
 struct CardCategory: View {
-    @Environment(\.modelContext) var modelContext
-        let category: Category
+    let category: Category
     
     var body: some View {
-        NavigationLink {
-            //CategoryView(viewModel: APIViewModel(service: APIService()), userViewModel: UserViewModel(service: UserService(modelContext: modelContext)), category: category)
-        } label: {
-            VStack(spacing: 8){
-                
-                Image(category.image)
-                    .resizable()
-                    .frame(width: 84, height:84)
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-                
-                Text(category.name)
-                    .font(.subheadline)
-                    .foregroundStyle(.labelsPrimary)
-                    .lineLimit(1)
-                    .truncationMode(.tail)
-                
-            }
+        VStack(spacing: 8){
+            
+            Image(category.image)
+                .resizable()
+                .frame(width: 84, height:84)
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+            
+            Text(category.name)
+                .font(.subheadline)
+                .foregroundStyle(.labelsPrimary)
+                .lineLimit(1)
+                .truncationMode(.tail)
+            
         }
     }
 }
 
 #Preview {
-//    CardCategory(category: Category(name: "Beauty", slug: "categoria"))
+    CardCategory(category: Category(name: "Beauty", slug: "categoria"))
 }

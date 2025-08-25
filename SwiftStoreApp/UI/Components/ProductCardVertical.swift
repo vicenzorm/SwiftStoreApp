@@ -1,19 +1,11 @@
 import SwiftUI
 
 struct ProductCardVertical: View {
-    var product: Product?
+    var product: Product
     @Binding var isFavorited: Bool
     @State var showDetails: Bool = false
     var onAddToFavorites: () -> Void
     
-    init(favoritesViewModel: FavoritesViewModel, cartViewModel: CartViewModel, product: Product) {
-            self.cartViewModel = cartViewModel
-            self.favoritesViewModel = favoritesViewModel
-            self.product = product
-            _isFavorited = State(initialValue: favoritesViewModel.isProductFavorite(product: product))
-        }
-    let cartViewModel: CartViewModel
-    let favoritesViewModel: FavoritesViewModel
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             ZStack(alignment: .topTrailing) {
@@ -50,8 +42,6 @@ struct ProductCardVertical: View {
         }
         .sheet(isPresented: $showDetails){
             ProductDetailsView(
-                favoritesViewModel: favoritesViewModel,
-                cartViewModel: cartViewModel, // Passe a instância que você recebeu
                 product: product
             )
             .presentationDragIndicator(.visible)

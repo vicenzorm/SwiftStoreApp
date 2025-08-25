@@ -10,12 +10,12 @@ import SwiftUI
 struct HeartComponent: View {
 
     @Binding var isFavorited: Bool
-    var onTap: (() -> Void)?
+    var onTap: () -> Void
     
     var body: some View {
         Button {
             isFavorited.toggle()
-            onTap?()
+            onTap()
         } label: {
             Image(systemName: isFavorited ? "heart.fill" : "heart")
                 .foregroundStyle(.labelsPrimary)
