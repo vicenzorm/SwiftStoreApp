@@ -6,7 +6,17 @@ import SwiftData
 @MainActor
 class CartService {
     
-    func fetchCart(modelContext: ModelContext) -> [Cart] {
+    let modelContainer: ModelContainer
+    let modelContext: ModelContext
+    
+    static var shared = CartService()
+    
+    private init() {
+        self.modelContainer = try! ModelContainer(for: Favorite.self)
+        self.modelContext = modelContainer.mainContext
+    }
+    
+    func fetchCart() -> [Cart] {
         do {
             return try modelContext.fetch(FetchDescriptor<Cart>(sortBy: [SortDescriptor(\.id)]))
         } catch {
@@ -15,7 +25,7 @@ class CartService {
         }
     }
     
-    func addToCart(productId: Int, modelContext: ModelContext) {
+    func addToCart(productId: Int) {
         let predicate = #Predicate<Cart> { $0.id == productId }
         let description = FetchDescriptor<Cart>(predicate: predicate)
         
@@ -29,9 +39,11 @@ class CartService {
         } catch {
             print("failed to add to cart: \(error.localizedDescription)")
         }
+        
+        saveChanges()
     }
     
-    func removeFromCart(productId: Int, modelContext: ModelContext) {
+    func removeFromCart(productId: Int) {
         let predicate = #Predicate<Cart> { $0.id == productId }
         let description = FetchDescriptor<Cart>(predicate: predicate)
         
@@ -42,9 +54,11 @@ class CartService {
         } catch {
             print("failed to delete from cart: \(error.localizedDescription)")
         }
+        
+        saveChanges()
     }
     
-    func updateQuantity(productId: Int, newQuantity: Int, modelContext: ModelContext) {
+    func updateQuantity(productId: Int, newQuantity: Int) {
         let predicate = #Predicate<Cart> { $0.id == productId }
         let descriptor = FetchDescriptor<Cart>(predicate: predicate)
         
@@ -59,11 +73,24 @@ class CartService {
         } catch {
             print("error updating cart quantity: \(error.localizedDescription)")
         }
+        
+        saveChanges()
     }
     
-    func clearCart(modelContext: ModelContext) {
+    private func saveChanges() {
+        print("Tentando salvar mudanças no ModelContext...")
+        do {
+            try modelContext.save()
+            print("✅ Mudanças salvas com sucesso!")
+        } catch {
+            print("🚨 ERRO ao salvar o model context: \(error.localizedDescription)")
+        }
+    }
+    
+    func clearCart() {
         do {
             try modelContext.delete(model: Cart.self)
+            saveChanges()
         } catch {
             print("Erro ao limpar o carrinho: \(error.localizedDescription)")
         }

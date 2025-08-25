@@ -8,34 +8,61 @@
 import Foundation
 
 @Observable
+@MainActor
 class CartViewModel {
-    var products: [Product] = []
-    var isLoadingProducts: Bool = false
-    var errorMessage: String?
-    var isFavorited: Bool = false
-    var selectedProduct: Product?
+    var cartItems: [Product] = []
+    private var cart: [Cart] = []
     
-    private let apiService: APIServiceProtocol
-    private let favoritesService: FavoritesServiceProtocol
+    let apiService: APIService = .shared
+    let cartService: CartService = .shared
     
-    init(apiService: APIServiceProtocol, favoritesService: FavoritesServiceProtocol,) {
-        self.apiService = apiService
-        self.favoritesService = favoritesService
-    }
-    
-    func loadProducts() async {
-        isLoadingProducts = true
-        do {
-            products = try await apiService.getAllProducts()
-        } catch {
-            errorMessage = "Error at fetching products: \(error.localizedDescription)"
+    func loadCart() {
+        self.cart = cartService.fetchCart()
+        print("🛒 Carrinho local carregado. Itens no banco de dados: \(self.cart.count)")
+        
+        Task {
+            await fetchProductsFullDetails()
         }
-        isLoadingProducts = false
     }
     
-    // vai servir para checar se um produto esta favoritado ou nao na tela inicial
-    @MainActor
-    func isProductFavorite(product: Product) -> Bool {
-        return favoritesService.getFavoritesById(id: product.id) != nil
+    func fetchProductsFullDetails() async {
+        var cartProducts: [Product] = []
+        print("Buscando detalhes completos dos produtos na API...")
+        for item in cart {
+            do {
+                let product = try await apiService.getProduct(byId: item.id)
+                product.quantity = item.quantity
+                cartProducts.append(product)
+            } catch {
+                print("🚨 ERRO ao buscar detalhes do produto com id \(item.id): \(error)")
+            }
+        }
+        self.cartItems = cartProducts
+        print("✅ Detalhes de \(self.cartItems.count) produtos carregados. UI será atualizada.")
     }
+    
+    func updateQuantity(productId: Int, newQuantity: Int) {
+        print("Atualizando quantidade do produto \(productId) para \(newQuantity)...")
+        cartService.updateQuantity(productId: productId, newQuantity: newQuantity)
+        
+        if let index = cartItems.firstIndex(where: { $0.id == productId }) {
+            cartItems[index].quantity = max(newQuantity, 0)
+        }
+    }    
+    func getCartTotalPrice() -> Double {
+        return cartItems.reduce(0.0) { total, item in
+            total + (item.price * Double(item.quantity))
+        }
+    }
+    
+    
+    
+    func clearCart() {
+        print("Limpando todos os itens do carrinho...")
+        cartService.clearCart()
+        
+        self.cartItems = []
+        self.cart = []
+    }
+    
 }
