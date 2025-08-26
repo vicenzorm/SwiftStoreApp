@@ -24,7 +24,7 @@ struct OrdersView: View {
     
     var body: some View {
         // A View agora tem uma estrutura principal mais simples
-        ScrollView {
+        VStack {
             if viewModel.orders.isEmpty {
                 EmptyState(
                     icon: "bag.badge.questionmark",
@@ -32,9 +32,11 @@ struct OrdersView: View {
                     subtitle: "Buy an item and it will show up here."
                 )
             } else {
-                // Apenas chamamos a propriedade que constrói a lista
-                ordersList
+                ScrollView {
+                    ordersList
+                }
             }
+            
         }
         // 1. A ScrollView interna foi removida
         .navigationTitle("Orders")
