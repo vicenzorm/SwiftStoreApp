@@ -16,7 +16,7 @@ class CartViewModel {
     let apiService: APIService = .shared
     let cartService: CartService = .shared
     
-    func loadCart() {
+    func loadCart() async {
         self.cart = cartService.fetchCart()
         print("🛒 Carrinho local carregado. Itens no banco de dados: \(self.cart.count)")
         
@@ -48,14 +48,13 @@ class CartViewModel {
         if let index = cartItems.firstIndex(where: { $0.id == productId }) {
             cartItems[index].quantity = max(newQuantity, 0)
         }
-    }    
+    }
+    
     func getCartTotalPrice() -> Double {
         return cartItems.reduce(0.0) { total, item in
             total + (item.price * Double(item.quantity))
         }
     }
-    
-    
     
     func clearCart() {
         print("Limpando todos os itens do carrinho...")

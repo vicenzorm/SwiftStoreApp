@@ -8,6 +8,7 @@
 import Foundation
 
 @Observable
+@MainActor
 class DetailsViewModel: DetailsViewModelProtocol {
     var isLoadingProduct: Bool = false
     var errorMessage: String?

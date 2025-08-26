@@ -25,7 +25,7 @@ struct FavoritesView: View {
                                 ProductCardList(
                                     cardType: .favorites,
                                     product: product,
-                                    order: nil, showDetails:  {
+                                    order: nil, showDetails: {
                                         viewModel.selectedProduct = product
                                     })
                             }

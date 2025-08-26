@@ -18,11 +18,12 @@ struct CartView: View {
                     Spacer()
                 } else {
                     ScrollView {
-                        VStack(spacing: 16) {
+                        VStack(spacing: 8) {
                             ForEach(viewModel.cartItems) { product in
                                 ProductCardList(
-                                    product: product,
                                     cardType: .cart,
+                                    product: product,
+                                    order: nil,
                                     onIncreaseQuantity: {
                                         viewModel.updateQuantity(
                                             productId: product.id,
@@ -34,13 +35,12 @@ struct CartView: View {
                                             productId: product.id,
                                             newQuantity: product.quantity - 1
                                         )
-                                    }
-                                )
+                                    })
                             }
                         }
-                        .frame(maxWidth: .infinity, alignment: .top)
-                        .padding(.bottom, 20)
                     }
+                    .frame(maxWidth: .infinity, alignment: .top)
+                    .padding(.bottom, 20)
                     
                     VStack(spacing: 16) {
                         HStack {
@@ -73,10 +73,9 @@ struct CartView: View {
                     .background(.background)
                 }
             }
-            .padding()
             .navigationTitle("Cart")
-            .onAppear {
-                viewModel.loadCart()
+            .task {
+                await viewModel.loadCart()
             }
         }
     }
