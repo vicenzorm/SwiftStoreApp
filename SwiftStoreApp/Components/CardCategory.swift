@@ -12,22 +12,26 @@ struct CardCategory: View {
     let category: Category
     
     var body: some View {
-        VStack(spacing: 8){
+        NavigationLink(destination: CategoryView(viewModel: CategoryViewModel(category: category))){
             
-            Image(category.image)
-                .resizable()
-                .frame(width: 84, height:84)
-                .clipShape(RoundedRectangle(cornerRadius: 16))
-            
-            Text(category.name)
-                .font(.subheadline)
-                .foregroundStyle(.labelsPrimary)
-                .lineLimit(1)
-                .truncationMode(.tail)
-            
+            VStack(spacing: 8){
+                
+                Image(category.image)
+                    .resizable()
+                    .frame(width: 84, height:84)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                
+                Text(category.name)
+                    .font(.subheadline)
+                    .foregroundStyle(.labelsPrimary)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+                
+            }
         }
     }
 }
+
 
 #Preview {
     CardCategory(category: Category(name: "Beauty", slug: "categoria"))

@@ -12,7 +12,7 @@ import SwiftUI
 /// - Mostra os produtos em um grid de duas colunas.
 /// - Exibe um indicador de carregamento enquanto os produtos são carregados.
 struct CategoryView: View {
-
+    
     // MARK: - ViewModel
     @State var viewModel: CategoryViewModel
     
@@ -22,16 +22,12 @@ struct CategoryView: View {
         GridItem(.fixed(177), spacing: 8),
         GridItem(.fixed(177), spacing: 8)
     ]
-
+    
     // MARK: - View
     var body: some View {
-        NavigationStack {
-            
-            // Exibe indicador de carregamento enquanto produtos são buscados
+        Group {
             if viewModel.isLoadingProducts {
                 ProgressView()
-                
-            // Exibe produtos quando disponíveis
             } else {
                 ScrollView {
                     LazyVGrid(columns: collumns) {
@@ -43,11 +39,11 @@ struct CategoryView: View {
                     }
                 }
                 .padding()
-                .navigationTitle(viewModel.category.name)
-                .navigationBarTitleDisplayMode(.inline)
-                .searchable(text: $viewModel.searchText, prompt: "Search") // Campo de busca
             }
         }
+        .navigationTitle(viewModel.category.name)
+        .navigationBarTitleDisplayMode(.inline)
+        .searchable(text: $viewModel.searchText, prompt: "Search")
         .task {
             await viewModel.loadProductsByCategories(category: viewModel.category.slug)
             await viewModel.loadFavoriteProducts()
@@ -55,6 +51,7 @@ struct CategoryView: View {
     }
 }
 
+
 #Preview {
-//    CategoryView(viewModel: ShopViewModel(service: ShopService()), category: Category(name: "Food", slug: "food"))
+    //    CategoryView(viewModel: ShopViewModel(service: ShopService()), category: Category(name: "Food", slug: "food"))
 }
