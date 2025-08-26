@@ -15,6 +15,7 @@ class CartViewModel {
     
     let apiService: APIService = .shared
     let cartService: CartService = Persistence.shared.cartService
+    let orderService: OrdersService = Persistence.shared.orderService
     
     func loadCart() async {
         self.cart = cartService.fetchCart()
@@ -62,6 +63,18 @@ class CartViewModel {
         
         self.cartItems = []
         self.cart = []
+    }
+    
+    func checkoutCart() {
+        
+        var productsId: [Int] = []
+        
+        for item in cartItems {
+            productsId.append(item.id)
+        }
+        
+        orderService.createOrder(productsId: productsId)
+        clearCart()
     }
     
 }

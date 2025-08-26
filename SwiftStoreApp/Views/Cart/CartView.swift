@@ -23,7 +23,6 @@ struct CartView: View {
                                 ProductCardList(
                                     cardType: .cart,
                                     product: product,
-                                    order: nil,
                                     onIncreaseQuantity: {
                                         viewModel.updateQuantity(
                                             productId: product.id,
@@ -56,7 +55,7 @@ struct CartView: View {
                         }
                         
                         Button {
-                            viewModel.clearCart()
+                            viewModel.checkoutCart()
                         } label: {
                             Text("Checkout")
                                 .foregroundStyle(.white)

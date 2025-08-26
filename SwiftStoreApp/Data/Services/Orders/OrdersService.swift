@@ -15,11 +15,11 @@ class OrdersService: OrdersServiceProtocol {
     init(modelContext: ModelContext) {
         self.modelContext = modelContext
     }
+    
     func getAllOrders() -> [Order] {
         do {
             return try modelContext.fetch(FetchDescriptor<Order>())
         } catch {
-            fatalError(error.localizedDescription)
             return []
         }
     }
@@ -35,5 +35,25 @@ class OrdersService: OrdersServiceProtocol {
             print("erro ao dar fetch na order")
             return nil
         }
+    }
+    
+    func createOrder(productsId: [Int]) {
+        
+        var newOrder: [Order] = []
+        
+        for id in productsId {
+            newOrder.append(Order(id: id))
+        }
+        
+        for order in newOrder {
+            modelContext.insert(order)
+        }
+        
+        do {
+            try modelContext.save()
+        } catch {
+            print("erro ao salvar order")
+        }
+        
     }
 }

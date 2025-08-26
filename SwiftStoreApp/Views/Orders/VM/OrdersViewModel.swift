@@ -7,27 +7,41 @@
 
 import Foundation
 
+@Observable
+@MainActor
 class OrdersViewModel: OrdersViewModelProtocol {
-    var orders: [Order] = []
+    var orders: [Product] = []
+    var ordersId: [Order] = []
     
-    private let orderService: OrdersService
-
-    init(orderService: OrdersService) {
-        self.orderService = orderService
-    }
+    private let orderService: OrdersService = Persistence.shared.orderService
+    private let apiService: APIService = .shared
     
-    @MainActor
-    func loadOrders() {
-        orders = orderService.getAllOrders()
-    }
+    var isLoading: Bool = false
+    var textToSearch: String = ""
     
-    func filterOrders(textToSearch: String) -> [Order] {
+    var filteredOrders: [Product] {
         if textToSearch.isEmpty {
             return orders
         } else {
-            return orders.filter { order in
-                order.name.localizedCaseInsensitiveContains(textToSearch)
+            return orders.filter({ $0.title.localizedCaseInsensitiveContains(textToSearch) })
+        }
+    }
+    
+    @MainActor
+    func loadOrders() async {
+        isLoading = true
+        
+        ordersId = orderService.getAllOrders()
+        orders.removeAll()
+        
+        for order in ordersId {
+            do {
+                try await orders.append(apiService.getProduct(byId: order.id))
+            } catch {
+                orders = []
             }
         }
+        
+        isLoading = false
     }
 }

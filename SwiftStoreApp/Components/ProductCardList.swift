@@ -16,7 +16,6 @@ struct ProductCardList: View {
     var cardType: CardType
     
     var product: Product?
-    let order: Order?
     
     var showDetails: (() -> Void)?
     var onRemoveFromCart: (() -> Void)?
@@ -41,20 +40,20 @@ struct ProductCardList: View {
                 if cardType == .order {
                     VStack(alignment: .leading, spacing: 8) {
                         
-                        Text("\(order?.day) dias restantes"
-                             .uppercased())
+                        Text(product?.shippingInformation
+                            .uppercased() ?? "Entrega em ...")
                             .font(.caption)
                             .font(.system(size: 12))
                             .foregroundStyle(.labelsSecondary)
                         
-                        Text(order?.name ?? "name")
+                        Text(product?.title ?? "name")
                             .font(.footnote)
                             .font(.system(size: 13))
                             .foregroundStyle(.labelsPrimary)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .lineLimit(1)
                         
-                        Text(Formatters.paraDolarAmericano.string(from: NSNumber(value: order?.price ?? 0)) ?? "US$ 00,00")
+                        Text(Formatters.paraDolarAmericano.string(from: NSNumber(value: product?.price ?? 0)) ?? "US$ 00,00")
                             .font(.headline)
                             .foregroundStyle(.labelsPrimary)
                             .frame(maxWidth: .infinity, alignment: .leading)

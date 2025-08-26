@@ -9,7 +9,6 @@ import SwiftUI
 
 struct FavoritesView: View {
     @State var viewModel: FavoritesViewModel
-    @State private var searchText: String = ""
     
     var body: some View {
         NavigationStack {
@@ -21,11 +20,11 @@ struct FavoritesView: View {
                 } else {
                     ScrollView {
                         VStack(spacing: 8) {
-                            ForEach(viewModel.favoriteProducts) { product in
+                            ForEach(viewModel.filteredFavorite) { product in
                                 ProductCardList(
                                     cardType: .favorites,
                                     product: product,
-                                    order: nil, showDetails: {
+                                    showDetails: {
                                         viewModel.selectedProduct = product
                                     })
                             }
@@ -34,12 +33,9 @@ struct FavoritesView: View {
                 }
             }
             .navigationTitle("Favorites")
-            .searchable(text: $searchText, prompt: "Search")
+            .searchable(text: $viewModel.searchText, prompt: "Search")
             .task {
                 await viewModel.loadFavoriteProducts()
-            }
-            .onChange(of: searchText) { _, newValue in
-                viewModel.filterFavorites(textToSearch: newValue)
             }
             .sheet(item: $viewModel.selectedProduct) { product in
                 DetailsView(viewModel: DetailsViewModel(apiService: APIService.shared, favoritesService: Persistence.shared.favoriteService, cartService: Persistence.shared.cartService), product: product)
