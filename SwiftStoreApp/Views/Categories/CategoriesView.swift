@@ -51,6 +51,7 @@ struct CategoriesView: View {
                                 Spacer()
                             }
                             .frame(height: 60)
+                            .accessibilityHint("Click to go to \(category.name) page")
                         }
                     }
                     .listStyle(.plain)

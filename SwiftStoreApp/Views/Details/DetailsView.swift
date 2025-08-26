@@ -18,6 +18,7 @@ struct DetailsView: View {
                             .resizable()
                             .scaledToFill()
                     }
+                    .accessibilityHidden(true)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
                     .frame(width: 329, height: 329)
                     .padding()
@@ -44,6 +45,8 @@ struct DetailsView: View {
                             .font(.title2.bold())
                             .foregroundStyle(.labelsPrimary)
                     }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel("\(product.title) costing \(Formatters.paraDolarAmericano.string(from: NSNumber(value: product.price)) ?? "US$ 00,00")")
                     
                     ScrollView {
                         Text(product.description)

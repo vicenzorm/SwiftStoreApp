@@ -18,10 +18,12 @@ struct ProductCardVertical: View {
                 }
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .frame(width: 161, height: 160)
+                .accessibilityHidden(true)
                 
                 HeartComponent(isFavorited: $isFavorited) {
                     onAddToFavorites()
                 }
+                .accessibilityHint("Adds this product to your favorites list")
             }
             
             VStack(alignment: .leading, spacing: 4) {
@@ -32,7 +34,8 @@ struct ProductCardVertical: View {
                 Text(Formatters.paraDolarAmericano.string(from: NSNumber(value: product.price)) ?? "US$ 00,00")
                     .font(.headline)
             }
-            
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel("\(product.title) costing \(Formatters.paraDolarAmericano.string(from: NSNumber(value: product.price)) ?? "US$ 00,00")")
         }
         .frame(width: 177, height: 250)
         .background(

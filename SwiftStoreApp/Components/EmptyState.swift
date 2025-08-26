@@ -19,11 +19,14 @@ struct EmptyState: View {
                 .accessibilityHidden(true)
                 .font(.system(size: 48))
                 .foregroundStyle(.graysGray2)
+                .accessibilityHidden(true)
             VStack(spacing: 16){
                 Text(title)
                 Text(subtitle)
                     .foregroundStyle(.labelsSecondary)
             }
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel("\(title), \(subtitle)")
         }
     }
 }

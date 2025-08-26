@@ -32,6 +32,7 @@ struct ProductCardDeal: View {
                         HeartComponent(isFavorited: $isFavorited) {
                             onTapFav()
                         }
+                        .accessibilityHint("Add this product to your favorites")
                         
                     }
                     
@@ -46,7 +47,7 @@ struct ProductCardDeal: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     .accessibilityElement(children: .combine)
-                    .accessibilityLabel("\(product.title) costing \(product.price)")
+                    .accessibilityLabel("\(product.title) costing \(Formatters.paraDolarAmericano.string(from: NSNumber(value: product.price)) ?? "US$ 00,00")")
                 }
             }
             .padding(.horizontal, 8)
