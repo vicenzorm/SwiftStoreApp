@@ -24,8 +24,9 @@ struct HomeView: View {
                             .font(.system(size: 22, weight: .bold))
                             .font(.title2)
                         
-                        ProductCardDeal(product: dealProduct, isFavorited: $homeViewModel.isFavorited) {
-                            homeViewModel.isProductFavorite(product: dealProduct)
+                        ProductCardDeal(product: dealProduct, isFavorited: homeViewModel.isProductFavorite(product: dealProduct)) {
+                            homeViewModel.addToFavorites(product: dealProduct)
+                            Task { await homeViewModel.loadProducts() }
                         }
                         .onTapGesture {
                             homeViewModel.selectedProduct = dealProduct
@@ -42,8 +43,9 @@ struct HomeView: View {
                     ScrollView {
                         LazyVGrid(columns: colunas, spacing: 8) {
                             ForEach(homeViewModel.products) { product in
-                                ProductCardVertical(product: product, isFavorited: $homeViewModel.isFavorited) {
-                                    homeViewModel.isProductFavorite(product: product)
+                                ProductCardVertical(product: product, isFavorited: homeViewModel.isProductFavorite(product: product)) {
+                                    homeViewModel.addToFavorites(product: product)
+                                    Task { await homeViewModel.loadProducts() }
                                 }
                                 .onTapGesture {
                                     homeViewModel.selectedProduct = product
