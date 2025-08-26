@@ -8,7 +8,7 @@
 import Foundation
 
 @Observable
-class FavoritesViewModel {
+class FavoritesViewModel: FavoritesViewModelProtocol {
     var favoriteProducts: [Product] = []
     var selectedProduct: Product?
     var searchText: String = ""

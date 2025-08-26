@@ -8,7 +8,8 @@
 import SwiftUI
 
 @Observable
-class HomeViewModel {
+class HomeViewModel: HomeViewModelProtocol {
+    
     var products: [Product] = []
     var isLoadingProducts: Bool = false
     var errorMessage: String?

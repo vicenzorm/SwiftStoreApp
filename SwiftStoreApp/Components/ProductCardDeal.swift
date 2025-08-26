@@ -18,12 +18,14 @@ struct ProductCardDeal: View {
                 .padding(.vertical, 8)
                 .padding(.trailing, 16)
                 .padding(.leading, 8)
+                .accessibilityHidden(true)
                 
                 VStack(alignment: .leading, spacing: 24) {
                     HStack {
                         Text(product.category.uppercased())
                             .font(.footnote)
                             .foregroundStyle(.labelsSecondary)
+                            .accessibilityHidden(true)
                         
                         Spacer()
                         
@@ -43,6 +45,8 @@ struct ProductCardDeal: View {
                             .foregroundStyle(.labelsPrimary)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel("\(product.title) costing \(product.price)")
                 }
             }
             .padding(.horizontal, 8)

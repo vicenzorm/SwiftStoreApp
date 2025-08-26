@@ -9,7 +9,7 @@ import Foundation
 
 @Observable
 @MainActor
-class CartViewModel {
+class CartViewModel: CartViewModelProtocol {
     var cartItems: [Product] = []
     private var cart: [Cart] = []
     

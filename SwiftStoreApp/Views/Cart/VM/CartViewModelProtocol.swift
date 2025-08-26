@@ -8,7 +8,7 @@
 import Foundation
 
 @MainActor
-protocol HomeViewModelProtocol {
+protocol CartViewModelProtocol {
     var cartItems: [Product] { get set }
     
     func loadCart() async
