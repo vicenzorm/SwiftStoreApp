@@ -32,7 +32,7 @@ struct ProductCardList: View {
                 Image(.placeholder).resizable()
             }
             .clipShape(RoundedRectangle(cornerRadius: 8))
-            .frame(width: 160, height: 160)
+            .frame(width: 78, height: 78)
             .padding(.vertical, 8)
             .padding(.trailing, 16)
             .padding(.leading, 8)
@@ -136,7 +136,6 @@ struct ProductCardList: View {
             .frame(width: 243,alignment: .leading)
             .padding(.vertical, 16)
         }
-        .padding(8)
         .background(
             RoundedRectangle(cornerRadius: 16)
                 .foregroundStyle(.backgroundSecondary)

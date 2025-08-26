@@ -69,7 +69,7 @@ struct CartView: View {
                         )
                         .disabled(viewModel.cartItems.isEmpty)
                     }
-                    .padding(.top, 16)
+                    .padding(16)
                     .background(.background)
                 }
             }
