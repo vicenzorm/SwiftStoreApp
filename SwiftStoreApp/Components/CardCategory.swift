@@ -26,8 +26,8 @@ struct CardCategory: View {
                     .foregroundStyle(.labelsPrimary)
                     .lineLimit(1)
                     .truncationMode(.tail)
-                
             }
+            .accessibilityHint("Click to go to \(category.name)'s page")
         }
     }
 }

@@ -53,6 +53,9 @@ struct CartView: View {
                             )
                             .font(.headline)
                         }
+                        .accessibilityElement(children: .combine)
+                        .accessibilityLabel("Total")
+                            .accessibilityValue(Formatters.paraDolarAmericano.string(from: NSNumber(value: viewModel.getCartTotalPrice())) ?? "$0.00")
                         
                         Button {
                             viewModel.checkoutCart()

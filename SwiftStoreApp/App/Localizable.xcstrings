@@ -1,8 +1,31 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%@ costing %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ costing %2$@"
+          }
+        }
+      }
+    },
+    "%@, %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@, %2$@"
+          }
+        }
+      }
+    },
     "%lld" : {
       "shouldTranslate" : false
+    },
+    "Add this product to your favorites" : {
+
     },
     "Add to cart" : {
       "localizations" : {
@@ -13,6 +36,9 @@
           }
         }
       }
+    },
+    "Adds this product to your favorites list" : {
+
     },
     "Beauty" : {
       "localizations" : {
@@ -53,6 +79,12 @@
           }
         }
       }
+    },
+    "Click to go to %@ page" : {
+
+    },
+    "Click to go to %@'s page" : {
+
     },
     "Deals of the day" : {
       "localizations" : {
@@ -280,6 +312,9 @@
           }
         }
       }
+    },
+    "Total" : {
+
     },
     "Total:" : {
       "shouldTranslate" : false
