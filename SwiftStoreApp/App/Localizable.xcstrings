@@ -14,6 +14,16 @@
         }
       }
     },
+    "Beauty" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beleza"
+          }
+        }
+      }
+    },
     "Cart" : {
       "localizations" : {
         "pt-BR" : {
@@ -74,12 +84,123 @@
         }
       }
     },
+    "Fragrances" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Perfumes"
+          }
+        }
+      }
+    },
+    "Furniture" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Móveis"
+          }
+        }
+      }
+    },
+    "Groceries" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mercado"
+          }
+        }
+      }
+    },
     "Home" : {
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Início"
+          }
+        }
+      }
+    },
+    "Home Decoration" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Decorações"
+          }
+        }
+      }
+    },
+    "Kitchen Accessories" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para Cozinha"
+          }
+        }
+      }
+    },
+    "Laptops" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Laptops"
+          }
+        }
+      },
+      "shouldTranslate" : false
+    },
+    "Men's Shirts" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Camisetas Masculinas"
+          }
+        }
+      }
+    },
+    "Men's Shoes" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sapatos Masculinos"
+          }
+        }
+      }
+    },
+    "Men's Watches" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Relógio Masculino"
+          }
+        }
+      }
+    },
+    "Mobile Accessories" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acessórios de telemóvel"
+          }
+        }
+      }
+    },
+    "Motorcycle" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para Moto"
           }
         }
       }
@@ -104,6 +225,42 @@
         }
       }
     },
+    "Skin Care" : {
+      "shouldTranslate" : false
+    },
+    "Smartphones" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Celulares"
+          }
+        }
+      }
+    },
+    "Sports Accessories" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para Esportes"
+          }
+        }
+      }
+    },
+    "Sunglasses" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Óculos de sol"
+          }
+        }
+      }
+    },
+    "Tablets" : {
+      "shouldTranslate" : false
+    },
     "Top Picks" : {
       "localizations" : {
         "pt-BR" : {
@@ -114,8 +271,78 @@
         }
       }
     },
+    "Tops" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Partes De Cima"
+          }
+        }
+      }
+    },
     "Total:" : {
       "shouldTranslate" : false
+    },
+    "Vehicle" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veículos"
+          }
+        }
+      }
+    },
+    "Women's Bags" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bolas Femininas"
+          }
+        }
+      }
+    },
+    "Women's Dresses" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vestidos Femininos"
+          }
+        }
+      }
+    },
+    "Women's Jewellery" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Joalheria Feminina"
+          }
+        }
+      }
+    },
+    "Women's Shoes" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sapatos Femininos"
+          }
+        }
+      }
+    },
+    "Women's Watches" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Relógios Femininos"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
