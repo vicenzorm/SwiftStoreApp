@@ -10,16 +10,11 @@ import SwiftData
 
 @MainActor
 class OrdersService: OrdersServiceProtocol {
-    private let modelContainer: ModelContainer
     private let modelContext: ModelContext
     
-    static let shared = OrdersService()
-    
-    private init() {
-        self.modelContainer = try! ModelContainer(for: Order.self)
-        self.modelContext = modelContainer.mainContext
+    init(modelContext: ModelContext) {
+        self.modelContext = modelContext
     }
-    
     func getAllOrders() -> [Order] {
         do {
             return try modelContext.fetch(FetchDescriptor<Order>())

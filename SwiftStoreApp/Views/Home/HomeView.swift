@@ -3,7 +3,7 @@ import SwiftData // Não se esqueça de importar SwiftData
 
 struct HomeView: View {
     
-    @State private var homeViewModel = HomeViewModel(apiService: APIService.shared, favoritesService: FavoritesService.shared)
+    @State private var homeViewModel = HomeViewModel(apiService: APIService.shared, favoritesService: Persistence.shared.favoriteService)
     
     // MARK: - Layout
     let colunas: [GridItem] = [
@@ -60,7 +60,7 @@ struct HomeView: View {
                 await homeViewModel.loadProducts()
             }
             .sheet(item: $homeViewModel.selectedProduct) { product in
-                DetailsView(viewModel: DetailsViewModel(apiService: APIService.shared, favoritesService: FavoritesService.shared, cartService: CartService.shared), product: product)
+                DetailsView(viewModel: DetailsViewModel(apiService: APIService.shared, favoritesService: Persistence.shared.favoriteService, cartService: Persistence.shared.cartService), product: product)
             }
         }
     }

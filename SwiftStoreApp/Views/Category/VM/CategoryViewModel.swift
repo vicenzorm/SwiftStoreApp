@@ -11,7 +11,7 @@ import Foundation
 @MainActor
 class CategoryViewModel: CategoryViewModelProtocol{
     let apiService: APIService = APIService.shared
-    let favoritesService: FavoritesService = FavoritesService.shared
+    let favoritesService: FavoritesService = Persistence.shared.favoriteService
     
     var favoriteProducts: [Product] = []
     

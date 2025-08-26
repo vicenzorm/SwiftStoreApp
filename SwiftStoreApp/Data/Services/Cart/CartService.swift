@@ -6,14 +6,10 @@ import SwiftData
 @MainActor
 class CartService: CartServiceProtocol {
     
-    let modelContainer: ModelContainer
-    let modelContext: ModelContext
+    private let modelContext: ModelContext
     
-    static var shared = CartService()
-    
-    private init() {
-        self.modelContainer = try! ModelContainer(for: Favorite.self)
-        self.modelContext = modelContainer.mainContext
+    init(modelContext: ModelContext) {
+        self.modelContext = modelContext
     }
     
     func fetchCart() -> [Cart] {

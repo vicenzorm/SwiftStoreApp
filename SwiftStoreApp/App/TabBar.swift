@@ -30,12 +30,12 @@ struct TabBar: View {
             }
             Tab("Favorites", systemImage: "heart.fill") {
                 NavigationStack {
-                    FavoritesView(viewModel: FavoritesViewModel(favoritesService: FavoritesService.shared, productService: APIService.shared))
+                    FavoritesView(viewModel: FavoritesViewModel(favoritesService: Persistence.shared.favoriteService, productService: APIService.shared))
                 }
             }
             Tab("Orders", systemImage: "bag.fill") {
                 NavigationStack {
-                    OrdersView(viewModel: OrdersViewModel(orderService: OrdersService.shared))
+                    OrdersView(viewModel: OrdersViewModel(orderService: Persistence.shared.orderService))
                 }
             }
             

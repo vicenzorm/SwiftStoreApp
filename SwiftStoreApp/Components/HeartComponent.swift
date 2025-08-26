@@ -25,7 +25,6 @@ struct HeartComponent: View {
                         .foregroundStyle(.fillsTertiary)
                 )
         }
-        .padding(.trailing, 16)
     }
     
 }

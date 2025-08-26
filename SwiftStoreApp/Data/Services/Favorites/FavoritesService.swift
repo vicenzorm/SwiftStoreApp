@@ -10,15 +10,11 @@ import SwiftData
 
 @MainActor
 class FavoritesService: FavoritesServiceProtocol {
-
-    private let modelContainer: ModelContainer
+    
     private let modelContext: ModelContext
     
-    static let shared = FavoritesService()
-    
-    private init() {
-        self.modelContainer = try! ModelContainer(for: Favorite.self)
-        self.modelContext = modelContainer.mainContext
+    init(modelContext: ModelContext) {
+        self.modelContext = modelContext
     }
     
     func addFavorite(productId: Int) {

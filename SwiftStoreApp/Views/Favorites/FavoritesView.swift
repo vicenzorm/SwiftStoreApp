@@ -42,7 +42,7 @@ struct FavoritesView: View {
                 viewModel.filterFavorites(textToSearch: newValue)
             }
             .sheet(item: $viewModel.selectedProduct) { product in
-                DetailsView(viewModel: DetailsViewModel(apiService: APIService.shared, favoritesService: FavoritesService.shared, cartService: CartService.shared), product: product)
+                DetailsView(viewModel: DetailsViewModel(apiService: APIService.shared, favoritesService: Persistence.shared.favoriteService, cartService: Persistence.shared.cartService), product: product)
             }
         }
     }

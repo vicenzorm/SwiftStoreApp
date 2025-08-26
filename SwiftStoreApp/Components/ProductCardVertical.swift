@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct ProductCardVertical: View {
+    
     var product: Product
     @Binding var isFavorited: Bool
     var onAddToFavorites: () -> Void
@@ -19,24 +20,27 @@ struct ProductCardVertical: View {
                 .frame(width: 161, height: 160)
                 
                 HeartComponent(isFavorited: $isFavorited) {
-                }
-                
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(product.title)
-                        .font(.subheadline)
-                        .lineLimit(2, reservesSpace: true)
-                    
-                    Text(Formatters.paraDolarAmericano.string(from: NSNumber(value: product.price)) ?? "US$ 00,00")
-                        .font(.headline)
+                    onAddToFavorites()
                 }
             }
-            .padding(8)
-            .background(
-                RoundedRectangle(cornerRadius: 16)
-                    .foregroundStyle(.backgroundSecondary)
-            )
-            .frame(width: 177, height: 250)
+            
+            VStack(alignment: .leading, spacing: 4) {
+                Text(product.title)
+                    .font(.subheadline)
+                    .lineLimit(2, reservesSpace: true)
+                
+                Text(Formatters.paraDolarAmericano.string(from: NSNumber(value: product.price)) ?? "US$ 00,00")
+                    .font(.headline)
+            }
+            
         }
+        .frame(width: 177, height: 250)
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .foregroundStyle(.backgroundSecondary)
+        )
+//        .padding(8)
+        
     }
 }
 
