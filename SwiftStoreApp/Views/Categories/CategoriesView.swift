@@ -42,10 +42,9 @@ struct CategoriesView: View {
                     // MARK: Lista de categorias
                     List(viewModel.filteredCategories) { category in
                         NavigationLink {
-//                            CategoryView(
-//                                viewModel: viewModel,
-//                                category: category
-//                            )
+                            CategoryView(
+                                viewModel: CategoryViewModel(category: category)
+                            )
                         } label: {
                             HStack {
                                 Text(category.name)
