@@ -11,6 +11,16 @@ import Foundation
 class FavoritesViewModel {
     var favoriteProducts: [Product] = []
     var selectedProduct: Product?
+    var searchText: String = ""
+    var filteredFavorite: [Product] {
+        if searchText.isEmpty {
+            return favoriteProducts
+        } else {
+            return favoriteProducts.filter {
+                $0.title.lowercased().contains(searchText.lowercased())
+            }
+        }
+    }
     
     private let favoritesService: FavoritesServiceProtocol
     private let productService: APIServiceProtocol
@@ -38,18 +48,6 @@ class FavoritesViewModel {
                print("Error loading favorite products: \(error)")
            }
        }
-    
-    func filterFavorites(textToSearch: String) -> [Product] {
-        if textToSearch.isEmpty {
-           //filtered products serao todos os produtos se nao tiver nenhum texto
-            return favoriteProducts
-        } else {
-//            se nao ira filtrar pelo texto inputado
-            return favoriteProducts.filter { product in
-                product.title.localizedCaseInsensitiveContains(textToSearch)
-            }
-        }
-    }
     
     @MainActor func addToFavorites(product: Product) {
         favoritesService.addFavorite(productId: product.id)

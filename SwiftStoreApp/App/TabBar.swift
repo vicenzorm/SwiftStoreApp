@@ -35,7 +35,7 @@ struct TabBar: View {
             }
             Tab("Orders", systemImage: "bag.fill") {
                 NavigationStack {
-                    OrdersView(viewModel: OrdersViewModel(orderService: Persistence.shared.orderService))
+                    OrdersView(viewModel: OrdersViewModel())
                 }
             }
             
