@@ -11,33 +11,31 @@ struct TabBar: View {
 
     @Environment(\.modelContext) var modelContext
 
-    let productViewModelService = APIViewModel(service: APIService())
-    
     var body: some View {
         TabView {
             Tab("Home", systemImage: "house.fill") {
                 NavigationStack {
-                    HomeView(modelContext: modelContext)
+                    HomeView()
                 }
             }
             Tab("Categories", systemImage: "square.grid.2x2.fill") {
                 NavigationStack {
-                    
+                    CategoriesView(viewModel: CategoriesViewModel())
                 }
             }
             Tab("Cart", systemImage: "cart.fill") {
                 NavigationStack {
-                    CartView(viewModel: CartViewModel(modelContext: modelContext))
+                    CartView(viewModel: CartViewModel())
                 }
             }
             Tab("Favorites", systemImage: "heart.fill") {
                 NavigationStack {
-                    
+                    FavoritesView(viewModel: FavoritesViewModel(favoritesService: FavoritesService.shared, productService: APIService.shared))
                 }
             }
             Tab("Orders", systemImage: "bag.fill") {
                 NavigationStack {
-                    
+                    OrdersView(viewModel: OrdersViewModel(orderService: OrdersService.shared))
                 }
             }
             

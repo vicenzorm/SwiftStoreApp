@@ -21,6 +21,23 @@
 		C516E4332E4D0FE900441CD6 /* SwiftStoreApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftStoreApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		C57A6B2F2E5CFFDE005400B1 /* Exceptions for "SwiftStoreApp" folder in "SwiftStoreApp" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Old/API/APIViewModel.swift,
+				Old/API/APIViewModelProtocol.swift,
+				Old/cartaaaaaa/CartViewModel.swift,
+				Old/cartaaaaaa/CartViewModelProtocol.swift,
+				Old/Favoritesa/FavoritesViewModel.swift,
+				Old/Favoritesa/FavoritesViewModelProtocol.swift,
+				Old/Ordersaaa/OrdersViewModel.swift,
+				Old/Ordersaaa/OrdersViewModelProtocol.swift,
+			);
+			target = C516E4322E4D0FE900441CD6 /* SwiftStoreApp */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		C5112C7E2E58C9C1008795E5 /* TestsForSwiftStore */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
@@ -29,6 +46,9 @@
 		};
 		C516E4352E4D0FE900441CD6 /* SwiftStoreApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				C57A6B2F2E5CFFDE005400B1 /* Exceptions for "SwiftStoreApp" folder in "SwiftStoreApp" target */,
+			);
 			path = SwiftStoreApp;
 			sourceTree = "<group>";
 		};

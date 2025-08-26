@@ -4,24 +4,27 @@
 //
 //  Created by Vítor Bruno on 14/08/25.
 //
-
 import SwiftUI
 
-/// Tela responsável por exibir os pedidos do usuário.
-/// - Permite busca por pedidos pelo título do produto.
-/// - Mostra uma lista de produtos comprados ou um estado vazio caso não haja pedidos.
 struct OrdersView: View {
     
-    /// ViewModel que gerencia os produtos do usuário
+    // 3. Use @StateObject para gerenciar o ciclo de vida da ViewModel
     @State var viewModel: OrdersViewModel
-    
     
     @State private var searchText: String = ""
     
+    // 2. A lógica da lista foi extraída para uma propriedade computada
+    private var ordersList: some View {
+        VStack(spacing: 8) {
+            ForEach(viewModel.orders) { order in
+                ProductCardList(cardType: .order, order: order)
+            }
+        }
+    }
+    
     var body: some View {
+        // A View agora tem uma estrutura principal mais simples
         ScrollView {
-            
-            // Caso não haja pedidos
             if viewModel.orders.isEmpty {
                 EmptyState(
                     icon: "bag.badge.questionmark",
@@ -29,22 +32,19 @@ struct OrdersView: View {
                     subtitle: "Buy an item and it will show up here."
                 )
             } else {
-                ScrollView {
-                    VStack(spacing: 8) {
-                        ForEach(viewModel.orders) { order in
-                            ProductCardList(order: order, cardType: .order)
-                        }
-                    }
-                }
+                // Apenas chamamos a propriedade que constrói a lista
+                ordersList
             }
         }
+        // 1. A ScrollView interna foi removida
         .navigationTitle("Orders")
         .searchable(text: $searchText, prompt: "Search")
         .onAppear {
             Task { await viewModel.loadOrders() }
         }
         .onChange(of: searchText) { _, newValue in
-            viewModel.filterFavorites(textToSearch: newValue)
+            // Corrigindo a chamada da função para a de filtro de pedidos
+            viewModel.filterOrders(textToSearch: newValue)
         }
     }
 }

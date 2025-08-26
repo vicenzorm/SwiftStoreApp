@@ -4,7 +4,7 @@ import Foundation
 import SwiftData
 
 @MainActor
-class CartService {
+class CartService: CartServiceProtocol {
     
     let modelContainer: ModelContainer
     let modelContext: ModelContext

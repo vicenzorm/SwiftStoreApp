@@ -38,7 +38,7 @@ class OrdersService: OrdersServiceProtocol {
             return try modelContext.fetch(descriptor).first
         } catch {
             print("erro ao dar fetch na order")
+            return nil
         }
     }
-    
 }

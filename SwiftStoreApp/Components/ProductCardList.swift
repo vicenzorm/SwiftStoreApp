@@ -13,19 +13,15 @@ struct ProductCardList: View {
         case favorites
         case order
     }
-    
-    //TODO: -
-//    @State var showDetails: Bool = false
-    
     var cardType: CardType
     
     var product: Product?
     let order: Order?
     
-    var showDetails: () -> Void
-    var onRemoveFromCart: () -> Void
-    var onIncreaseQuantity: () -> Void
-    var onDecreaseQuantity: () -> Void
+    var showDetails: (() -> Void)?
+    var onRemoveFromCart: (() -> Void)?
+    var onIncreaseQuantity: (() -> Void)?
+    var onDecreaseQuantity: (() -> Void)?
     
     var body: some View {
         
@@ -88,7 +84,7 @@ struct ProductCardList: View {
                     
                     if cardType == .favorites {
                         Button {
-                            showDetails()
+                            showDetails!()
                         } label: {
                             Image(systemName: "cart.fill")
                                 .foregroundStyle(.labelsPrimary)
@@ -104,7 +100,7 @@ struct ProductCardList: View {
                         
                         HStack(spacing: 4) {
                             Button {
-                                onDecreaseQuantity()
+                                onDecreaseQuantity!()
                             } label: {
                                 Image(systemName: "minus")
                                     .foregroundStyle(.labelsPrimary)
@@ -122,7 +118,7 @@ struct ProductCardList: View {
                                 .padding(.horizontal, 4)
                             
                             Button {
-                                onIncreaseQuantity()
+                                onIncreaseQuantity!()
                             } label: {
                                 Image(systemName: "plus")
                                     .foregroundStyle(.labelsPrimary)
