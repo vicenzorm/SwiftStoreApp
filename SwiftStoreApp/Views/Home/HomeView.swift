@@ -43,7 +43,10 @@ struct HomeView: View {
                         LazyVGrid(columns: colunas, spacing: 8) {
                             ForEach(homeViewModel.products) { product in
                                 ProductCardVertical(product: product, isFavorited: $homeViewModel.isFavorited) {
-                                    
+                                    homeViewModel.isProductFavorite(product: product)
+                                }
+                                .onTapGesture {
+                                    homeViewModel.selectedProduct = product
                                 }
                             }
                         }
