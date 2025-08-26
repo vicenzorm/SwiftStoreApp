@@ -35,6 +35,7 @@ struct ProductCardList: View {
             .padding(.vertical, 8)
             .padding(.trailing, 16)
             .padding(.leading, 8)
+            .accessibilityHidden(true)
             
             HStack {
                 if cardType == .order {
@@ -59,6 +60,8 @@ struct ProductCardList: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     .frame(maxWidth: 241)
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel("\(product?.title ?? "product") with price \(Formatters.paraDolarAmericano.string(from: NSNumber(value: product?.price ?? 0)) ?? "US$ 00,00") \(product?.shippingInformation ?? "ships in 1 week")")
                     
                 } else {
                     VStack(alignment: .leading, spacing: 8) {
@@ -78,6 +81,8 @@ struct ProductCardList: View {
                         
                     }
                     .frame(width: 157)
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel("\(product?.title ?? "product") with price \(Formatters.paraDolarAmericano.string(from: NSNumber(value: product?.price ?? 0)) ?? "US$ 00,00")")
                     
                     Spacer()
                     
@@ -94,6 +99,7 @@ struct ProductCardList: View {
                                 )
                         }
                         .padding(.trailing, 16)
+                        .accessibilityHint("Button to add to cart")
                         
                     } else if cardType == .cart {
                         
@@ -110,12 +116,13 @@ struct ProductCardList: View {
                                             .foregroundStyle(.fillsTertiary)
                                     )
                             }
+                            .accessibilityHint("Decrease the quantity of the product")
                             
                             Text("\(product?.quantity ?? 1)")
                                 .font(.body)
                                 .foregroundStyle(.labelsPrimary)
                                 .padding(.horizontal, 4)
-                            
+                                .accessibilityHint("Quantidade \(product?.quantity ?? 1)")
                             Button {
                                 onIncreaseQuantity!()
                             } label: {
@@ -127,6 +134,7 @@ struct ProductCardList: View {
                                             .foregroundStyle(.fillsTertiary)
                                     )
                             }
+                            .accessibilityHint("Increase the quantity of the product")
                         }
                         
                     }

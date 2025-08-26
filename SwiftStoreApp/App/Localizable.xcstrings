@@ -1,6 +1,36 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%@ costing %lf" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ costing %2$lf"
+          }
+        }
+      }
+    },
+    "%@ with price %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ with price %2$@"
+          }
+        }
+      }
+    },
+    "%@ with price %@ %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ with price %2$@ %3$@"
+          }
+        }
+      }
+    },
     "%lld" : {
       "shouldTranslate" : false
     },
@@ -23,6 +53,9 @@
           }
         }
       }
+    },
+    "Button to add to cart" : {
+
     },
     "Cart" : {
       "localizations" : {
@@ -63,6 +96,9 @@
           }
         }
       }
+    },
+    "Decrease the quantity of the product" : {
+
     },
     "Details" : {
       "localizations" : {
@@ -133,6 +169,9 @@
           }
         }
       }
+    },
+    "Increase the quantity of the product" : {
+
     },
     "Kitchen Accessories" : {
       "localizations" : {
@@ -214,6 +253,9 @@
           }
         }
       }
+    },
+    "Quantidade %lld" : {
+
     },
     "Search" : {
       "localizations" : {
