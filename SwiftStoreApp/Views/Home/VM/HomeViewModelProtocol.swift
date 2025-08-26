@@ -1,8 +1,14 @@
-//
-//  HomeViewModelProtocol.swift
-//  SwiftStoreApp
-//
-//  Created by Vicenzo Másera on 25/08/25.
-//
-
 import Foundation
+
+protocol HomeViewModelProtocol {
+    var products: [Product] { get set }
+    var isLoadingProducts: Bool { get set }
+    var errorMessage: String? { get set }
+    var isFavorited: Bool { get set }
+    var selectedProduct: Product? { get set }
+    
+    func loadProducts() async
+    func isProductFavorite(product: Product) -> Bool
+    func addToFavorites(product: Product)
+    func toggleFavorite(product: Product)
+}

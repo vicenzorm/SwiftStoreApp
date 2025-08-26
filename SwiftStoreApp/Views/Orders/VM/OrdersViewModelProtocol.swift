@@ -1,12 +1,11 @@
-//
-//  OrdersViewModelProtocol.swift
-//  SwiftStoreApp
-//
-//  Created by Vicenzo Másera on 25/08/25.
-//
-
 import Foundation
 
+@MainActor
 protocol OrdersViewModelProtocol {
+    var orders: [Product] { get set }
+    var isLoading: Bool { get set }
+    var textToSearch: String { get set }
+    var filteredOrders: [Product] { get }
     
+    func loadOrders() async
 }
