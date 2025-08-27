@@ -21,22 +21,9 @@
 		C516E4332E4D0FE900441CD6 /* SwiftStoreApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftStoreApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		C5E44A332E5F8B0D00ECC8C9 /* Exceptions for "TestsForSwiftStore" folder in "SwiftStoreApp" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Mocks.swift,
-			);
-			target = C516E4322E4D0FE900441CD6 /* SwiftStoreApp */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		C5112C7E2E58C9C1008795E5 /* TestsForSwiftStore */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				C5E44A332E5F8B0D00ECC8C9 /* Exceptions for "TestsForSwiftStore" folder in "SwiftStoreApp" target */,
-			);
 			path = TestsForSwiftStore;
 			sourceTree = "<group>";
 		};
@@ -228,6 +215,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = br.VicenzoEVitor.SwiftStoreAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "TestsForSwiftStore/API/SwiftStoreAppTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -249,6 +237,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = br.VicenzoEVitor.SwiftStoreAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "TestsForSwiftStore/API/SwiftStoreAppTests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftStoreApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SwiftStoreApp";
