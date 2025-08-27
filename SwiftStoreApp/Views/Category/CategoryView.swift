@@ -48,6 +48,9 @@ struct CategoryView: View {
             await viewModel.loadProductsByCategories(category: viewModel.category.slug)
             await viewModel.loadFavoriteProducts()
         }
+        .sheet(item: $viewModel.selectedProduct){ product in
+            DetailsView(viewModel: , product: <#T##Product#>)
+        }
     }
 }
 

@@ -140,7 +140,7 @@ struct ProductCardList: View {
                     }
                 }
             }
-            .frame(width: 243,alignment: .leading)
+            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 574 : 243,alignment: .leading)
             .padding(.vertical, 16)
         }
         .background(
