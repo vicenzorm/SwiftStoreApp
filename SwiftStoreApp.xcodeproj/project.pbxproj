@@ -17,26 +17,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C5112C7D2E58C9C1008795E5 /* SwiftStoreAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftStoreAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5112C7D2E58C9C1008795E5 /* TestsForSwiftStore.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestsForSwiftStore.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C516E4332E4D0FE900441CD6 /* SwiftStoreApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftStoreApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		C5E44A332E5F8B0D00ECC8C9 /* Exceptions for "TestsForSwiftStore" folder in "SwiftStoreApp" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Mocks.swift,
-			);
-			target = C516E4322E4D0FE900441CD6 /* SwiftStoreApp */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		C5112C7E2E58C9C1008795E5 /* TestsForSwiftStore */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				C5E44A332E5F8B0D00ECC8C9 /* Exceptions for "TestsForSwiftStore" folder in "SwiftStoreApp" target */,
-			);
 			path = TestsForSwiftStore;
 			sourceTree = "<group>";
 		};
@@ -78,7 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				C516E4332E4D0FE900441CD6 /* SwiftStoreApp.app */,
-				C5112C7D2E58C9C1008795E5 /* SwiftStoreAppTests.xctest */,
+				C5112C7D2E58C9C1008795E5 /* TestsForSwiftStore.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -86,9 +73,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C5112C7C2E58C9C1008795E5 /* SwiftStoreAppTests */ = {
+		C5112C7C2E58C9C1008795E5 /* TestsForSwiftStore */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C5112C832E58C9C1008795E5 /* Build configuration list for PBXNativeTarget "SwiftStoreAppTests" */;
+			buildConfigurationList = C5112C832E58C9C1008795E5 /* Build configuration list for PBXNativeTarget "TestsForSwiftStore" */;
 			buildPhases = (
 				C5112C792E58C9C1008795E5 /* Sources */,
 				C5112C7A2E58C9C1008795E5 /* Frameworks */,
@@ -102,11 +89,11 @@
 			fileSystemSynchronizedGroups = (
 				C5112C7E2E58C9C1008795E5 /* TestsForSwiftStore */,
 			);
-			name = SwiftStoreAppTests;
+			name = TestsForSwiftStore;
 			packageProductDependencies = (
 			);
 			productName = SwiftStoreAppTests;
-			productReference = C5112C7D2E58C9C1008795E5 /* SwiftStoreAppTests.xctest */;
+			productReference = C5112C7D2E58C9C1008795E5 /* TestsForSwiftStore.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		C516E4322E4D0FE900441CD6 /* SwiftStoreApp */ = {
@@ -166,7 +153,7 @@
 			projectRoot = "";
 			targets = (
 				C516E4322E4D0FE900441CD6 /* SwiftStoreApp */,
-				C5112C7C2E58C9C1008795E5 /* SwiftStoreAppTests */,
+				C5112C7C2E58C9C1008795E5 /* TestsForSwiftStore */,
 			);
 		};
 /* End PBXProject section */
@@ -439,7 +426,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C5112C832E58C9C1008795E5 /* Build configuration list for PBXNativeTarget "SwiftStoreAppTests" */ = {
+		C5112C832E58C9C1008795E5 /* Build configuration list for PBXNativeTarget "TestsForSwiftStore" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C5112C842E58C9C1008795E5 /* Debug */,

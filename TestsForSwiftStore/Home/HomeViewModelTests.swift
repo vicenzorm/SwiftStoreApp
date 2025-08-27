@@ -13,6 +13,8 @@ struct HomeViewModelTests {
     @Test func fetchProducts() async throws {
         
         // Given
+        let favService = await FavoriteServiceMock(shouldFail: false)
+        let apiService = await APIServiceMock()
         let viewModel = await HomeViewModel(apiService: APIService.shared, favoritesService: Persistence.shared.favoriteService)
         
         // When
@@ -29,11 +31,11 @@ struct HomeViewModelTests {
         let viewModel = await HomeViewModel(apiService: APIService.shared, favoritesService: Persistence.shared.favoriteService)
         
         // When
-        await viewModel.addToFavorites(product: <#T##Product#>)
+        await viewModel.addToFavorites(product: ProductMock.iphone.mockado)
         
         // Then
-        #expect(!viewModel.products.isEmpty)
         #expect(viewModel.errorMessage == nil)
+        #expect(viewModel.products.contains(ProductMock.iphone.mockado))
     }
     
     
