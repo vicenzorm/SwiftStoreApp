@@ -66,6 +66,9 @@ class CartService: CartServiceProtocol {
                     productToUpdate.quantity = newQuantity
                 }
             }
+            
+            try modelContext.save()
+            
         } catch {
             print("error updating cart quantity: \(error.localizedDescription)")
         }

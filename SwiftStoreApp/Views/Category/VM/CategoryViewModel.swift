@@ -15,6 +15,7 @@ class CategoryViewModel: CategoryViewModelProtocol{
     
     var favoriteProducts: [Product] = []
     
+    var selectedProduct: Product?
     var category: Category
     var isFavorited: Bool = false
     var isLoadingProducts: Bool = false

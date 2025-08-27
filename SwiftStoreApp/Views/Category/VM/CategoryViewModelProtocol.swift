@@ -18,6 +18,7 @@ protocol CategoryViewModelProtocol: Observable {
     var productsByCategorie: [Product] { get set }   // mantém o mesmo nome que já usas
     var searchText: String { get set }
     var filteredProducts: [Product] { get }          // derivado
+    var selectedProduct: Product? { get set }
 
     // favoritos
     var favoriteProducts: [Product] { get set }

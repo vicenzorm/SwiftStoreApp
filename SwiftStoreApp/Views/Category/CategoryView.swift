@@ -35,6 +35,9 @@ struct CategoryView: View {
                             ProductCardVertical(product: product, isFavorited: $viewModel.isFavorited) {
                                 viewModel.toggleFavorite(product: product)
                             }
+                            .onTapGesture {
+                                viewModel.selectedProduct = product
+                            }
                         }
                     }
                 }
@@ -47,6 +50,9 @@ struct CategoryView: View {
         .task {
             await viewModel.loadProductsByCategories(category: viewModel.category.slug)
             await viewModel.loadFavoriteProducts()
+        }
+        .sheet(item: $viewModel.selectedProduct){ product in
+            DetailsView(viewModel: DetailsViewModel(apiService: APIService.shared, favoritesService: Persistence.shared.favoriteService, cartService: Persistence.shared.cartService), product: product)
         }
     }
 }
