@@ -47,7 +47,7 @@ class CartViewModel: CartViewModelProtocol {
         cartService.updateQuantity(productId: productId, newQuantity: newQuantity)
         
         if let index = cartItems.firstIndex(where: { $0.id == productId }) {
-            cartItems[index].quantity = max(newQuantity, 0)
+            cartItems[index].quantity = newQuantity
         }
     }
     

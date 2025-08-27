@@ -28,12 +28,14 @@ struct CartView: View {
                                             productId: product.id,
                                             newQuantity: product.quantity + 1
                                         )
+                                        Task {await viewModel.loadCart()}
                                     },
                                     onDecreaseQuantity: {
                                         viewModel.updateQuantity(
                                             productId: product.id,
                                             newQuantity: product.quantity - 1
                                         )
+                                        Task {await viewModel.loadCart()}
                                     })
                             }
                         }
