@@ -1,12 +1,12 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "%@ costing %lf" : {
+    "%@ costing %@" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%1$@ costing %2$lf"
+            "value" : "%1$@ costing %2$@"
           }
         }
       }
@@ -27,6 +27,16 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$@ with price %2$@ %3$@"
+          }
+        }
+      }
+    },
+    "%@, %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@, %2$@"
           }
         }
       }

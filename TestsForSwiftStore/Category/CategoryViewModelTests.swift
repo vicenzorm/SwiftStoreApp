@@ -9,8 +9,8 @@ import Testing
 
 struct CategoryViewModelTests { 
 
-    @Test func <#test function name#>() async throws {
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
-    }
+//    @Test func () async throws {
+//        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+//    }
 
 }
