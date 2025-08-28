@@ -11,15 +11,13 @@ import Foundation
 class FavoriteServiceMock: FavoritesServiceProtocol {
     
     var shouldFail: Bool = false
-    var favorites: [SwiftStoreApp.Favorite]
-    var favorite: SwiftStoreApp.Favorite
+    var favorites: [Favorite]
     var addedFavorite = false
     var removedFavorite = false
     
     init(shouldFail: Bool = false) {
         self.shouldFail = shouldFail
-        self.favorite = SwiftStoreApp.Favorite(id: 1)
-        self.favorites = [SwiftStoreApp.Favorite(id: 2), SwiftStoreApp.Favorite(id: 3)]
+        self.favorites = [Favorite(id: 0)]
         
     }
     

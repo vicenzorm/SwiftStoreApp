@@ -1,21 +1,13 @@
-//
-//  HomeViewModelTests.swift
-//  SwiftStoreAppTests
-//
-//  Created by Vicenzo Másera on 27/08/25.
-//
-
 import Testing
 @testable import SwiftStoreApp
 
 struct HomeViewModelTests {
-
-    @Test func fetchProducts() async throws {
-        
+    
+    @Test func loadProducts_success() async throws {
         // Given
-        let favService = await FavoriteServiceMock(shouldFail: false)
-        let apiService = await APIServiceMock()
-        let viewModel = await HomeViewModel(apiService: APIService.shared, favoritesService: Persistence.shared.favoriteService)
+        let apiMock = APIServiceMock(shouldFail: false)
+        let favMock = await FavoriteServiceMock(shouldFail: false)
+        let viewModel =  HomeViewModel(apiService: apiMock, favoritesService: favMock)
         
         // When
         await viewModel.loadProducts()
@@ -25,18 +17,47 @@ struct HomeViewModelTests {
         #expect(viewModel.errorMessage == nil)
     }
     
-    @Test func addToFavorites() async throws {
-        
+    @Test func loadProducts_failure_setsError() async throws {
         // Given
-        let viewModel = await HomeViewModel(apiService: APIService.shared, favoritesService: Persistence.shared.favoriteService)
+        let apiMock = APIServiceMock(shouldFail: true)
+        let favMock = await FavoriteServiceMock()
+        let viewModel =  HomeViewModel(apiService: apiMock, favoritesService: favMock)
+        
+        // When
+        await viewModel.loadProducts()
+        
+        // Then
+        #expect(viewModel.products.isEmpty)
+        #expect(viewModel.errorMessage != nil)
+    }
+    
+    @Test func addToFavorites_callsService() async throws {
+        // Given
+        let apiMock = APIServiceMock()
+        let favMock = await FavoriteServiceMock()
+        let viewModel = await HomeViewModel(apiService: apiMock, favoritesService: favMock)
         
         // When
         await viewModel.addToFavorites(product: ProductMock.iphone.mockado)
         
         // Then
+        await #expect(favMock.addedFavorite == true)
         #expect(viewModel.errorMessage == nil)
-        #expect(viewModel.products.contains(ProductMock.iphone.mockado))
     }
     
+    @Test func isFavorite() async throws {
+        // Given
+        let apiMock = APIServiceMock(shouldFail: false)
+        let favMock = await FavoriteServiceMock(shouldFail: false)
+        let viewModel = await HomeViewModel(apiService: APIServiceMock(shouldFail: false), favoritesService: FavoriteServiceMock(shouldFail: false) )
+        
+        let product = ProductMock.iphone.mockado
+        
+        // When
+        let binding = await viewModel.isProductFavorite(product: product)
+        
+        #expect(binding.wrappedValue == true)
+        
+    }
     
 }

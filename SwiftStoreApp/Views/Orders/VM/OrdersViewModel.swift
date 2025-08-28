@@ -12,9 +12,18 @@ import Foundation
 class OrdersViewModel: OrdersViewModelProtocol {
     var orders: [Product] = []
     var ordersId: [Order] = []
+    var error: String = ""
     
-    private let orderService: OrdersService = Persistence.shared.orderService
-    private let apiService: APIService = .shared
+//    private let orderService: OrdersService = Persistence.shared.orderService
+//    private let apiService: APIService = .shared
+    
+    private let apiService: APIServiceProtocol
+    private let orderService: OrdersServiceProtocol
+    
+    init(apiService: APIServiceProtocol, orderService: OrdersServiceProtocol) {
+        self.apiService = apiService
+        self.orderService = orderService
+    }
     
     var isLoading: Bool = false
     var textToSearch: String = ""
