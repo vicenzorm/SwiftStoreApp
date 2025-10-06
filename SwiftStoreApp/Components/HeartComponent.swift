@@ -26,7 +26,6 @@ struct HeartComponent: View {
                 )
         }
     }
-    
 }
 
 #Preview {

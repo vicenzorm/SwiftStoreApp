@@ -8,6 +8,12 @@
             "state" : "new",
             "value" : "%1$@ costing %2$@"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ custando %2$@ "
+          }
         }
       }
     },
@@ -18,6 +24,12 @@
             "state" : "new",
             "value" : "%1$@ with price %2$@"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ com o preço de %2$@ "
+          }
         }
       }
     },
@@ -27,6 +39,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$@ with price %2$@ %3$@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ com o preço de %2$@ %3$@"
           }
         }
       }
@@ -39,13 +57,38 @@
             "value" : "%1$@, %2$@"
           }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "%lld" : {
-
+      "shouldTranslate" : false
+    },
+    "add an item to your cart" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "add an item to your cart"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicione um item ao seu carrinho"
+          }
+        }
+      }
     },
     "Add this product to your favorites" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adiciona esse produto à sua lista de favoritos"
+          }
+        }
+      }
     },
     "Add to cart" : {
       "localizations" : {
@@ -58,7 +101,14 @@
       }
     },
     "Adds this product to your favorites list" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adiciona esse produto à sua lista de favoritos"
+          }
+        }
+      }
     },
     "Beauty" : {
       "localizations" : {
@@ -71,7 +121,25 @@
       }
     },
     "Button to add to cart" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Botão para adicionar ao carrinho"
+          }
+        }
+      }
+    },
+    "Buy an item and it will show up here." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compre algum item e ele aparecerá aqui"
+          }
+        }
+      }
     },
     "Cart" : {
       "localizations" : {
@@ -104,10 +172,24 @@
       }
     },
     "Click to go to %@ page" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clique para ir para a página de "
+          }
+        }
+      }
     },
     "Click to go to %@'s page" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clique para ir para a página de "
+          }
+        }
+      }
     },
     "Deals of the day" : {
       "localizations" : {
@@ -120,7 +202,14 @@
       }
     },
     "Decrease the quantity of the product" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diminuia a quantidade do produto"
+          }
+        }
+      }
     },
     "Details" : {
       "localizations" : {
@@ -128,6 +217,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Detalhes"
+          }
+        }
+      }
+    },
+    "Favorite an item and it will show up here." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favorite um item e ele aparecerá aqui"
           }
         }
       }
@@ -193,7 +293,14 @@
       }
     },
     "Increase the quantity of the product" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Incremente a quantidade do produto"
+          }
+        }
+      }
     },
     "Kitchen Accessories" : {
       "localizations" : {
@@ -266,6 +373,28 @@
         }
       }
     },
+    "No favorites yet!" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sem favoritos ainda!"
+          }
+        }
+      }
+    },
+    "No orders yet!" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sem encomendas ainda!"
+          }
+        }
+      }
+    },
     "Orders" : {
       "localizations" : {
         "pt-BR" : {
@@ -277,8 +406,14 @@
       }
     },
     "Quantity %lld" : {
-      "comment" : "A label displaying the quantity of a product. The argument is the quantity of the product.",
-      "isCommentAutoGenerated" : true
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quantidade  %lld"
+          }
+        }
+      }
     },
     "Search" : {
       "localizations" : {
@@ -367,7 +502,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bolas Femininas"
+            "value" : "Bolsas Femininas"
           }
         }
       }
@@ -408,6 +543,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Relógios Femininos"
+          }
+        }
+      }
+    },
+    "Your Cart is Empty!" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your Cart is Empty!"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seu carrinho está vazio!"
           }
         }
       }

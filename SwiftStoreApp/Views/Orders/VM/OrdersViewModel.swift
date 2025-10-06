@@ -13,6 +13,9 @@ class OrdersViewModel: OrdersViewModelProtocol {
     var orders: [Product] = []
     var ordersId: [Order] = []
     var error: String = ""
+    var title: String = "No orders yet!"
+    var subtitle: String = "Buy an item and it will show up here."
+    
     
 //    private let orderService: OrdersService = Persistence.shared.orderService
 //    private let apiService: APIService = .shared

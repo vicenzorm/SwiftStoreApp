@@ -9,7 +9,7 @@ import SwiftUI
 struct OrdersView: View {
     
     // 3. Use @StateObject para gerenciar o ciclo de vida da ViewModel
-    @State var viewModel: OrdersViewModel
+    @State var viewModel: OrdersViewModel	
     
     var body: some View {
         // A View agora tem uma estrutura principal mais simples
@@ -17,8 +17,8 @@ struct OrdersView: View {
             if viewModel.orders.isEmpty {
                 EmptyState(
                     icon: "bag.badge.questionmark",
-                    title: "No orders yet!",
-                    subtitle: "Buy an item and it will show up here."
+                    title: viewModel.title,
+                    subtitle: viewModel.subtitle
                 )
             } else {
                 ScrollView {
