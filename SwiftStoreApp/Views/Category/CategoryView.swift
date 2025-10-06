@@ -23,6 +23,14 @@ struct CategoryView: View {
         GridItem(.fixed(177), spacing: 8)
     ]
     
+    var iPadcollumns: [GridItem] = [
+        GridItem(.fixed(177), spacing: 16),
+        GridItem(.fixed(177), spacing: 16),
+        GridItem(.fixed(177), spacing: 16),
+        GridItem(.fixed(177), spacing: 16),
+        GridItem(.fixed(177), spacing: 16)
+    ]
+    
     // MARK: - View
     var body: some View {
         Group {
@@ -30,16 +38,31 @@ struct CategoryView: View {
                 ProgressView()
             } else {
                 ScrollView {
-                    LazyVGrid(columns: collumns) {
-                        ForEach(viewModel.filteredProducts) { product in
-                            ProductCardVertical(product: product, isFavorited: $viewModel.isFavorited) {
-                                viewModel.toggleFavorite(product: product)
+                    
+                    if UIDevice.current.userInterfaceIdiom == .pad {
+                        LazyVGrid(columns: iPadcollumns) {
+                            ForEach(viewModel.filteredProducts) { product in
+                                ProductCardVertical(product: product, isFavorited: $viewModel.isFavorited) {
+                                    viewModel.toggleFavorite(product: product)
+                                }
+                                .onTapGesture {
+                                    viewModel.selectedProduct = product
+                                }
                             }
-                            .onTapGesture {
-                                viewModel.selectedProduct = product
+                        }
+                    } else {
+                        LazyVGrid(columns: collumns) {
+                            ForEach(viewModel.filteredProducts) { product in
+                                ProductCardVertical(product: product, isFavorited: $viewModel.isFavorited) {
+                                    viewModel.toggleFavorite(product: product)
+                                }
+                                .onTapGesture {
+                                    viewModel.selectedProduct = product
+                                }
                             }
                         }
                     }
+                    
                 }
                 .padding()
             }

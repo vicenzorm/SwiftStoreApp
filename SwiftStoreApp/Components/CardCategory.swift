@@ -15,7 +15,6 @@ struct CardCategory: View {
         NavigationLink(destination: CategoryView(viewModel: CategoryViewModel(category: category))){
             
             VStack(spacing: 8){
-                
                 Image(category.image)
                     .resizable()
                     .frame(width: 84, height:84)
@@ -23,10 +22,11 @@ struct CardCategory: View {
                 
                 Text(category.name)
                     .font(.subheadline)
-                    .foregroundStyle(.labelsPrimary)
-                    .lineLimit(1)
                     .truncationMode(.tail)
+                    .lineLimit(1)
+                    .foregroundStyle(.labelsPrimary)
             }
+            .frame(width: 82)
             .accessibilityHint("Click to go to \(category.name)'s page")
         }
     }
