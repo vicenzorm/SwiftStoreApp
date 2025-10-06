@@ -32,10 +32,18 @@ struct CategoriesView: View {
                 VStack {
                     
                     // MARK: Destaques iniciais (primeiras 4 categorias)
-                    HStack(spacing: 8) {
-                        ForEach(Array(viewModel.categories.shuffled().prefix(4))) { category in
-                            CardCategory(category: category)
+                    HStack(spacing: UIDevice.current.userInterfaceIdiom == .pad ? 16 : 8) {
+                        
+                        if UIDevice.current.userInterfaceIdiom == .pad {
+                            ForEach(Array(viewModel.categories.shuffled().prefix(8))) { category in
+                                CardCategory(category: category)
+                            }
+                        } else {
+                            ForEach(Array(viewModel.categories.shuffled().prefix(4))) { category in
+                                CardCategory(category: category)
+                            }
                         }
+                            
                     }
                     .padding(.top)
                     

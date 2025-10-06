@@ -122,7 +122,7 @@ struct ProductCardList: View {
                                     .font(.body)
                                     .foregroundStyle(.labelsPrimary)
                                     .padding(.horizontal, 4)
-                                    .accessibilityHint("Quantidade \(product.quantity ?? 1)")
+                                    .accessibilityHint("Quantity \(product.quantity ?? 1)")
                                 Button {
                                     Task {await onIncreaseQuantity!() }
                                 } label: {
