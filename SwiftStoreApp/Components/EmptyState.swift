@@ -21,8 +21,8 @@ struct EmptyState: View {
                 .foregroundStyle(.graysGray2)
                 .accessibilityHidden(true)
             VStack(spacing: 16){
-                Text(title)
-                Text(subtitle)
+                Text(String(localized: String.LocalizationValue(title)))
+                Text(String(localized: String.LocalizationValue(subtitle)))
                     .foregroundStyle(.labelsSecondary)
             }
             .accessibilityElement(children: .combine)
