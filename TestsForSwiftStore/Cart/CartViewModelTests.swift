@@ -6,11 +6,34 @@
 //
 
 import Testing
+@testable import SwiftStoreApp
 
+@MainActor
 struct CartViewModelTests {
 
-//    @Test func () async throws {
-//        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
-//    }
-
+    let cartViewModel: CartViewModel!
+    let mockApiService: APIServiceMock
+    let mockCartService: CartServiceMock
+    let mockOrdersService: OrdersServiceMock
+    
+    init() {
+        self.mockApiService = APIServiceMock()
+        self.mockCartService = CartServiceMock()
+        self.mockOrdersService = OrdersServiceMock()
+        
+        self.cartViewModel = CartViewModel()
+    }
+    
+    @Test
+    func cartShouldFetch() async {
+        var cart = cartViewModel.cartItems
+        #expect(cart.isEmpty == true)
+        
+        await cartViewModel.loadCart()
+        
+        cart = cartViewModel.cartItems
+        
+        #expect(!cart.isEmpty == true)
+    }
+    
 }

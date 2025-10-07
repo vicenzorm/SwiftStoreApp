@@ -25,7 +25,7 @@ struct TabBar: View {
             }
             Tab("Cart", systemImage: "cart.fill") {
                 NavigationStack {
-                    CartView(viewModel: CartViewModel())
+                    CartView(viewModel: CartViewModel(apiservice: APIService.shared, cartService: Persistence.shared.cartService, orderService: Persistence.shared.orderService))
                 }
             }
             Tab("Favorites", systemImage: "heart.fill") {
