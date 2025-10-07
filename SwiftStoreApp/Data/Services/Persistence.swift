@@ -14,9 +14,9 @@ class Persistence {
     let modelContainer: ModelContainer
     let modelContext: ModelContext
     
-    let favoriteService: FavoritesService
-    let orderService: OrdersService
-    let cartService: CartService
+    var favoriteService: FavoritesServiceProtocol
+    var orderService: OrdersServiceProtocol
+    var cartService: CartServiceProtocol
     
     static var shared = Persistence()
     

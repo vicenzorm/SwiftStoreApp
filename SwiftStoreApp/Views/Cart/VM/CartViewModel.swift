@@ -14,8 +14,8 @@ class CartViewModel: CartViewModelProtocol {
     private var cart: [Cart] = []
     
     let apiService: APIService = .shared
-    let cartService: CartService = Persistence.shared.cartService
-    let orderService: OrdersService = Persistence.shared.orderService
+    let cartService: CartServiceProtocol = Persistence.shared.cartService
+    let orderService: OrdersServiceProtocol = Persistence.shared.orderService
     
     func loadCart() async {
         self.cart = cartService.fetchCart()

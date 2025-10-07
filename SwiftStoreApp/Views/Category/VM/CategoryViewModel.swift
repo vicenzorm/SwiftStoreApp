@@ -10,8 +10,8 @@ import Foundation
 @Observable
 @MainActor
 class CategoryViewModel: CategoryViewModelProtocol{
-    let apiService: APIService = APIService.shared
-    let favoritesService: FavoritesService = Persistence.shared.favoriteService
+    let apiService: APIServiceProtocol
+    let favoritesService: FavoritesServiceProtocol = Persistence.shared.favoriteService
     
     var favoriteProducts: [Product] = []
     
@@ -33,8 +33,9 @@ class CategoryViewModel: CategoryViewModelProtocol{
     var errorMessage: String?
     
     
-    init(category: Category) {
+    init(category: Category, apiService: APIServiceProtocol) {
         self.category = category
+        self.apiService = apiService
     }
     
     func loadProductsByCategories(category: String) async {
