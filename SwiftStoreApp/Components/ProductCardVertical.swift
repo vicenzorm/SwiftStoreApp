@@ -3,7 +3,7 @@ import SwiftUI
 struct ProductCardVertical: View {
     
     var product: Product
-    @Binding var isFavorited: Bool
+    let isFavorited: Bool
     var onAddToFavorites: () -> Void
     
     var body: some View {
@@ -20,7 +20,7 @@ struct ProductCardVertical: View {
                 .frame(width: 161, height: 160)
                 .accessibilityHidden(true)
                 
-                HeartComponent(isFavorited: $isFavorited) {
+                HeartComponent(isFavorited: isFavorited) {
                     onAddToFavorites()
                 }
                 .accessibilityHint("Adds this product to your favorites list")

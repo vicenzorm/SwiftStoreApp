@@ -23,7 +23,7 @@ struct DetailsView: View {
                     .frame(width: 329, height: 329)
                     .padding()
                     .overlay(
-                        HeartComponent(isFavorited: $viewModel.isFavorited) {
+                        HeartComponent(isFavorited: viewModel.isProductFavorite(product: product)) {
                             viewModel.addToFavorites(product: product)
                         }
                         .padding(24),
@@ -57,7 +57,6 @@ struct DetailsView: View {
                     .frame(height: 182)
                     
                     Button {
-                        // Ação de adicionar ao carrinho via ViewModel
                         viewModel.addToCart(product: product)
                         dismiss()
                     } label: {

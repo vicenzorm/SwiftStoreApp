@@ -38,7 +38,7 @@ struct FavoritesView: View {
                 await viewModel.loadFavoriteProducts()
             }
             .sheet(item: $viewModel.selectedProduct) { product in
-                DetailsView(viewModel: DetailsViewModel(apiService: APIService.shared, favoritesService: Persistence.shared.favoriteService, cartService: Persistence.shared.cartService), product: product)
+                DetailsView(viewModel: DetailsViewModel(apiService: APIService.shared, favoritesService: Persistence.shared.favoriteService, cartService: Persistence.shared.cartService, isFavorite: viewModel.isProductFavorite(product: product)), product: product)
             }
         }
     }

@@ -36,22 +36,15 @@ class HomeViewModel: HomeViewModelProtocol {
     
     // vai servir para checar se um produto esta favoritado ou nao na tela inicial
     @MainActor
-    func isProductFavorite(product: Product) -> Binding<Bool> {
-        Binding<Bool>(
-            get: {
-                return self.favoritesService.getFavoritesById(id: product.id) != nil
-            },
-            set: { newFavorite in
-                if newFavorite {
-                    self.favoritesService.addFavorite(productId: product.id)
-                } else {
-                    self.favoritesService.removeFavorite(productId: product.id)
-                }
-            }
-        )
+    func isProductFavorite(product: Product) -> Bool {
+        return favoritesService.getFavoritesById(id: product.id) != nil
     }
     
     @MainActor func addToFavorites(product: Product) {
-        favoritesService.addFavorite(productId: product.id)
+        if isProductFavorite(product: product) {
+            favoritesService.removeFavorite(productId: product.id)
+        } else {
+            favoritesService.addFavorite(productId: product.id)
+        }
     }
 }

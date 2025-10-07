@@ -9,6 +9,6 @@ protocol HomeViewModelProtocol {
     var selectedProduct: Product? { get set }
     
     func loadProducts() async
-    func isProductFavorite(product: Product) -> Binding<Bool>
+    func isProductFavorite(product: Product) -> Bool
     func addToFavorites(product: Product)
 }

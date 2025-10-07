@@ -12,16 +12,17 @@ import Foundation
 class DetailsViewModel: DetailsViewModelProtocol {
     var isLoadingProduct: Bool = false
     var errorMessage: String?
-    var isFavorited: Bool = false
+    var isFavorited: Bool
     
     private let apiService: APIServiceProtocol
     private let favoritesService: FavoritesServiceProtocol
     private let cartService: CartServiceProtocol
     
-    init(apiService: APIServiceProtocol, favoritesService: FavoritesServiceProtocol, cartService: CartServiceProtocol) {
+    init(apiService: APIServiceProtocol, favoritesService: FavoritesServiceProtocol, cartService: CartServiceProtocol, isFavorite: Bool) {
         self.apiService = apiService
         self.favoritesService = favoritesService
         self.cartService = cartService
+        self.isFavorited = isFavorite
     }
     
     // vai servir para checar se um produto esta favoritado ou nao na tela inicial
@@ -36,6 +37,12 @@ class DetailsViewModel: DetailsViewModelProtocol {
     
     @MainActor
     func addToFavorites(product: Product) {
-        favoritesService.addFavorite(productId: product.id)
+        if favoritesService.getFavoritesById(id: product.id) != nil {
+            favoritesService.removeFavorite(productId: product.id)
+            self.isFavorited = false
+        } else {
+            favoritesService.addFavorite(productId: product.id)
+            self.isFavorited = true
+        }
     }
 }

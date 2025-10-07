@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ProductCardDeal: View {
     let product: Product
-    @Binding var isFavorited: Bool
+    let isFavorited: Bool
     var onTapFav: () -> Void
     
     var body: some View {
@@ -29,7 +29,7 @@ struct ProductCardDeal: View {
                         
                         Spacer()
                         
-                        HeartComponent(isFavorited: $isFavorited) {
+                        HeartComponent(isFavorited: isFavorited) {
                             onTapFav()
                         }
                         .accessibilityHint("Add this product to your favorites")

@@ -62,7 +62,7 @@ struct HomeView: View {
                 await homeViewModel.loadProducts()
             }
             .sheet(item: $homeViewModel.selectedProduct) { product in
-                DetailsView(viewModel: DetailsViewModel(apiService: APIService.shared, favoritesService: Persistence.shared.favoriteService, cartService: Persistence.shared.cartService), product: product)
+                DetailsView(viewModel: DetailsViewModel(apiService: APIService.shared, favoritesService: Persistence.shared.favoriteService, cartService: Persistence.shared.cartService, isFavorite: homeViewModel.isProductFavorite(product: product)), product: product)
             }
         }
     }
