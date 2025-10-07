@@ -42,7 +42,7 @@ struct CategoryView: View {
                     if UIDevice.current.userInterfaceIdiom == .pad {
                         LazyVGrid(columns: iPadcollumns) {
                             ForEach(viewModel.filteredProducts) { product in
-                                ProductCardVertical(product: product, isFavorited: $viewModel.isFavorited) {
+                                ProductCardVertical(product: product, isFavorited: viewModel.isProductFavorite(product: product)) {
                                     viewModel.toggleFavorite(product: product)
                                 }
                                 .onTapGesture {
@@ -53,7 +53,7 @@ struct CategoryView: View {
                     } else {
                         LazyVGrid(columns: collumns) {
                             ForEach(viewModel.filteredProducts) { product in
-                                ProductCardVertical(product: product, isFavorited: $viewModel.isFavorited) {
+                                ProductCardVertical(product: product, isFavorited: viewModel.isProductFavorite(product: product)) {
                                     viewModel.toggleFavorite(product: product)
                                 }
                                 .onTapGesture {
@@ -75,7 +75,7 @@ struct CategoryView: View {
             await viewModel.loadFavoriteProducts()
         }
         .sheet(item: $viewModel.selectedProduct){ product in
-            DetailsView(viewModel: DetailsViewModel(apiService: APIService.shared, favoritesService: Persistence.shared.favoriteService, cartService: Persistence.shared.cartService), product: product)
+            DetailsView(viewModel: DetailsViewModel(apiService: APIService.shared, favoritesService: Persistence.shared.favoriteService, cartService: Persistence.shared.cartService, isFavorite: viewModel.isProductFavorite(product: product)), product: product)
         }
     }
 }

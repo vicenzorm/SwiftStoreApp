@@ -83,6 +83,4 @@ class CategoryViewModel: CategoryViewModelProtocol{
             favoriteProducts.append(product)
         }
     }
-
-    
 }
