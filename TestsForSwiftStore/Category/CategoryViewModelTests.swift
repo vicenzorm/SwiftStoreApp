@@ -20,12 +20,13 @@ struct CategoryViewModelTests {
     
     @Test func loadProductsByCategories_success() async throws {
         // Given
+        let favMock = FavoriteServiceMock(shouldFail: false)
         let apiMock = APIServiceMock(shouldFail: false)
         apiMock.products = [product1, product2]
         
         Persistence.shared.favoriteService = FavoriteServiceMock(shouldFail: false)
 
-        let viewModel = CategoryViewModel(category: testCategory, apiService: apiMock, favoriteService: <#any FavoritesServiceProtocol#>)
+        let viewModel = CategoryViewModel(category: testCategory, apiService: apiMock, favoriteService: favMock)
 
         // When
         await viewModel.loadProductsByCategories(category: testCategory.slug)
