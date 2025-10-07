@@ -51,7 +51,7 @@ struct CategoriesView: View {
                     List(viewModel.filteredCategories) { category in
                         NavigationLink {
                             CategoryView(
-                                viewModel: CategoryViewModel(category: category)
+                                viewModel: CategoryViewModel(category: category, apiService: APIService.shared)
                             )
                         } label: {
                             HStack {

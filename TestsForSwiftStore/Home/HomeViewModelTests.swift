@@ -41,7 +41,6 @@ struct HomeViewModelTests {
         await viewModel.addToFavorites(product: ProductMock.iphone.mockado)
         
         // Then
-//        await #expect(favMock.addedFavorite == true)
         await #expect(viewModel.isProductFavorite(product: ProductMock.iphone.mockado) == true)
         #expect(viewModel.errorMessage == nil)
     }

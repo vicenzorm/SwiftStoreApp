@@ -12,7 +12,10 @@ struct CardCategory: View {
     let category: Category
     
     var body: some View {
-        NavigationLink(destination: CategoryView(viewModel: CategoryViewModel(category: category))){
+        NavigationLink(destination:
+                        CategoryView(viewModel: CategoryViewModel(category: category, apiService: APIService.shared))
+        )
+        {
             
             VStack(spacing: 8){
                 Image(category.image)

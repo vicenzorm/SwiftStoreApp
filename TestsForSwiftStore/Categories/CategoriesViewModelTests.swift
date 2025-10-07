@@ -34,7 +34,6 @@ struct CategoriesViewModelTests {
     
     @Test func loadCategories_failure_setsError() async throws {
         // Given
-        let apiMock = APIServiceMock(shouldFail: true)
         let viewModel = CategoriesViewModel()
         
         // When
