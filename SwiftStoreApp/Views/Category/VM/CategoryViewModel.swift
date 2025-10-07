@@ -11,7 +11,7 @@ import Foundation
 @MainActor
 class CategoryViewModel: CategoryViewModelProtocol{
     let apiService: APIServiceProtocol
-    let favoritesService: FavoritesServiceProtocol = Persistence.shared.favoriteService
+    let favoritesService: FavoritesServiceProtocol
     
     var favoriteProducts: [Product] = []
     
@@ -33,9 +33,10 @@ class CategoryViewModel: CategoryViewModelProtocol{
     var errorMessage: String?
     
     
-    init(category: Category, apiService: APIServiceProtocol) {
+    init(category: Category, apiService: APIServiceProtocol, favoriteService: FavoritesServiceProtocol) {
         self.category = category
         self.apiService = apiService
+        self.favoritesService = favoriteService
     }
     
     func loadProductsByCategories(category: String) async {

@@ -21,7 +21,7 @@ struct CartViewModelTests {
         self.mockCartService = CartServiceMock()
         self.mockOrdersService = OrdersServiceMock()
         
-        self.cartViewModel = CartViewModel()
+        self.cartViewModel = CartViewModel(apiservice: mockApiService, cartService: mockCartService, orderService: mockOrdersService)
     }
     
     @Test

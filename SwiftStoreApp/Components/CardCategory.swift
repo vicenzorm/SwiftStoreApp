@@ -13,7 +13,7 @@ struct CardCategory: View {
     
     var body: some View {
         NavigationLink(destination:
-                        CategoryView(viewModel: CategoryViewModel(category: category, apiService: APIService.shared))
+                        CategoryView(viewModel: CategoryViewModel(category: category, apiService: APIService.shared, favoriteService: Persistence.shared.favoriteService))
         )
         {
             
