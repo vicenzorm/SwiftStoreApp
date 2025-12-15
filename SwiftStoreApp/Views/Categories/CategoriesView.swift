@@ -35,8 +35,14 @@ struct CategoriesView: View {
                     HStack(spacing: UIDevice.current.userInterfaceIdiom == .pad ? 16 : 8) {
                         
                         if UIDevice.current.userInterfaceIdiom == .pad {
-                            ForEach(Array(viewModel.categories.shuffled().prefix(8))) { category in
-                                CardCategory(category: category)
+                            if UIDevice.current.orientation == .landscapeRight  || UIDevice.current.orientation == .landscapeLeft {
+                                ForEach(Array(viewModel.categories.shuffled().prefix(10))) { category in
+                                    CardCategory(category: category)
+                                }
+                            } else {
+                                ForEach(Array(viewModel.categories.shuffled().prefix(8))) { category in
+                                    CardCategory(category: category)
+                                }
                             }
                         } else {
                             ForEach(Array(viewModel.categories.shuffled().prefix(4))) { category in
